@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/chaofan.css">
+</head>
+<style>
+    .header a {
+        display: block;
+    }
+
+    .header ul li .yingwen {
+        display: none;
+        text-transform: uppercase;
+    }
+
+    .header ul li:hover .zhongwen {
+        display: none;
+    }
+
+    .header ul li:hover .yingwen {
+        display: block
+    }
+
+    .header ul li {
+        list-style: none;
+        float: left;
+
+        font-size: 14px;
+        text-align: center;
+        padding: 30px 20px;
+        color: black;
+
+    }
+
+    .header ul {
+        float: right;
+    }
+
+
+    .box {
+        width: 1145px;
+        height: 534px;
+
+        margin: auto;
+        /* margin-top: 50px; */
+        /* margin-right: 50px; */
+    }
+
+    .box1 {
+        width: 554px;
+        height: 172px;
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 14px;
+        background-color: #ffffff;
+    }
+
+    .box2 {
+        width: 554px;
+        height: 172px;
+        float: left;
+        margin-bottom: 14px;
+        background-color: #ffffff;
+    }
+
+    .box3 {
+        width: 554px;
+        height: 172px;
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 14px;
+        background-color: #ffffff;
+    }
+
+    .box4 {
+        width: 554px;
+        height: 172px;
+        float: left;
+        margin-bottom: 14px;
+        background-color: #ffffff;
+        /* margin-right: 20px; */
+    }
+
+    .box5 {
+        width: 554px;
+        height: 172px;
+        float: left;
+        margin-right: 20px;
+        background-color: #ffffff;
+
+
+    }
+
+    .box6 {
+        width: 554px;
+        height: 172px;
+        float: left;
+        background-color: #ffffff;
+
+
+    }
+
+    .box7 {
+        width: 378px;
+        height: 170px;
+        float: left;
+        /* overflow: hidden; */
+    }
+
+    .list1 {
+        width: 378px;
+        height: 170px;
+        float: left;
+    }
+
+    .list2 {
+        width: 378px;
+        height: 170px;
+        float: left;
+    }
+
+    .list3 {
+        width: 378px;
+        height: 170px;
+        float: left;
+    }
+
+    .list4 {
+        width: 378px;
+        height: 170px;
+        float: left;
+    }
+
+    .list5 {
+        width: 378px;
+        height: 170px;
+        float: left;
+    }
+
+    .o1 {
+
+        float: left;
+        font-style: 14px;
+        color: #dacfcf;
+        /* margin-left: margin-top: 10px; */
+    }
+
+    .o2 {
+        float: right;
+        font-style: 16px;
+        color: #dacfcf;
+    }
+
+    .box p {
+        height: 15px;
+        margin-top: 17px;
+        margin-left: 20px;
+        font-style: 16px;
+        color: #777777;
+    }
+
+    .box h3 {
+        line-height: 20px;
+        margin-top: 26px;
+        margin-left: 20px;
+    }
+
+
+    .weixin {
+        width: 1350px;
+        height: 404px;
+        background-color: #141414;
+
+    }
+
+    .weixin h2 {
+        line-height: 88px;
+        text-align: center;
+        font-style: 48px;
+        color: #ffffff;
+        font-weight: 100;
+    }
+
+    .weixin .bx {
+        font-style: 30px;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .weixin .box1 {
+        width: 1165px;
+        height: 188px;
+        /* background-color:red; */
+        margin: auto;
+        overflow: hidden;
+        background-color: #353535;
+        margin-left: 100px;
+    }
+
+    .weixin .box2 {
+        width: 1165px;
+        height: 100px;
+        margin-bottom: 4px;
+        display: inline-block;
+        background-color: #353535;
+    }
+
+    .weixin .box3 {
+        width: 1165px;
+        height: 88px;
+        background-color: #353535;
+    }
+
+    .weixin .weixin .list {
+
+        width: 272px;
+        height: 100px;
+        float: left;
+        margin-right: 20px;
+    }
+
+    .weixin .list1 {
+        width: 200px;
+        height: 100px;
+        float: left;
+        line-height: 26px;
+
+    }
+
+    .weixin .d1 {
+        font-style: 20px;
+        color: #cbcbcb;
+    }
+
+    .weixin .d2 {
+        font-style: 24px;
+        color: #ffffd5;
+        line-height: 28px;
+
+    }
+
+    .weixin .list-1 {
+
+        width: 272px;
+        height: 100px;
+        ;
+        float: left;
+        margin-right: 20px;
+    }
+
+    .weixin .list-2 {
+        width: 272px;
+        height: 100px;
+        float: left;
+        margin-right: 20px;
+    }
+
+    .weixin .list-3 {
+
+        width: 272px;
+        height: 100px;
+        float: left;
+        margin-right: 0px;
+    }
+
+    .weixin .hsh {
+        width: 266px;
+        height: 88px;
+        border: 1px solid #cbcbcb;
+        line-height: 88px;
+        /* padding-left: 70px; */
+        float: left;
+        margin-right: 22px;
+        /* background-image: url(../images/foot_c1.png); */
+    }
+
+    .weixin .hsh1 {
+        width: 266px;
+        height: 88px;
+        border: 1px solid #cbcbcb;
+        line-height: 88px;
+        margin-right: 22px;
+        /* padding-left: 70px; */
+        float: left;
+        /* background-image: url(../images/foot_c1.png); */
+    }
+
+    .weixin .hsh2 {
+        width: 266px;
+        height: 88px;
+        border: 1px solid #cbcbcb;
+        line-height: 88px;
+        margin-right: 22px;
+        /* padding-left: 70px; */
+        float: left;
+        /* background-image: url(../images/foot_c1.png); */
+    }
+
+    .weixin .hsh3 {
+        width: 266px;
+        height: 88px;
+        border: 1px solid #cbcbcb;
+        line-height: 88px;
+        /* padding-left: 70px; */
+        float: left;
+        margin-right: 0px;
+        /* background-image: url(../images/foot_c1.png); */
+    }
+
+    #chaofan .aside {
+        width: 100px;
+        height: 400px;
+        background-color: white;
+        position: fixed;
+        right: 0px;
+        bottom: 100px;
+    }
+
+    /* #chaofan .aside1{
+        width: 100px;
+        height: 100px;
+        background-color: #58bc58;
+          background-image: url();
+        right: 0px;
+        bottom: 100px;
+    } */
+    /* #chaofan .aside2{
+        width: 100px;
+        height: 100px;
+        background-color: white;
+       
+        right: 0px;
+        bottom: 100px;
+    }
+    #chaofan .aside3{
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+     
+        right: 0px;
+        bottom: 100px;
+    }
+    #chaofan .aside4{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      
+        right: 0px;
+        bottom: 100px;
+    } */
+</style>
+
+<body>
+    <div id="chaofan">
+        <div class="aside">
+            <ul>
+                <li class="aside1"></li>
+                <li class="aside2"></li>
+                <li class="aside3"></li>
+                <li class="aside4"></li>
+            </ul>
+        </div>
+
+
+
+
+        <div class="header">
+            <h1>
+                超凡科技
+            </h1>
+            <ul>
+                <li><a href="" class="zhongwen">首页</a>
+                    <a href="" class="yingwen">home</a>
+                </li>
+                <li><a href="" class="zhongwen">服务</a>
+                    <a href="" class="yingwen">services</a>
+                </li>
+                <li><a href="" class="zhongwen">作品</a>
+                    <a href="" class="yingwen">work</a>
+                </li>
+                <li><a href="" class="zhongwen">运筹</a>
+                    <a href="" class="yingwen">operatlon</a>
+                </li>
+                <li><a href="" class="zhongwen">实力</a> <a href="" class="yingwen">strength</a></li>
+                <li><a href="" class="zhongwen">新闻</a> <a href="" class="yingwen">news</a></li>
+                <li><a href="" class="zhongwen">关于</a> <a href="" class="yingwen">about</a></li>
+                <li><a href="" class="zhongwen">联络</a> <a href="" class="yingwen">contact</a></li>
+            </ul>
+        </div>
+        <div class="banner">
+            <img src="../images/xinling.png" alt="">
+        </div>
+        <div class="main1">
+            <h2> <img src="../images/bus_h2.jpg" alt=""></h2>
+            <p>
+                超凡科技速记符号打发打发基金打假皇帝发动机好烦萨迦寺
+            </p>
+            <p class="p1">和发动机好烦合肥京东方合肥都会犯贱的发放大接访和借读访的符合加分的复合地基地方</p>
+            <div class="content">
+
+                <div class="fl content1">
+                    <img src="../images/bus_tu4.jpg" alt="">
+                    <span class="title">营销网站设计</span>
+                    <div class="conten1-1">多方互动和方法和大华府的防化服股东合法大幅度身份</div>
+                </div>
+                <div class="fl content2">
+                    <img src="../images/bus_tu2.jpg" alt="">
+                    <span class="title1">营销推广</span>
+                    <div class="conten2-1">多方互动和方法和大华府的防化服股东合法大幅度身份</div>
+                </div>
+
+                <div class="fl content3">
+                    <img src="../images/bus_tu3.jpg" alt="">
+                    <span class="title2">分销商城系统开发</span>
+                    <div class="conten3-1">多方互动和方法和大华府的防化服股东合法大幅度身份</div>
+                </div>
+
+                <div class="fl content4">
+                    <img src="../images/bus_tu5.jpg" alt="">
+                    <span class="title3">营销推广</span>
+                    <div class="conten4-1">多方互动和方法和大华府的防化服股东合法大幅度身份</div>
+                </div>
+                <div class="fl content5">
+                    <img src="../images/bus_tu6.jpg" alt="">
+                    <span class="title4">营销推广</span>
+                    <div class="conten5-1">多方互动和方法和大华府的防化服股东合法大幅度身份</div>
+                </div>
+                <div class="fl content6">
+                    <img src="../images/bus_tu1.jpg" alt="">
+                    <span class="title5">营销推广</span>
+                    <div class="conten6-1">多方互动和方法和大华府的防化服股东合法大幅度身份</div>
+                </div>
+            </div>
+
+            <div class="main2">
+                <div class="content">
+                    <h2><img src="../images/clien_h2.jpg" alt="">
+                    </h2>
+                    <p>
+                        超符号打发打发基金打假皇帝发动机好烦萨迦寺
+                    </p>
+                    <div class="list">
+                        <div class="list1">
+                            <div class="list-1">
+                                <a href=""></a>
+                            </div>
+                            <div class="list-2"><a href=""></a></div>
+                            <div class="list-3"><a href=""></a></div>
+                            <div class="list-4">
+                                <a href=""></a>
+                            </div>
+                        </div>
+                        <div class="list2">
+                            <div class="list2-1">
+                                <a href=""></a>
+                            </div>
+                            <div class="list2-2"><a href=""></a></div>
+                            <div class="list2-3"><a href=""></a></div>
+                            <div class="list2-4">
+                                <a href=""></a>
+                            </div>
+                        </div>
+                        <div class="list3">
+                            <div class="list3-1">
+                                <a href=""></a>
+                            </div>
+                            <div class="list3-2"><a href=""></a></div>
+                            <div class="list3-3"><a href=""></a></div>
+                            <div class="list3-4">
+                                <a href=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main3">
+                <div class="content">
+                    <h2><img src="../images/work_h2.jpg" alt=""></h2>
+                    <p>珠海公司地方i好烦活动经费还将大苏打地方法大幅度呈现出下次随风倒发挥烦得很</p>
+                    <div class="con1">
+                        <div class="con1-1">
+                            <div class="con2-1">
+                                <img src="../images/zuhai.png" alt="">
+                                <h3 class="bb1"> <img src="../images/i5.png" alt=""> </h3>
+                                <h3 class="bb2"> <img src="../images/i6.png" alt=""></h3>
+
+                            </div>
+
+
+
+                            <div class="con2-2">
+                                <img src="../images/zuhai.png" alt="">
+                                <h3 class="bb1"> <img src="../images/i5.png" alt=""> </h3>
+                                <h3 class="bb2"> <img src="../images/i6.png" alt=""></h3>
+                            </div>
+                            <div class="con2-3">
+                                <img src="../images/zuhai.png" alt="">
+                                <h3 class="bb1"> <img src="../images/i5.png" alt=""> </h3>
+                                <h3 class="bb2"> <img src="../images/i6.png" alt=""></h3>
+                            </div>
+                            <div class="con2-4">
+                                <img src="../images/zuhai.png" alt="">
+                                <h3 class="bb1"> <img src="../images/i5.png" alt=""> </h3>
+                                <h3 class="bb2"> <img src="../images/i6.png" alt=""></h3>
+                            </div>
+                        </div>
+                        <div class="con1-2">
+                            <div class="con2-1">
+                                <img src="../images/zuhai.png" alt="">
+                            </div>
+                            <div class="con2-2">
+                                <img src="../images/zuhai.png" alt="">
+                            </div>
+                            <div class="con2-3">
+                                <img src="../images/zuhai.png" alt="">
+                            </div>
+                            <div class="con2-4">
+                                <img src="../images/zuhai.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main4">
+                <div class="content">
+                    <h2><img src="../images/news_h2.jpg" alt=""></h2>
+                    <p>珠海健身房地方剪速度和规范化戒毒所短发好地方的符合剪短发大接访看到进口大幅呆呆地看大家看</p>
+
+                    <div class="box">
+                        <div class="box1"><img src="../images/nws1.png" alt="" style="float: left;">
+                            <div class="box7">
+                                <h3>
+                                    网站不找圣诞节复旦复东方红奋斗奋斗
+                                </h3>
+                                <p>
+                                    首先的恢复阶段跌幅花都防火防盗奋斗奋斗规范的恢复的的恢复回到家恢复阶段发挥大家克服加油
+                                </p>
+                                <span class="o1" style="margin-left: 16px;margin-top: 20px">2019-2-1</span>
+                                <span class="o2" style="margin-left: 16px;margin-top: 20px">建站知识</span>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box2"> <img src="../images/nws2.png" alt="" style="float: left;">
+                            <div class="list1">
+                                <h3>
+                                    网站不找圣诞节复旦复东方红奋斗奋斗
+                                </h3>
+                                <p>
+
+                                    首先的恢复阶段跌幅花都防火防盗奋斗奋斗规范的恢复的的恢复回到家恢复阶段发挥大家克服加油
+                                </p>
+                                <span class="o1" style="margin-left: 16px;margin-top: 20px">2019-2-1</span>
+                                <span class="o2" style="margin-left: 16px;margin-top: 20px">建站知识</span>
+
+                            </div>
+                        </div>
+                        <div class="box3">
+                            <img src="../images/nws3.png" alt="" style="float: left;">
+                            <div class="list2">
+                                <h3>
+                                    网站不找圣诞节复旦复东方红奋斗奋斗
+                                </h3>
+                                <p>
+                                    首先的恢复阶段跌幅花都防火防盗奋斗奋斗规范的恢复的的恢复回到家恢复阶段发挥大家克服加油
+                                </p>
+                                <span class="o1" style="margin-left: 16px;margin-top: 20px">2019-2-1</span>
+                                <span class="o2" style="margin-left: 16px;margin-top: 20px">建站知识</span>
+                            </div>
+                        </div>
+
+
+                        <div class="box4"> <img src="../images/nws4.png" alt="" style="float: left;">
+                            <div class="list3">
+                                <h3>
+                                    网站不找圣诞节复旦复东方红奋斗奋斗
+                                </h3>
+                                <p>
+                                    首先的恢复阶段跌幅花都防火防盗奋斗奋斗规范的恢复的的恢复回到家恢复阶段发挥大家克服加油
+                                </p>
+                                <span class="o1" style="margin-left: 16px;margin-top: 20px">2019-2-1</span>
+                                <span class="o2" style="margin-left: 16px;margin-top: 20px">建站知识</span>
+                            </div>
+                        </div>
+                        <div class="box5"><img src="../images/nws5.png" alt="" style="float: left;">
+                            <div class="list4">
+                                <h3>
+                                    网站不找圣诞节复旦复东方红奋斗奋斗
+                                </h3>
+                                <p>
+                                    首先的恢复阶段跌幅花都防火防盗奋斗奋斗规范的恢复的的恢复回到家恢复阶段发挥大家克服加油
+                                </p>
+                                <span class="o1" style="margin-left: 16px;margin-top: 20px">2019-2-1</span>
+                                <span class="o2" style="margin-left: 16px;margin-top: 20px">建站知识</span>
+                            </div>
+                        </div>
+                        <div class="box6"><img src="../images/nws6.png" alt="" style="float: left;">
+                            <div class="list5">
+                                <h3>
+                                    网站不找圣诞节复旦复东方红奋斗奋斗
+                                </h3>
+                                <p>
+                                    首先的恢复阶段跌幅花都防火防盗奋斗奋斗规范的恢复的的恢复回到家恢复阶段发挥大家克服加油
+                                </p>
+                                <span class="o1" style="margin-left: 16px;margin-top: 20px">2019-2-1</span>
+                                <span class="o2" style="margin-left: 16px;margin-top: 20px">建站知识</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main5">
+                <h2><img src="../images/exp_h2.jpg" alt=""></h2>
+                <p>珠海大幅度回升发挥符合大接访活动房价回到房间绝地反击的</p>
+                <div class="contnet">
+                    <ul class="jj">
+                        <li class="jj1"></li>
+                        <li class="jj2"></li>
+                        <li class="jj3"></li>
+                        <li class="jj4"></li>
+                    </ul>
+                    <div class="hhh">
+                        <div class="jj5">专业流程化</div>
+                        <div class="jj6">专业流程化</div>
+                        <div class="jj7">专业流程化</div>
+                        <div class="jj8">专业流程化</div>
+                    </div>
+
+                </div>
+                <img src="../images/expe_liu_tu.png" alt="">
+            </div>
+            <div class="main6">
+                <div class="neiron">
+                    <div class="yan">
+                        <h2 class="gg">
+                            <span class="gg1"> 13</span>
+                            <span class="gg2"></span>
+                        </h2>
+                        <span class="gg3">十三年网站建设经验，三代大红色好</span>
+                    </div>
+                    <div class="yan1">
+                        <h2 class="gg"><span class="gg1"> 1800</span>
+                            <span class="gg2"></span></h2>
+                        <span>十三年网站建设经验，三代大红色好</span>
+                    </div>
+                    <div class="yan2">
+                        <h2 class="gg"><span class="gg1">300</span> <span class="gg2"></span></h2>
+                        <span>十三年网站建设经验，三代大红色好</span>
+                    </div>
+
+                </div>
+
+                <div class="weixin">
+                    <h2>Contract</h2>
+                    <p class="bx" style="margin-top:42px">只要关乎创意 建站 视觉 开发，超凡都能帮你实现</p>
+
+                    <div class="box1" style="padding: 20px">
+                        <div class="box2">
+
+                            <div class="list">
+                                <img src="../images/foot_tel.png" alt="" style="float:left">
+                                <div class="list1">
+                                    <p class="d1">来电咨询</p>
+                                    <p class="d2">0756-2121333</p>
+                                </div>
+                            </div>
+                            <div class="list-1">
+                                <img src="../images/foot_wx.png" alt="" style="float:left">
+                                <div class="list1">
+                                    <p class="d1">微信咨询</p>
+                                    <p class="d2">0756-2121333</p>
+                                </div>
+                            </div>
+                            <div class="list-2">
+                                <img src="../images/foot_qq.png" alt="" style="float:left">
+                                <div class="list1">
+                                    <p class="d1">QQ咨询</p>
+                                    <p class="d2">0756-2121333</p>
+                                </div>
+
+                            </div>
+                            <div class="list-3">
+                                <img src="../images/foot_sq.png" alt="" style="float:left">
+                                <div class="list1">
+                                    <p class="d1">在线咨询</p>
+                                    <p class="d2">chdnfjaj</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="box3">
+                            <div class="hsh">
+                                <img src="../images/foot_c1.png" alt="" style="float:left"><span>十三年专注网站建设</span>
+                            </div>
+                            <div class="hsh1">
+                                <img src="../images/foot_c2.png" alt="" style="float:left"><span>二十四小时售后支持</span>
+                            </div>
+                            <div class="hsh2">
+                                <img src="../images/foot_c3.png" alt="" style="float:left"><span>一对一为你量身定制</span>
+                            </div>
+                            <div class="hsh3">
+                                <img src="../images/foot_c4.png" alt="" style="float:left"><span>海量用户用力推荐</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main7">
+                    <div class="ht">
+                        <p>官网：http//www.chaofan.com</p>
+                        <p>联系电话反对恢复128989292</p>
+                        <p>联系电话反对恢复128989292</p>
+                        <p>联系电话反对恢复1289发东方</p>
+                        <p>联系电话反对恢复128989292</p>
+                        <p>联系电话反对恢复128989292</p>
+                    </div>
+                    <div class="tu">
+                        <P>康小姐</P>
+                        <!-- <img src="../images/www.png" alt=""> -->
+                    </div>
+                    <div class="tu1">
+                        <P>康小姐</P>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
