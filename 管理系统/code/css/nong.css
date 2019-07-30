@@ -1,0 +1,310 @@
+.box {
+    height: 100%;
+}
+
+.top {
+    height: 100px;
+    background-color: #7ab5e9;
+    position: relative;
+    overflow: hidden;
+}
+.top .nav{
+   width: 670px;
+   height: 100%;
+   position: absolute;
+   top: 0;
+   left: 650px;
+}
+.top .nav .tou{
+    width: 260px;
+    height: 22px;
+background: white;
+position: absolute;
+top: 0;
+left: 405px;
+}
+.top .nav .shuju{
+    width: 670px;
+    height: 60px;
+margin-top: 40px;
+overflow: hidden;
+}
+
+.top .nav .shuju ul{
+    width: 670px;
+    height: 60px;
+    margin-left: 50px;
+    text-align: center;
+}
+.top .nav .shuju ul a{
+    color: white;
+    display: block;
+    width: 86px;
+    height: 60px;
+}
+.top .nav .shuju li:hover a{
+    background-color: #417ec8;
+}
+.top .nav .shuju .list{
+    width: 86px;
+    height: 60px;
+}
+.top .nav .shuju .list .jj{
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    margin-bottom: 5px;
+}
+.top .nav .tou{
+    font-size: 14px;
+}
+.top .nav .tou .img1{
+    float: left;
+}
+.top .nav .tou .img2{
+    float: right;
+}
+.top .nav .tou .img3{
+    margin-left: 10px;
+   
+}
+.top h2{
+width: 428px;
+height: 50px;
+background-image: url(../images/logo.png);
+margin: 30px 0px 0px 20px;
+}
+.bottom {
+    height: calc(100% - 100px);
+}
+
+.bottom .left {
+    float: left;
+    width: 200px;
+    background-color: #417ec8;
+    height: 100%;
+}
+.bottom .left h3 img{
+    float: left;
+    width: 165px;
+    margin-top: 15px;
+}
+.bottom .left .span1{
+    float: right;
+    width: 18px;
+    height: 14px;
+    margin-top: 10px;
+    margin-right: 17px;
+    background: url(../images/youjiantou.png)
+}
+.bottom .left .kkk{
+    width: 100%;
+}
+.bottom .left .sebei{
+    width: 100%;
+    
+    /* height: 170px; */
+    /* margin-top: 45px; */
+   
+}
+.bottom .left .sebei1{
+    width: 100%;
+    height: 34px;
+    /* background: url(../images/left_hover.jpg); */
+    overflow: hidden;
+}
+.bottom .left .sebei1:hover{
+    background: url(../images/left_hover.jpg);
+}
+.bottom .left .sebei .ss{
+    width: 15px;
+    height: 16px;
+    display: block;
+    background-image: url(../images/left_01.png);
+    margin-top: 12px;
+    float: left;
+    
+}
+.bottom .left .sebei .ss1{
+    line-height: 34px;
+    margin-left: 12px;
+    position: relative;
+    color: white;
+}
+.bottom .left .sebei1:hover span{
+    color: black;
+}
+.bottom .left .senei2{
+   position: relative;
+}
+.bottom .left .senei2 li {
+    margin-left: 30px;
+    line-height: 32px;
+   
+}
+.bottom .left .senei2 li a{
+    color: white;
+}
+.bottom .left .senei2 span
+{  display: block;
+    width: 4px;
+    height: 6px;
+    float: left;
+    margin-right: 4px;
+    margin-top: 14px;
+    background-image: url(../images/jiao.png) ;
+}
+.bottom .left .senei2{
+    display: none;
+}
+.bottom .left .sebei:hover .senei2{
+    display: block;
+}
+.left .bot{
+    width: 100%;
+}
+.left .bot .ak{
+    width: 100%;
+    height: 34px;
+    overflow: hidden;
+}
+.bottom .left .ak:hover{
+    background: url(../images/left_hover.jpg);
+}
+.left .bot img{
+    float: left;margin-top: 8px;
+}
+.left .bot span{
+    float: left;
+    margin-left: 20px;
+    color: white;
+    display: block;
+}
+.bottom .left .ak:hover span{
+    color: black;
+}
+.bottom .left .bot .senei3{
+    position: relative;
+ }
+ .bottom .left .bot .senei3 li {
+     margin-left: 30px;
+     line-height: 32px;
+    
+ }
+ .bottom .left .bot .senei3 li a{
+     color: white;
+ }
+ .bottom .left .bot .senei3 span
+ {  display: block;
+     width: 4px;
+     height: 6px;
+     float: left;
+     margin-right: 4px;
+     margin-top: 14px;
+     background-image: url(../images/jiao.png) ;
+ }
+ .bottom .left .bot .senei3{
+     display: none;
+ }
+ .bottom .left .bot:hover .senei3{
+     display: block;
+ }
+.left .jicheng{
+    width: 100%;
+}
+.bottom .left .jiji:hover{
+    background: url(../images/left_hover.jpg);
+}
+.bottom .left .jiji:hover span{
+    color: black;
+}
+.left .jicheng img{
+    float: left;margin-top: 8px;
+}
+.left .jicheng span{
+    float: left;
+    margin-left: 20px;
+    color: white;
+    display: block;
+}
+.left .jicheng .jiji{
+    width: 100%;
+    overflow: hidden;
+}
+.bottom .left .jicheng .senei4{
+    position: relative;
+ }
+ .bottom .left .jicheng .senei4 li {
+     margin-left: 30px;
+     line-height: 32px;
+    
+ }
+ .bottom .left .jicheng .senei4 li a{
+     color: white;
+ }
+ .bottom .left .jicheng .senei4 span
+ {  display: block;
+     width: 4px;
+     height: 6px;
+     float: left;
+     margin-right: 4px;
+     margin-top: 14px;
+     background-image: url(../images/jiao.png) ;
+ }
+ .bottom .left .jicheng .senei4{
+     display: none;
+ }
+ .bottom .left .jicheng:hover .senei4{
+     display: block;
+ }
+.right {
+    float: left;
+    width: calc(100% - 200px);
+    height: 100%;
+}
+.right h3{
+    margin-left: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+.right span{
+    font-size: 12px;
+}
+.right .p1{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.right .qwer{
+    /* width: 50px; */
+    /* display: block; */
+    float: left;
+    /* overflow: hidden; */
+}
+.right .uiy{
+    margin-left: 1020px;
+    padding: 0px 25px;
+}
+.right th{
+    font-size: 15px;
+}
+.right .aop{
+    margin-left: 840px;
+}
+.right .aop .i1{
+    background: blue;
+}
+ .right .aop i{
+    margin-right: 5px;
+    font-size: 15px;
+    border: 5px solid white;
+    color: black;
+    width: 10px;
+    background-color: white;
+}
+ .right a{
+     color: black;
+     font-size: 12px;
+     /* margin-left: 50px; */
+    display: block;float: left;
+} 
+ 

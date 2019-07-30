@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+
+    /* 给table设置边逛 单元格不会继成 只能单独给单元格td设置
+       border-spacing: 0px
+       border-collapse: collapse 合并与否
+          empty-cells: show 现实与不显示
+          th 单元格类型
+          caption 表格标题
+          th单元格标签
+          caption 表格标题
+           thend 表头
+            tbody 表体
+            tfoot 表尾
+            table rules 给表格添加分割线
+            取值有 rows  行与行之间加
+                    cols 在列与列之间
+                    all行与行列与列之间
+                        none 无*/
+table{
+    width: 300px;
+    height: 300px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    empty-cells: show;
+    border: 2px  solid red;
+}
+table tr td{
+    border: 2px  solid red;
+}
+</style>
+<body>
+    <table>
+        <caption>成绩单</caption>
+        <tr>
+
+            <th>语文</th>
+            <th>数学</th>
+            <th>英语</th>
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+
+</html>
