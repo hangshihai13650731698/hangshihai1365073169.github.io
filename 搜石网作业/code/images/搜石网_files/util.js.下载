@@ -1,0 +1,1593 @@
+/**
+ * Created by songyingchun on 2017/9/25 0025.
+ */
+var util = {
+  extend: function(target, src) {
+    var args = Array.prototype.slice.call(arguments),
+      len = args.length,
+      deep, applyParam = [target];
+
+    if (len === 1) {
+      return target;
+    }
+    // 如果最后的参数是布尔值，则从参数数组args中删除。设置为数组applyParam的第三个元素
+    if (typeof(deep = args[len - 1]) === 'boolean') {
+      args.pop();
+      applyParam[2] = deep;
+    }
+    // 参数数组args删除目标对象，此时args中剩下只有源对象(被合并的对象)，获取源对象的个数
+    args.shift();
+    len = args.length;
+
+    if (len > 1) { // 如果源对象个数大于1, 遍历args，将源对象设置为数组applyParam的第二个元素，再次调用this.extend(target, src, deep);
+      for (var i = 0; i < len; i++) {
+        applyParam[1] = args[i];
+        this.extend.apply(null, applyParam);
+      }
+    } else {
+      for (var key in src) { // 遍历源对象src, 检测它的自定义属性key。如果deep为true，表示支持拷贝对象最底层的属性值，并且key值为对象，调用this.extend(target, src, deep)方法。否则将源对象属性/值深度拷贝到目标对象上。
+        if (src.hasOwnProperty(key)) {
+          if (deep === true && Object.prototype.toString.call(src[key]) === '[object Object]') {
+            this.extend(target, src[key], true);
+          } else {
+            target[key] = src[key];
+          }
+        }
+      }
+    }
+    return target;
+  },
+
+  regexp: {
+    phone: /^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/,
+    password: /^[a-zA-Z0-9_]{6,15}$/,
+    company: /^[\u4e00-\u9fa5]{1,19}$/,
+  },
+
+  emptyObject: function(obj) {
+    for (var i in obj) {
+      if (i) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+  search: function(url, key, value) {
+    var originUrl = url,
+      props = {},
+      search = "",
+      searchRegExp = /^([^?#]+)?(\?([^#]+))?([^?]+)?$/,
+      match = null;
+
+    if (typeof url === "number") {
+      url += "";
+    }
+
+    if (typeof key === "number") {
+      key += "";
+    }
+
+    if (typeof value === "number") {
+      value += "";
+    }
+
+    // 获取
+    if (url == null) {
+      value = undefined;
+      key = undefined;
+      url = window.location.href;
+    } else {
+      // (url, key, value)
+      if (typeof key === "string" && typeof value == "string") {
+        props[key] = value;
+        key = props;
+        value = undefined;
+      } else if (value == null && typeof key === "string") {
+        // (key, value)
+        props[url] = key;
+        key = props;
+        value = undefined;
+        url = window.location.href;
+      }
+      // (props)
+      else if (key == null && typeof url === "object") {
+        value = undefined;
+        key = url;
+        url = window.location.href;
+      }
+    }
+
+    match = url.match(searchRegExp);
+    if (match && match[2]) {
+      search = match[2];
+    } else {
+      search = "";
+    }
+
+    // 获取
+    if (originUrl == null) {
+      return util.parse(search.substr(1));
+    }
+
+    // 设置
+    props = util.extend({}, util.parse(search.substr(1)), key || {});
+    if (!search && key != null) {
+      url = match[1] + "?" + util.stringify(props) + (match[4] || "");
+    } else {
+      url = url.replace(match[2], "?" + util.stringify(props));
+    }
+
+    return url;
+  },
+
+  hash: function(url, key, value) {
+    var originUrl = url,
+      props = {},
+      hash = "",
+      hashRegExp = /^([^#]+)?(#([^#]+))?([^?]+)?$/,
+      match = null;
+
+    if (typeof url === "number") {
+      url += "";
+    }
+
+    if (typeof key === "number") {
+      key += "";
+    }
+
+    if (typeof value === "number") {
+      value += "";
+    }
+
+    if (url == null) {
+      value = undefined;
+      key = undefined;
+      url = window.location.href;
+    } else {
+      // (url, key, value)
+      if (typeof key === "string" && typeof value == "string") {
+        props[key] = value;
+        key = props;
+        value = undefined;
+      } else if (value == null && typeof key === "string") {
+        // (key, value)
+        props[url] = key;
+        key = props;
+        value = undefined;
+        url = window.location.href;
+      }
+      // (props)
+      else if (key == null && typeof url === "object") {
+        value = undefined;
+        key = url;
+        url = window.location.href;
+      }
+
+    }
+
+    match = url.match(hashRegExp);
+    if (match && match[2]) {
+      hash = match[2];
+    } else {
+      hash = "";
+    }
+
+    // 获取
+    if (originUrl == null) {
+      return util.parse(hash.substr(1));
+    }
+
+    // 设置
+    props = util.extend({}, util.parse(hash.substr(1)), key || {});
+    if (!hash && key != null) {
+      hash = "#" + util.stringify(props) + (match[4] || "");
+      url = match[1] + hash;
+    } else {
+      hash = "#" + util.stringify(props);
+      url = url.replace(match[2], hash);
+    }
+
+    return hash;
+  },
+
+  stringify: function(props) {
+    if (util.emptyObject(props)) {
+      return "";
+    }
+    var list = [];
+    for (var key in props) {
+      list.push(key + "=" + encodeURIComponent(props[key]));
+    }
+    return list.join("&");
+  },
+
+  parse: function(str) {
+    if (!str) {
+      return {};
+    }
+    var props = {};
+    var list = str.split("&");
+    for (var i = 0, l = list.length; i < l; i++) {
+      var item = list[i];
+      var index = item.indexOf("=");
+      var key = item.substr(0, index);
+      var value = item.substr(index + 1);
+      props[key] = decodeURIComponent(value);
+    }
+    return props;
+  },
+
+  tips: {
+    readProtocol: '请阅读《搜石网用户注册协议》',
+    loginSuccess: '登录成功',
+    submitSuccess: '提交成功',
+    submitFail: '提交失败',
+    emptyUserName: '请输入用户名',
+    emptyContact: '请输入联系人',
+    emptyPhone: '请输入手机号',
+    emptyPassword: '请输入密码',
+    emptyCode: '请输入验证码',
+    emptyCompanyName: '请输入公司名',
+    emptyName: '请输入姓名',
+    emptyStreet: '请输入街道',
+    emptyOldPassword: '请输入原密码',
+    emptyNewPassword: '请输入新密码',
+    correctPhone: '请输入正确的手机号',
+    atLeastSixPhoneNumber: '密码至少6位字符',
+    comprisePassword: '密码由字母，数字，下划线组成',
+    differentPassword: '两次输入密码不一致',
+    errorPhoneOrUserName: '用户名或密码错误',
+    errorConnect: '网络或者服务出错，请稍后再试',
+    loadingFail: '没有网络，加载失败',
+    unLoginUser: '请先登录',
+    deleteSuccess: '删除成功',
+    selectProvince: '请选择省份',
+    selectCity: '请选择地级市',
+    please: '功能暂未开放，敬请期待',
+    templateNumber: '请填写样板数量',
+    uploadPicOrWriteTemplate: '请上传图片或填写品种',
+    chooseAddress: '请选择收货地址',
+    selectGoods: "请选择商品"
+  },
+
+  bitmap: "../img/common/bitmap.png",
+
+  replaceSrc: function(context) {
+    setTimeout(function() {
+      context.each(function(index, item) {
+        if (this.tagName === "IMG") {
+          var src = $(item).attr("data-src"),
+            img = new Image();
+
+          img.src = src;
+
+          img.onload = function() {
+            if (!$(item).hasClass("lazy-loaded") && src && src !== "undefined") {
+              $(item).attr({
+                "src": src
+              }).addClass("lazy-loaded");
+            }
+          }
+
+          img.onerror = function() {
+            return;
+          }
+
+        } else if (this.tagName === "DIV") {
+          var background = $(item).attr("data-background"),
+            img = new Image(),
+            parent = $(item).parent(),
+            parentWidth = parent.width(),
+            parentHeight = parent.height(),
+            width = 0,
+            height = 0,
+            rate = 1,
+            pRate = 1,
+            tl = "0%",
+            tt = "0%";
+
+          img.src = background;
+          img.onload = function() {
+            width = this.width;
+            height = this.height;
+            tl = "0%";
+            tt = "0%";
+            pRate = (width / height) / (parentWidth / parentHeight);
+            // 当width大于height时，
+            if (pRate > 1) {
+              rate = width / height;
+              height = parentHeight;
+              width = parseInt(height * rate);
+              tl = "50%";
+            } else if (pRate < 1) {
+              rate = height / width;
+              width = parentWidth;
+              height = parseInt(width * rate);
+              tt = "50%";
+            } else {
+              width = parentWidth;
+              height = parentHeight;
+            }
+
+            if (!$(item).hasClass("lazy-loaded") && background && background !== "undefined") {
+              $(item).css({
+                "background-image": "url(" + background + ")",
+                "background-size": "100% 100%",
+                "width": width,
+                "height": height,
+                "transform": "translate(-" + tl + ", -" + tt + ")",
+                "webkitTransform": "translate(-" + tl + ", -" + tt + ")",
+                "position": "absolute",
+                "left": tl,
+                "top": tt,
+              }).addClass("lazy-loaded");
+            }
+          }
+
+          img.onerror = function() {
+            return;
+          }
+        }
+      });
+    }, 100);
+  },
+
+  // 二次封装ajax，节省代码
+  ajax: function(url, obj, callback, callback2) {
+    // 截取callback后面的参数
+    var args = Array.prototype.slice.call(arguments, 3);
+    $.ajax({
+      type: "post",
+      url: url,
+      crossDomain: true,
+      async: true,
+      timeout: util.timeout,
+      xhrFields: {
+        withCredentials: true,
+      },
+      dataType: "json",
+      data: obj,
+      success: function(data) {
+        if (data.status.code === 0) {
+          if (typeof callback === 'function') {
+            // 把callback后面的参数传回到callback中
+            callback.apply(null, [data].concat(args));
+          }
+        } else {
+          if (typeof callback2 === 'function') {
+            callback2.apply(null, [data].concat(args));
+          } else {
+            layer.msg(data.status.message);
+          }
+        }
+      },
+      complete: function(XMLHttpRequest, status) {
+        if (status == "timeout") {
+          layer.msg(data.status.message);
+        }
+      },
+      error: function(err) {
+        layer.msg(data.status.message);
+      }
+    });
+  },
+  // 二次封装ajax，节省代码
+  ajaxget: function(url, obj, callback, callback2) {
+    // 截取callback后面的参数
+    var args = Array.prototype.slice.call(arguments, 3);
+    $.ajax({
+      type: "get",
+      url: url,
+      crossDomain: true,
+      async: true,
+      timeout: util.timeout,
+      xhrFields: {
+        withCredentials: true,
+      },
+      dataType: "json",
+      data: obj,
+      success: function(data) {
+        if (data.status.code === 0) {
+          if (typeof callback === 'function') {
+            // 把callback后面的参数传回到callback中
+            callback.apply(null, [data].concat(args));
+          }
+        } else {
+          if (typeof callback2 === 'function') {
+            callback2.apply(null, [data].concat(args));
+          } else {
+            layer.msg(data.status.message);
+          }
+        }
+      },
+      complete: function(XMLHttpRequest, status) {
+        if (status == "timeout") {
+          layer.msg(data.status.message);
+        }
+      },
+      error: function(err) {
+        layer.msg(data.status.message);
+      }
+    });
+  },
+  ajaxProcessData: function(url, obj, callback, callback2) {
+    // 截取callback后面的参数
+    var args = Array.prototype.slice.call(arguments, 3);
+    $.ajax({
+      type: "post",
+      url: url,
+      crossDomain: true,
+      async: true,
+      timeout: util.timeout,
+      processData: false,
+      contentType: false,
+      xhrFields: {
+        withCredentials: true,
+      },
+      dataType: "json",
+      data: obj,
+      success: function(data) {
+        if (data.status.code === 0) {
+          if (typeof callback === 'function') {
+            // 把callback后面的参数传回到callback中
+            callback.apply(null, [data].concat(args));
+          }
+        } else {
+          if (typeof callback2 === 'function') {
+            callback2.apply(null, [data].concat(args));
+          } else {
+            layer.msg(data.status.message);
+          }
+        }
+      },
+      complete: function(XMLHttpRequest, status) {
+        if (status == "timeout") {
+          layer.msg(data.status.message);
+        }
+      },
+      error: function(err) {
+        layer.msg(data.status.message);
+      }
+    });
+  },
+
+  // 缓存搜索记录
+  saveSearchRecord: function(text, callback) {
+    // 如果有搜索内容才缓存。缓存搜索内容到热门。最近分登录和登录，未登录要缓存在本地，再在登录时一次上传到后台。
+    if (text) {
+      if (util.islogin) {
+        // 记录到热门搜索和最近搜索
+        util.ajax(config.createSearchRecord, {
+          hotKeyword: text,
+          recentlyKeyword: text
+        }, function(data) {
+          if (typeof callback == 'function') {
+            callback && callback();
+          }
+        });
+      } else {
+        // 热门搜索
+        util.ajax(config.createSearchRecord, {
+          hotKeyword: text
+        }, function(data) {
+          if (typeof callback == 'function') {
+            callback && callback();
+          }
+        });
+        // 最近搜索
+        // 第一次缓存
+        var recentlyKeywordCache = sessionStorage.getItem("recentlyKeyword");
+        if (!recentlyKeywordCache) {
+          sessionStorage.setItem("recentlyKeyword", text);
+        }
+        // 已经缓存过
+        else {
+          var recentlyKeyword = recentlyKeywordCache;
+          recentlyKeyword = text + ',' + recentlyKeyword;
+          // 去重
+          recentlyKeyword = recentlyKeyword.split(",").filter(function(element, index, self) {
+            return self.indexOf(element) === index;
+          }).toString();
+          // 缓存在本地
+          sessionStorage.setItem("recentlyKeyword", recentlyKeyword);
+        }
+      }
+    } else {
+      if (typeof callback == 'function') {
+        callback && callback();
+      }
+    }
+  },
+
+  // 颜色排序
+  colorSort: function(list, $colorArr, $pxColorArr) {
+    // 排序
+    var newList = [],
+      newList2 = {};
+
+    for (var key in list) {
+      // 1.用索引匹配颜色。
+      var colorName = $colorArr[key];
+      // 2.用颜色名匹配位置
+      var colorIndex = $pxColorArr.indexOf(colorName);
+      // 3.加入到newList中。
+      newList.push(colorIndex);
+    }
+    // 颜色值越小越排在前面
+    newList = newList.sort(function(a, b) {
+      return a - b;
+    });
+    console.log(newList);
+    // 将newList 赋值给list
+    for (var i = 0; i < newList.length; i++) {
+      // 获取排序中的颜色名
+      var colorName = $pxColorArr[newList[i]];
+      // 将颜色名对应到正常排序中的颜色序号（key）
+      var key = $colorArr.indexOf(colorName);
+      // 再用list中key对应的值加入到newList2中。
+      newList2[newList[i]] = list[key];
+    }
+    return newList2;
+  },
+  //视频图片排序
+  videoAndImageSort: function(arr, key) {
+    var hasVideo = false
+    if (arr.length < 3) {
+      return arr
+    }
+    if (!key) {
+      for (var i = 0; i < arr.length; i++) {
+        if (this.isVideo(arr[i])) {
+          hasVideo = true
+          var temp = arr[i]
+          arr.splice(i, 1)
+          arr.splice(1, 0, temp)
+          break
+        }
+      }
+    } else {
+      for (var i = 0; i < arr.length; i++) {
+        if (this.isVideo(arr[i][key])) {
+          hasVideo = true
+          var temp = arr[i]
+          arr.splice(i, 1)
+          arr.splice(1, 0, temp)
+          break
+        }
+      }
+    }
+    return arr
+  },
+  isVideo: function(str) {
+    return str.indexOf('.mp4') > -1
+  },
+  getAliImg: function(url) {
+    var temp = url.split('.mp4')[0]
+    return temp + '.mp4?x-oss-process=video/snapshot,t_0,f_jpg,w_' + 0 + ',h_' + 0 + ',m_fast';
+  },
+  // 按设计稿排序
+  $pxColorArr: ['全部', '黄色', '白色', '灰色', '黑色', '红色', '绿色', '蓝色', '棕色', '其它'],
+  // 按后台数字0-9排序
+  $colorArr: ['全部', '红色', '白色', '蓝色', '绿色', '灰色', '棕色', '黄色', '黑色', '其它'],
+  // 颜色名称
+  $colorName: ['all', 'yellow', 'white', 'gray', 'black', 'red', 'green', 'blue', 'brown', 'other'],
+  // 按设计稿排序
+  $bgArr: ['url(../img/headImage/All@3x.png)', '#F3BE4B', '#FFFFFF', '#C9C9C9', '#000000', '#E14747', '#98C66A', '#3CAED9', '#976648', ''],
+  getPageName: function() {
+    return window.location.href.match(/\/([^\/]+)\.html/)[1];
+  },
+  // 公共的result-list
+  renderResultList: function(list, limit, text) {
+    var result = "";
+    // 遍历，如果是app分享最多为30个。如果是普通的列表最多为9个。如果有限制数目的话，最多limt个，比如首页和搜索页。
+    for (var i = 0; i < Math.min(list.length, limit || 25); i++) {
+      var item = list[i];
+      moneyWrapper = "",
+        gradeName = "",
+        unit = "m²";
+      // 如果是背景墙按面积，件，幅，套
+      switch (item.saleMethod) {
+        case 0:
+          item.saleMethodName = '按颗'
+          break;
+        case 1:
+          item.saleMethodName = '按扎'
+          break;
+        case 2:
+          item.saleMethodName = '按件'
+          break;
+        default:
+          item.saleMethodName = '按件'
+      }
+      if (item.useTo == 2) {
+        if (item.saleMethod == 2) {
+          if (item.mallSaleUnit == 1) {
+            unit = "m²";
+          } else if (item.mallSaleUnit == 2) {
+            unit = "件";
+          } else if (item.mallSaleUnit == 3) {
+            unit = "幅";
+            item.saleMethodName = '按幅'
+          } else if (item.mallSaleUnit == 4) {
+            unit = "套";
+            item.saleMethodName = '按套'
+          }
+        } else {
+          unit = "m²";
+        }
+      }
+
+      // 2.普通列表页
+      // 如果已经登录，在islogin在getMyProfile()函数中记录过的。
+      if (util.islogin && util.authStatus == 1) {
+        // 显示价格
+        if (util.showPrice == 1) {
+          // 特价。有特价的时候显示这段代码
+          if (item.isSpecialOffer) {
+            moneyWrapper +=
+              '<div class="money-wrapper">' +
+              '<div class="login">' +
+              '<div class="price-info prime-info com-info">' +
+              '<div>' +
+              '<span class="label">' + (item.saleMethodName || "按平方") + '：</span>' +
+              getText(item.isSpecialOffer) +
+              '<span class = "tj-underline">' + getText() + '</span>' +
+              '</div>' +
+              '<i class="com"></i>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+          } else {
+            moneyWrapper +=
+              '<div class="money-wrapper">' +
+              '<div class="login">' +
+              '<div class="price-info prime-info com-info">' +
+              '<div>' +
+              '<span class="label">' + (item.saleMethodName || "按平方") + '：</span>' +
+              getText(item.isSpecialOffer) +
+              '</div>' +
+              '<i class="com"></i>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+          }
+        }
+        // 隐藏价格
+        else {
+          moneyWrapper +=
+            '<div class="money-wrapper" style="display:none;">' +
+            '<div class="login">' +
+            '<div class="price-info prime-info com-info">' +
+            '<div>' +
+            (item.saleMethodName ? '<span class="label">' + (item.saleMethodName == '按平方' ? '按件' : item.saleMethodName) + '：</span>' : '') +
+            '</div>' +
+            '<i class="com"></i>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        }
+      }
+      // 没有登录，价格
+      else {
+        if (item.useTo == 2) {
+          moneyWrapper +=
+            '<div class="money-wrapper">' +
+            '<div class="unlogin">' +
+            '<div>' +
+            '<span class="label">' + (item.saleMethodName || "按平方") + '：</span>' +
+            '<span class="text star-wrapper check-login">***<i>/' + unit + '</i></span>' +
+            '</div>' +
+            '<i class="com"></i>' +
+            '</div>' +
+            '</div>';
+        } else {
+          moneyWrapper +=
+            '<div class="money-wrapper">' +
+            '<div class="unlogin">' +
+            '<div>' +
+            (item.saleMethodName ? '<span class="label">' + (item.saleMethodName == '按平方' ? '按件' : item.saleMethodName) + '：</span>' : '') +
+            '<span class="text star-wrapper check-login">***<i>/' + unit + '</i></span>' +
+            '</div>' +
+            '<i class="com"></i>' +
+            '</div>' +
+            '</div>';
+
+        }
+      }
+      var isSpecial = ''
+      if (item.isSpecialOffer) {
+        isSpecial = '<img class="ss-badge" src="./imgs/tj.png">'
+      }
+      // 精品标签，矿山直营标签
+      var tag = '';
+      for (var j = 0; j < (item.label && item.label.length); j++) {
+        tag += '<i class="tag">' + item.label[j] + '</i>';
+      }
+      // 如果是收藏页面
+      if (util.getPageName() == 'collect') {
+        var isInvalidStr = "",
+          invalidButton = "";
+
+        if (item.isInvalid) {
+          isInvalidStr = " is-invalid";
+          invalidButton = '<span class="invalid-button">失效</span>';
+        }
+
+        result +=
+          "<div class='result-item delegate-click" + isInvalidStr + "' data-item='" + JSON.stringify(item) + "'>";
+        result +=
+          '<div class="panel">' +
+          '<div class="pic">' +
+          '<div class="bitmap-img big-pic" data-background="' + item.image + '"></div>' +
+          '<div class="bottom">' +
+          tag +
+          '</div>' +
+          '</div>' +
+          '<div class="editor-button"></div>' +
+          '<div class="info">' +
+          '<p class="p-name">' +
+          '<span class="p-variety">' + item.variety + '</span>' +
+          '<span class="p-blockno">' + item.blockNo + '</span>' +
+          '</p>' +
+          '<p class="p-format">规格：' + item.length + ' * ' + item.width + ' * ' + item.thickness + ' mm' + '</p>' +
+          moneyWrapper +
+          invalidButton +
+          '</div>' +
+          '<div class="editor-wrapper">' +
+          '<div class="similar">找相似</div>' +
+          '<div class="cancel">取消收藏</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+      } else {
+        var label = item.label
+        var labelStr = ''
+        for (let i = 0; i < label.length; i++) {
+          labelStr += '<span class="ss-btn ss-btn-orange">' + label[i] + '</span>'
+        }
+        var foot = '<div class="ss-panel-foot"> ' + labelStr + '</div>'
+        if (!label.length) {
+          foot = ''
+        }
+        result +=
+          "<div class='result-item delegate-click' data-idString='" + item.idString + "' data-limit='" + (limit || '') + "'>" +
+          '<div class="panel">' +
+          '<div class="pic">' +
+          isSpecial +
+          '<div class="bitmap-img big-pic" data-background="' + (item.imgList && item.imgList[0].imageUrl) + '"></div>' +
+          '<div class="bottom">' +
+          tag +
+          '</div>' +
+          '</div>' +
+          '<div class="info">' +
+          '<p class="p-name">' +
+          '<span class="p-variety">' + item.variety + '</span>' +
+          '<span class="p-blockno">' + item.blockNo + '</span>' +
+          '</p>' +
+          '<p class="p-format">规格：' + item.length + ' * ' + item.width + ' * ' + item.thickness + ' mm' + '</p>' +
+          moneyWrapper +
+          '</div>' +
+          '</div>' +
+          foot +
+          '</div>';
+      }
+
+    }
+    return result;
+
+    function getText(bargain) {
+      // 1. 如果是特价，特价是salePrice，原价是originalPrice。
+      // 2. 非特价，显示salePrice
+      var bargainPrice = '';
+      var originalPrice = '';
+      if (bargain) {
+        bargainPrice = item.salePrice;
+        originalPrice = item.originalPrice;
+      } else {
+        originalPrice = item.originalPrice || item.salePrice;
+      }
+      var text = '';
+      var textAfter = '';
+      // 有特价的时候显示这段代码
+      // 背景墙
+      if (item.useTo == 2) {
+        if (unit == 'm²') {
+          textAfter = 'square';
+        } else if (unit == '件') {
+          textAfter = 'slice';
+        } else if (unit == '幅') {
+          textAfter = 'size';
+        } else if (unit == '套') {
+          textAfter = 'cover';
+        }
+        // 有价格
+        if (item.salePrice > 0) {
+          if (bargain && bargainPrice == -1) {
+            // text = '<span class="text text-after-' + textAfter + '">面议</span>';
+            text = '<span class="text">面议</span>';
+          } else if (!bargain && originalPrice == -1) {
+            // text = '<span class="text text-after-' + textAfter + '">面议</span>';
+            text = '<span class="text">面议</span>';
+          } else {
+            text = '<span class="text text-before text-after-' + textAfter + '">' + (bargain ? bargainPrice : originalPrice) + '</span>';
+          }
+        } else {
+          // text = '<span class="text text-after-' + textAfter + '">面议</span>';
+          text = '<span class="text">面议</span>';
+        }
+      }
+      // 常规
+      else {
+        if (item.salePrice > 0) {
+          text = '<span class="text text-before text-after-square">' + (bargain ? bargainPrice : originalPrice) + '</span>';
+        } else {
+          // text = '<span class="text text-after-square">面议</span>';
+          text = '<span class="text">面议</span>';
+        }
+      }
+      return text;
+    }
+  },
+  // 详情
+  picDetail: function(data, index, limit) {
+    var mapPriceList = {
+      "按件": [{
+        price: "mallSlicePrice",
+        name: "按件"
+      }, {
+        price: "mallPacketPrice",
+        name: "按扎"
+      }, {
+        price: "mallBlockPrice",
+        name: "按颗"
+      }],
+      "按幅": [{
+        price: "mallSlicePrice",
+        name: "按幅"
+      }, {
+        price: "mallPacketPrice",
+        name: "按扎"
+      }, {
+        price: "mallBlockPrice",
+        name: "按颗"
+      }],
+      "按套": [{
+        price: "mallSlicePrice",
+        name: "按套"
+      }, {
+        price: "mallPacketPrice",
+        name: "按扎"
+      }, {
+        price: "mallBlockPrice",
+        name: "按颗"
+      }],
+      "按扎": [{
+        price: "mallPacketPrice",
+        name: "按扎"
+      }, {
+        price: "mallBlockPrice",
+        name: "按颗"
+      }],
+      "按颗": [{
+        price: "mallBlockPrice",
+        name: "按颗"
+      }]
+    };
+    // 1. 无则渲染再显示，有则显示。
+    if (!$('#JDetailMasker').length) {
+      index = index || 0;
+      var result = '';
+      var listIndex = Math.floor(index / 25);
+      var picIndex = index % 25;
+      var slide = '';
+      var item = null;
+      var list = data.list;
+
+      for (var k = 0; k < list.length; k++) {
+        item = list[k];
+        var isCollect = '';
+        var isCollectText = '添加收藏';
+        if (item.isCollect) {
+          isCollect = ' active';
+          isCollectText = '取消收藏';
+        }
+        var curSlides = '';
+        var curPicList = '';
+        this.videoAndImageSort(item.imgList, 'imageUrl')
+        for (var j = 0; j < item.imgList.length; j++) {
+          var curPicActive = '';
+          var isVideo = this.isVideo(item.imgList[j].imageUrl) ? '<img style="width:30px;height:30px;" class="ss-play" src="../img/play.png">' : ''
+          if (j == 0) {
+            curPicActive = ' active';
+          }
+          curSlides +=
+            '<div class="swiper-slide swiper-slide100' + curPicActive + '">' +
+            isVideo +
+            '<img class="swiper-lazy" src="' + (this.isVideo(item.imgList[j].imageUrl) ? this.getAliImg(item.imgList[j].imageUrl) : item.imgList[j].imageUrl) + '" width="130" height="103" alt="">' +
+            '</div>';
+          if (this.isVideo(item.imgList[j].imageUrl)) {
+            curPicList +=
+              '<div class="pic-item' + curPicActive + '">' +
+              '<video class="bit-map big-pic" width="100%" height="100%" controls>' +
+              '<source src="' + item.imgList[j].imageUrl.split('?')[0] + '" type="video/mp4">' +
+              '</video>' +
+              '</div>';
+          } else {
+            curPicList +=
+              '<div class="pic-item' + curPicActive + '">' +
+              '<img data-src="' + item.imgList[j].imageUrl + '" class="bit-map big-pic" width="500" height="374" alt="">' +
+              (item.imgList[j].description ? '<div class="details">' + item.imgList[j].description + '</div>' : "") +
+              '</div>';
+
+          }
+        }
+
+        var priceList = [];
+        var priceListStr = "";
+        var priceListStrList = [];
+        var proposePrice = "";
+        var unit = "m²";
+
+        if (item.useTo == 2) {
+          if (item.saleUnit == 1) {
+            unit = "m²";
+          } else if (item.saleUnit == 2) {
+            unit = "件";
+          } else if (item.saleUnit == 3) {
+            unit = "幅";
+          } else if (item.saleUnit == 4) {
+            unit = "套";
+          }
+        }
+        var tag = '';
+        for (var j = 0; j < item.label.length; j++) {
+          tag += '<i class="tag">' + item.label[j] + '</i>';
+        }
+
+        // 详情销售方式
+        var detailSaleMethodName = '';
+        if (item.useTo == 2) {
+          detailSaleMethodName = item.saleMethodName;
+        } else {
+          if (item.saleMethod == 0) {
+            detailSaleMethodName = '按颗';
+          } else if (item.saleMethod == 1) {
+            detailSaleMethodName = '按扎';
+          } else if (item.saleMethod == 2) {
+            detailSaleMethodName = '按件';
+          }
+        }
+        // 如果是登录状态
+        if (util.islogin && util.authStatus == 1) {
+          // 个人中心设置为显示价格
+          if (util.showPrice == 1) {
+            // 按件、按扎、按颗价格
+            var mapPriceItem = mapPriceList[detailSaleMethodName];
+            var saleMethodNameNumber = mapPriceItem.length;
+
+            for (var i = 0; i < saleMethodNameNumber; i++) {
+              priceList[i] = {
+                name: mapPriceItem[i].name,
+                price: mapPriceItem[i].price
+              };
+            }
+
+            for (var i = 0; i < priceList.length; i++) {
+              var priceListI = priceList[i],
+                priceItem = null;
+              if (priceListI) {
+                priceItem = item[priceListI.price];
+                if(priceItem > 0 || priceItem == -1) {
+                  if (item.isSpecialOffer) {
+                    var isM = '<div>¥' + getText(priceListI.name) + '/m²</div>'
+                    // if (getText(priceListI.name) == '<span class="text text-after-square">面议</span>') {
+                    if (getText(priceListI.name) == '<span class="text">面议</span>') {
+                      isM = ''
+                    }
+                    priceListStr =
+                      '<div class="price-item">' +
+                      '<div class="price-info prime-price">' +
+                      getText(priceListI.name, item.isSpecialOffer) +
+                      '<span class="label">' + priceListI.name + '</span>' +
+                      '</div>' +
+                      isM +
+                      '</div>';
+                  } else {
+                    priceListStr =
+                      '<div class="price-item">' +
+                      '<div class="price-info prime-price">' +
+                      getText(priceListI.name, item.isSpecialOffer) +
+                      '<span class="label">' + priceListI.name + '</span>' +
+                      '</div>' +
+                      '</div>';
+                  }
+                  priceListStrList.push(priceListStr);
+                }
+              }
+            }
+
+            if (priceListStrList.length < 3) {
+              for (var i = 0; i < 3; i++) {
+                if (!priceListStrList[i]) {
+                  priceListStrList[i] = '<div class="price-item no-border"></div>';
+                }
+              }
+            }
+
+            proposePrice +=
+              '<div class="propose-price">' +
+              '<div class="login">' +
+              '<div class="login-wrapper">' +
+              '<div class="price-list">' +
+              priceListStrList.join('') +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+          }
+        }
+        // 会员登录可见
+        else {
+          var xianshitext = '<span style="margin-bottom: 0px;margin-left:10px;color:#555;font-size:13px;">认证会员登录可见 <a style="color:#1738f9;" href="https://slab.soushi88.com/index.html#/login?back=' + location.href + '">登录</a> </span>'
+          if (!util.islogin) {} else {
+            xianshitext = '<span style="margin-bottom: 0px;margin-left:10px;color:#555;font-size:13px;">认证企业查看价格 <a style="color:#1738f9;" href="https://slab.soushi88.com/index.html#/user/4">去认证</a> </span>'
+          }
+          proposePrice +=
+            '<div class="propose-price">' +
+            '<div class="unlogin">' +
+            '<div class="unlogin-wrapper">' +
+            '<div class="stars-wrapper check-login">' +
+            '***' + '<i>/' + unit + '</i>' +
+            xianshitext +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        };
+
+        function getText(name, bargain) {
+          // 1. 如果是特价，特价是salePrice，原价是originalPrice。
+          // 2. 非特价，显示salePrice
+          var bargainPrice = '';
+          var originalPrice = '';
+          // 分为背景墙和常规
+          if (item.useTo == 2) {
+            var text = '';
+            var textAfter = 'square';
+            var price = item.mallSlicePrice
+            // 如果价格为-1，或者为null，则认为是面议。
+            if (item.mallSaleUnit == 1) {
+              textAfter = 'square';
+            } else if (item.mallSaleUnit == 2) {
+              textAfter = 'slice';
+            } else if (item.mallSaleUnit == 3) {
+              textAfter = 'size';
+            } else if (item.mallSaleUnit == 4) {
+              textAfter = 'cover';
+            }
+            if (name == '按扎') {
+              price = item.mallPacketPrice;
+              textAfter = 'square';
+            }
+            if (name == '按颗') {
+              price = item.mallBlockPrice;
+              textAfter = 'square';
+            }
+            if (price > 0) {
+              text = '<span class="text text-before text-after-' + textAfter + '">' + price + '</span>';
+            } else {
+              // text = '<span class="text text-after-' + textAfter + '">面议</span>';
+              text = '<span class="text">面议</span>';
+            }
+          } else {
+            var text = '';
+            if (bargain) {
+              if (name == '按件') {
+                originalPrice = item.originalSlicePrice;
+                bargainPrice = item.mallSlicePrice;
+              } else if (name == '按扎') {
+                originalPrice = item.originalPacketPrice;
+                bargainPrice = item.mallPacketPrice;
+              } else if (name == '按颗') {
+                originalPrice = item.originalBlockPrice;
+                bargainPrice = item.mallBlockPrice;
+              }
+              if (bargainPrice <= 0) {
+                // text = '<span class="text text-after-square">面议</span>';
+                text = '<span class="text">面议</span>';
+              } else {
+                text = '<span class="text text-before text-after-square">' + bargainPrice + '</span>';
+              }
+            } else {
+              if (name == '按件') {
+                originalPrice = item.originalSlicePrice || item.mallSlicePrice;
+              } else if (name == '按扎') {
+                originalPrice = item.originalPacketPrice || item.mallPacketPrice;
+              } else if (name == '按颗') {
+                originalPrice = item.originalBlockPrice || item.mallBlockPrice;
+              }
+              if (originalPrice > 0) {
+                text = '<span class="text text-before text-after-square">' + originalPrice + '</span>';
+              } else {
+                // text = '<span class="text text-after-square">面议</span>';
+                text = '<span class="text">面议</span>';
+              }
+            }
+          }
+          return text;
+        }
+        // 二维码
+        if (test) {
+          var ewmSrc = util.search("https://test.slab.backend.soushi88.com/onsale/qrcodeImage", {
+            blockId: item.idString,
+            width: 200,
+            height: 200
+          });
+        } else {
+          var ewmSrc = util.search("https://slab.backend.soushi88.com/onsale/qrcodeImage", {
+            blockId: item.idString,
+            width: 200,
+            height: 200
+          });
+        }
+
+        if (detailSaleMethodName == '按平方') {
+          detailSaleMethodName = '按件';
+        }
+        var isSpecial = ''
+        if (item.isSpecialOffer) {
+          isSpecial = '<img class="ss-badge" src="./imgs/tj.png">'
+        }
+        var label = item.label
+        var labelStr = ''
+        for (let i = 0; i < label.length; i++) {
+          labelStr += '<span class="ss-btn ss-btn-orange">' + label[i] + '</span>'
+        }
+        var city = item.cityName
+        if (!city) {
+          city = ''
+        } else {
+          city = '<img src="./imgs/address.png">' + city
+        }
+        var text = ''
+        if (item.isGoldShop) {
+          text = '<div class="ss-sqzj">申请质检</div>' +
+            '<div class="ss-zjewm"><img src="' + ewmSrc + '" width="130" height="130" alt="">微信扫码，申请质检</div>' +
+            '</div>' +
+            '<div class="center"  style="font-size:14px;\
+font-family:MicrosoftYaHei;margin-top: 10px;\
+font-weight:400;\
+color:rgba(85,85,85,1);">联系卖家：' + (item.seller.emplName || '') + '' +
+            '</div>' +
+            '<div class="right ' + (item.seller.wxQrCode ? "" : "ss-nowxcode") + '">' +
+            '<p class="p1"> <img src="../img/phone_icon@2x.png" alt=""> ' + (item.seller.emplMobile || "") + '</p>' +
+            '<p class="p2" style="display:' + (item.seller.wxQrCode ? "block" : "none") + '"> <img src="../img/wx_iocn@2x.png" alt=""> <span class="ss-wxzx">微信咨询</span></p>' +
+            '<div><img src="' + item.seller.wxQrCode + '" width="130" height="130" alt="">扫一扫，添加微信</div>'
+        } else {
+          text = '<img src="' + ewmSrc + '" width="130" height="130" alt="">' +
+            '</div>' +
+            '<div class="right">' +
+            '<p class="p1">微信扫描，申请质检</p>' +
+            '<p class="p2">pc端申请质检功能尚未开通，敬请期待</p>'
+        }
+        slide +=
+          '<div class="swiper-slide swiper-slide50 stop-swiping" data-idString="' + item.idString + '" data-id="' + item.id + '">' +
+          '<div class="swiper-container swiper-container10">' +
+          '<div class="swiper-wrapper">' +
+          '<div class="swiper10-slide">' +
+          '<div style="width: 100%;">' +
+          '<div class="info">' +
+          '<div class="left">' +
+          '<span class="name">' + item.variety + '</span>' +
+          '<span class="block-no">' + item.blockNo + '</span>' +
+          '</div>' +
+          '<div class="right">' +
+          '<span class="similar"><i></i>详细码单</span>' +
+          '<span class="collect' + isCollect + '"><i></i>' + '<span class="text">' + isCollectText + '</span></span>' +
+          '</div>' +
+          '</div>' +
+          '<div class="detail-box">' +
+          '<div class="left">' +
+          '<div class="swiper-container swiper-container100">' +
+          '<div class="swiper-wrapper">' +
+          curSlides +
+          '</div>' +
+          '<div class="swiper-button-prev swiper100-button-prev"></div>' +
+          '<div class="swiper-button-next swiper100-button-next"></div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="right">' +
+          '<div class="pic-list">' +
+          curPicList +
+          '</div>' +
+          '<div class="info2">' +
+          '<div class="pirce-info">' +
+          isSpecial +
+          '<div class="price-list-wrapper">' +
+          proposePrice +
+          '</div>' +
+          '</div>' +
+          '<div class="format-and-num">' +
+          '<div class="format">规格&nbsp;&nbsp;' + item.length + ' * ' + item.width + ' * ' + item.thickness + 'mm（最高）</div>' +
+          '<p class="p-num">数量&nbsp;&nbsp;&nbsp;&nbsp;' + item.packetNum + '扎 / ' + item.sliceNum + '件 / ' + item.area + '<i class="unit">' + unit + '</i>' + '</p>' +
+          '</div>' +
+          '<p class="time"><span style="color:#FF6000">' + city + '<img src="./imgs/tips.png" style="margin-left:10px">' + (detailSaleMethodName || "按扎") + '售 ' + labelStr + '</span>             &nbsp;&nbsp;&nbsp;&nbsp;更新时间&nbsp;&nbsp;&nbsp;&nbsp;' + item.renewalTimeStr + '             </p>' +
+          '</div>' +
+          '<div class="ewm-wraper">' +
+          '<div class="left">' + text +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+
+          '</div>' +
+          '<div class="swiper-scrollbar"></div>' +
+          '</div>';
+      }
+
+      result +=
+        '<div class="masker detail-masker active" id="JDetailMasker">' +
+        '<div class="show-masker bind-click"></div>' +
+        '<div class="detail-container">' +
+        '<div class="close bind-click"></div>' +
+        '<div class="detail-container-wrapper">' +
+        '<div class="swiper-container swiper-container50">' +
+        '<div class="swiper-wrapper">' +
+        slide +
+        '</div>' +
+        '</div>' +
+        '<div class="swiper-button-prev swiper50-button-prev"></div>' +
+        '<div class="swiper-button-next swiper50-button-next"></div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+
+      $(document.body).append(result);
+      // 如果只有一张图时，隐藏右边箭头
+      if (list.length == 1) {
+        $(".swiper50-button-next").hide();
+      }
+      // 初始化swiper
+      setTimeout(function() {
+        initSwiper50();
+        initSwiper10();
+      }, 50);
+
+      function initSwiper50() {
+        // 初始化swiper50
+        util.$swiper50 = new Swiper('.swiper-container50', {
+          on: {
+            slideChange: function() {
+              // 初始化当前swiper100
+              initSwiper100(this.activeIndex);
+            },
+          },
+          navigation: {
+            nextEl: $('.swiper50-button-next')[0],
+            prevEl: $('.swiper50-button-prev')[0],
+          },
+          initialSlide: index,
+          noSwiping: true,
+          freeMode: true,
+          noSwipingClass: 'stop-swiping',
+        });
+        initSwiper100(index);
+      }
+
+      function initSwiper10() {
+        // 计算swiper-container10高度
+        var maxHeight = 720;
+        var windowHeight = $(window).height();
+        var height = 0;
+        if (windowHeight > maxHeight) {
+          height = maxHeight;
+          $(".swiper-container10").height(height);
+        } else {
+          height = windowHeight - 50;
+          $(".swiper-container10").height(height);
+          // 初始化swiper10
+          util.$swiper10 = new Swiper('.swiper-container10', {
+            speed: 300,
+            slidesPerView: 'auto',
+            freeMode: true,
+            mousewheel: {
+              sensitivity: 0.1,
+            },
+            direction: 'vertical',
+            setWrapperSize: true,
+            slideClass: "swiper10-slide"
+          });
+        }
+      }
+
+      // 关闭弹窗
+      $("#JDetailMasker .show-masker, #JDetailMasker .close").click(function() {
+        // 销毁swiper50
+        if (util.$swiper50) {
+          util.$swiper50.destroy(true, true);
+          util.$swiper50 = null;
+        }
+        if (util.$swiper10) {
+          // util.$swiper10.destroy(true, true);
+          util.$swiper10 = null;
+        }
+        // 再销毁swiper100数组的成员
+        if (util.$swiper100.length) {
+          for (var i = 0; i < util.$swiper100.length; i++) {
+            if (util.$swiper100[i]) {
+              util.$swiper100[i].destroy();
+              util.$swiper100[i] = null;
+            }
+          }
+          util.$swiper100 = null;
+        }
+        // 去掉滚轮事件
+        $('body').off('mousewheel');
+        // 最后再remove整个弹窗
+        $("#JDetailMasker").remove();
+      });
+
+      // 详细码单
+      $(".swiper-slide50").on("click", ".similar", function() {
+        var idString = $(this).parents(".swiper-slide50").attr("data-idString");
+        window.open(util.search("../html/xhxq.html", {
+          blockId: idString,
+          // similar: true,
+          detailPage: util.getPageName() + 'Detail'
+        }));
+      });
+
+      // 收藏
+      $(".swiper-slide50").on("click", ".collect", function() {
+        var self = this;
+        // 未登录先去登录
+        if (!util.islogin) {
+          window.open(util.search("https://slab.soushi88.com/index.html#/login", {
+            backUrl: window.location.href
+          }));
+        } else {
+          // 如果已收藏，则取消收藏
+          var isCollect = data.list[index].isCollect;
+          var idString = $(this).parents(".swiper-slide50").attr("data-idString");
+          if (isCollect) {
+            util.ajaxProcessData(config.removeCollect, JSON.stringify({
+              "data": {
+                "ids": [idString]
+              }
+            }), function(data) {
+              $(self).removeClass("active");
+              $(".text", self).text("添加收藏");
+              item.isCollect = false;
+
+              // 修改缓存
+              var cache = util.$data;
+              if (cache) {
+                util.$data.list[index].isCollect = false;
+              }
+              // 弹出已取消收藏提示
+              layer.msg('已取消收藏');
+            });
+          }
+          // 如果未收藏，则增加收藏
+          else {
+            util.ajax(config.saveCollect, {
+              goodsId: idString,
+              image: item.imgList && item.imgList[0].imageUrl
+            }, function(data) {
+              $(self).addClass("active");
+              $(".text", self).text("取消收藏");
+              item.isCollect = true;
+
+              // 修改缓存
+              var cache = util.$data;
+              if (cache) {
+                util.$data.list[index].isCollect = true;
+              }
+            });
+          }
+        }
+      });
+
+      $("#JDetailMasker .check-login").click(function() {
+        // if (test) {
+        //   window.location.href = util.search("https://test.slab.soushi88.com/index.html#/login", {
+        //     backUrl: window.location.href
+        //   });
+        // } else {
+        //   window.location.href = util.search("https://slab.soushi88.com/index.html#/login", {
+        //     backUrl: window.location.href
+        //   });
+        // }
+      });
+
+      // 切换
+      function initSwiper100(index) {
+        // 初始化swiper
+        if (!util.$swiper100) {
+          util.$swiper100 = [];
+        }
+        if (!util.$swiper100[index]) {
+          var curSwiper100 = $(".swiper-slide50").eq(index).find('.swiper-container100');
+          util.$swiper100[index] = new Swiper(curSwiper100[0], {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            autoplay: false,
+            initialSlide: 0,
+            navigation: {
+              nextEl: $('.swiper100-button-next', curSwiper100)[0],
+              prevEl: $('.swiper100-button-prev', curSwiper100)[0],
+            },
+            lazy: true,
+            preventClicks: false, //默认true
+            preventLinksPropagation: false,
+          });
+
+          var firstPicItem = $(".swiper-container50 .pic-list").eq(index).find(".pic-item").eq(0)
+          firstPicItem.addClass("active");
+          util.replaceSrc(firstPicItem.find(".big-pic"));
+        }
+      }
+
+      // 点击小图切换大图
+      $("#JDetailMasker").on("click", ".swiper-slide100", function() {
+        var curIndex = util.$swiper50.activeIndex;
+        var curSwiper100 = util.$swiper100[curIndex];
+        var curPicIndex = $(this).index();
+
+        // 小图滑动
+        curSwiper100.slideTo(curPicIndex);
+        $(curSwiper100.slides).removeClass("active").eq(curPicIndex).addClass("active");
+
+        // 大图切换
+        var bigPicItems = $(".swiper-container50 .pic-list").eq(curIndex).find(".pic-item");
+        bigPicItems.removeClass("active").eq(curPicIndex).addClass("active");
+        util.replaceSrc(bigPicItems.eq(curPicIndex).find(".big-pic"));
+      });
+
+      // 鼠标滚动
+      $('body').on('mousewheel', function(event) {
+        var delta = event.originalEvent.wheelDelta;
+        var dir = delta > 0 ? 'Up' : 'Down';
+        var active = util.$swiper50.activeIndex;
+        if (util.$swiper10) {
+          if (dir == "Up") {
+            if (Array.isArray(util.$swiper10)) {
+              util.$swiper10[active].slidePrev();
+            } else {
+              util.$swiper10.slidePrev();
+            }
+          } else {
+            if (Array.isArray(util.$swiper10)) {
+              util.$swiper10[active].slideNext();
+            } else {
+              util.$swiper10.slideNext();
+            }
+          }
+        }
+        return false;
+      });
+    }
+  },
+  // 获取特价商品
+  getSales: function(data, callback) {
+    $.ajax({
+      type: "post",
+      url: config.query,
+      async: true,
+      crossDomain: true,
+      data: data,
+      xhrFields: {
+        withCredentials: true
+      },
+      dataType: "json",
+      success: function(res) {
+        if (res.status.code == 0) {
+          util.$tjData = res.data;
+          //关闭加载动画
+          layer.closeAll("loading");
+          var resultList = $('#SS_sale .swiper-wrapper');
+          resultList.empty();
+          var result = '';
+          if (res.data.list.length == 0) {
+            result = '<p class="erro_text">未找到特价商品</p>';
+            layer.msg('未找到特价商品！', {
+              time: 2000
+            })
+          }
+          for (var i = 0; i < res.data.list.length; i++) {
+            var item = res.data.list[i]
+            var saleDom = ''
+            var originalDom = ''
+            if (!util.islogin || util.authStatus !== 1) {
+              originalDom = '***'
+              saleDom = '***<span style="font-size:12px;vertical-align: middle;">/m²</span>'
+            } else {
+              originalDom = '￥' + item.originalPrice
+              if(item.salePrice > 0){
+                saleDom = '<span style="font-size:12px">￥</span>' + item.salePrice + '<span style="font-size:12px;vertical-align: middle;">/m²</span>'
+              }else{
+                // 理论上特价每天面议
+                saleDom = "面议"
+              }
+            }
+            switch (item.saleMethod) {
+              case 0:
+                item.saleMethodName = '按颗'
+                break;
+              case 1:
+                item.saleMethodName = '按扎'
+                break;
+              case 2:
+                item.saleMethodName = '按件'
+                break;
+              default:
+                item.saleMethodName = '按件'
+            }
+            if (item.useTo == 2) {
+              if (item.saleMethod == 2) {
+                if (item.mallSaleUnit == 1) {
+                  unit = "m²";
+                } else if (item.mallSaleUnit == 2) {
+                  unit = "件";
+                } else if (item.mallSaleUnit == 3) {
+                  unit = "幅";
+                  item.saleMethodName = '按幅'
+                } else if (item.mallSaleUnit == 4) {
+                  unit = "套";
+                  item.saleMethodName = '按套'
+                }
+              } else {
+                unit = "m²";
+              }
+            }
+            result += '<div class="swiper-slide"><div class="ss-thumbnail">\
+                      <div class="ss-cut-col"></div>\
+                    <img class="ss-badge" src="./imgs/tj.png">\
+                    <img src="' + item.imgList[0].imageUrl + '">\
+                    <div class="ss-caption">\
+                      <p class="ss-font18">' + item.variety + ' <span class="ss-font12 ss-grey">' + item.blockNo + '</span> </p>\
+                      <p class="ss-grey ss-font14">规格：' + item.length + ' * ' + item.width + ' * ' + item.thickness + 'mm</p>\
+                      <p style="' + (util.showPrice == 0 ? 'display:none' : '') + '" class="ss-grey ss-font14">' + item.saleMethodName + ':<span class="ss-font18 ss-orange">' + saleDom + '   &nbsp;&nbsp;</span> <span style="text-decoration: line-through">' + originalDom + '<span style="vertical-align: middle;">/m²</span></span> </p>\
+                      <div style="text-align: center;">\
+                        <div class="ss-btn ss-btn-orange">立即预订</div>\
+                      </div>\
+                    </div>\
+                  </div></div>'
+          }
+          resultList.html(result);
+          var swiper = new Swiper('.banner-container', {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+            autoplay: true,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+          });
+          $('#SS_sale .ss-btn.ss-btn-orange').click(function() {
+            // 如果是精品
+            var data = util.$tjData;
+            var index = $(this).parents('.swiper-slide').index()
+            util.picDetail(data, index, 8);
+          })
+        } else {
+          layer.closeAll("loading");
+          layer.msg("搜索失败！");
+        }
+      },
+      error: function(res, data) {
+        //关闭加载动画
+        layer.closeAll("loading");
+        layer.msg("加载失败", {
+          icon: 16,
+          time: 2000
+        });
+      }
+    });
+  }
+};

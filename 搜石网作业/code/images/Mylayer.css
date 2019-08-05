@@ -1,0 +1,205 @@
+@charset "utf-8";
+/*confirm窗口*/
+.confirmWindowbody {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, .001);
+	overflow: hidden;
+}
+
+.confirmWindowbody .confirmWindow {
+	height: 150px;
+	width: 350px;
+	background-color: #FFFFFF;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	z-index: 10000;
+	position: fixed;
+	left: 50%;
+	margin-left: -175px;
+	top: 50%;
+	margin-top: -100px;
+}
+
+.confirmWindowbody .confirmWindow i {
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-size: 28px;
+	text-align: center;
+	line-height: 28px;
+	width: 28px;
+	height: 28px;
+	display: inline-block;
+	color: #777;
+	cursor: pointer;
+}
+
+.confirmWindowbody .confirmWindow .confirmWindow_text {
+	color: #656565;
+	font-size: 14px;
+	width: 100%;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.confirmWindowbody .confirmWindow .confirmWindow_btn {
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.confirmWindowbody .confirmWindow .confirmWindow_btn button {
+	width: 100px;
+	height: 28px;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+
+.confirmWindowbody .confirmWindow .confirmWindow_btn button:nth-child(1) {
+	margin-right: 30px;
+	background-color: #13a0e7;
+}
+
+.confirmWindowbody .confirmWindow .confirmWindow_btn button:nth-child(2) {
+	background-color: #ffc057;
+}
+/*warning警告窗口*/
+.WarningWindow{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,.001);
+	overflow: hidden;
+}
+.WarningWindowBody{
+	/*width: 200px;*/
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 50%;
+	margin-top:-100px;
+	left: 50%;
+	margin-left: -100px;
+	z-index: 1000;
+	border-radius: 10px;
+	color: #eaeaea;
+	font-size: 14px;
+	max-width: 300px;
+	/*padding: 10px 0 20px 0;*/
+	text-align: center;
+}
+.WarningWindowBody div:nth-child(1){
+	padding: 30px 0;
+	padding-left: 15px;
+	font-size: 14px;
+	/*width: 100px;*/
+	width: auto;
+	margin: 0 auto;
+	padding-left: 36px;
+	padding-right: 10px;
+	background: url(warning.png) no-repeat 10px 28px;
+	background-size: 22px;
+}
+
+/*成功提示窗口*/
+.pop_windows{
+	z-index: 999;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0);
+}
+.pop_windows_tips{
+	/*width: 200px;*/
+	background-color: rgba(0,0,0,0.5);
+	position: absolute;
+	top: 50%;
+	margin-top:-100px;
+	left: 50%;
+	margin-left: -100px;
+	z-index: 1000;
+	border-radius: 10px;
+	color: #eaeaea;
+	font-size: 14px;
+	padding: 10px;
+	text-align: center;
+	z-index: 10000;
+}
+.pop_windows_tips div:nth-child(1){
+	padding: 10px 30px;
+	padding-left: 15px;
+	font-size: 16px;
+	/*width: 150px;*/
+	margin: 0 auto;
+	padding-left: 45px;
+	padding-right: 20px;
+	background: url(icon_state.png) no-repeat 10px center;
+	background-size: 30px;
+}
+.pop_windows_tips div:nth-child(2){
+	/*padding-bottom: 10px;*/
+}
+.submit_tips {
+	font-size: 14px;
+	width: 200px;
+	text-align: center;
+	line-height: 50px;
+	height: 50px;
+	color: #666666;
+}
+/*loading*/
+.mylayer_loading{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,.001);
+	overflow: hidden;
+}
+.loadingView{
+	/*width: 200px;*/
+	height: 32px;
+	position: fixed;
+	top: 50%;
+	margin-top:-100px;
+	left: 50%;
+	margin-left: -100px;
+	z-index: 1000;
+	border-radius: 10px;
+	color: #666666;
+	line-height: 32px;
+	font-size: 14px;
+	max-width: 300px;
+	text-align: left;
+	color: #333333;
+	/*background-color: rgba(0,0,0,.2);*/
+}
+.loadingView span:nth-child(1){
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	float: left;
+	background: url(loading-2.gif) no-repeat center center;
+	background-size: auto;
+}
+.loadingView span:nth-child(2){
+	float: left;
+	margin-left: 7px;
+	/*width: 32px;*/
+	height: 32px;
+	display: inline-block;
+	line-height: 32px;
+
+}
+/*.loadingView span:nth-child(1) img{
+	height: 32px;
+	width: 32px;
+}*/

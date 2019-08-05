@@ -1,0 +1,96 @@
+/*
+ * 弹窗插件  
+ * Great by Andyli
+ * 2017/6/19
+ */
+var Mylayer = {
+	confirm: function(text, callback) {
+		//confirm窗口
+		if ($('.confirmWindowbody')) {
+			$('.confirmWindowbody').remove();
+		}
+		var $div = $('<div class="confirmWindow"/>');
+		var $div1 = $('<div class="confirmWindowbody"/>');
+		$('<i class="confirmWindow_close"/>').html('&times').appendTo($div);
+		$('<div class="confirmWindow_text"/>').html(text).appendTo($div);
+		$('<div class="confirmWindow_btn"/>').html('<button class="confirmWindow_determine">确定</button><button class="confirmWindow_cancel">取消</button>').appendTo($div);
+		$div.appendTo($div1);
+		$div1.appendTo($('body'));
+		//取消
+		$('body').on('click', '.confirmWindow_cancel', function() {
+			$('.confirmWindowbody').remove();
+		});
+		//关闭
+		$('body').on('click', '.confirmWindow_close', function() {
+			$('.confirmWindowbody').remove();
+		});
+		//确定
+		$('body').on('click', '.confirmWindow_determine', function() {
+			$('.confirmWindowbody').remove();
+			if (typeof callback == 'function') {
+				callback();
+			}
+		});
+	},
+	success:function(text1,text2,callback,time){//弹窗1
+		if($('.pop_windows')){
+			$('.pop_windows').remove();
+		}
+		var $div = $('<div class="pop_windows"/>');
+		$('<div class="pop_windows_tips"/>').html('<div>'+text1+'</div><div>'+text2+'</div>').appendTo($div);
+		$div.appendTo($('body'));
+		var timer = setTimeout(function(){
+			$('.pop_windows').remove();
+			clearTimeout(timer);
+			if(typeof callback == 'function'){
+				callback();
+			}
+		},time);
+		$('.pop_windows').on('click',function(){
+			$('.pop_windows').remove();
+			if(typeof callback == 'function'){
+				callback();
+			}
+		});
+	},
+	error:function(text,time,callback){//错误警告窗口
+		if($('.WarningWindow')){
+			$('.WarningWindow').remove();
+		}
+		var $div = $('<div class="WarningWindow"/>');
+		$('<div class="WarningWindowBody"/>').html('<div>'+text+'</div>').appendTo($div);
+		$div.appendTo($('body'));
+		var timer = setTimeout(function(){
+			$('.WarningWindow').remove();
+			clearTimeout(timer);
+			if(typeof callback == 'function'){
+				callback();
+			}
+		},time);
+		
+		$('body').on('click',function(){
+			$('.WarningWindow').remove();
+			if(typeof callback == 'function'){
+				callback();
+			}
+		});
+	},
+	loading:function(text,callback){//loading
+		
+		var $div = $('<div class="mylayer_loading"/>');
+		var $div1 = $('<div class="loadingView"/>');
+		$div1.html('<span></span><span>'+text+'</span>').appendTo($div)
+		$div.appendTo($('body'));
+		
+		if(typeof callback == 'function'){
+			callback($('.mylayer_loading'));
+		}
+		$('.mylayer_loading').on('click',function(e){
+			e.stopPropagation();
+		})
+	},
+	CloseLoad:function(){//关闭loading
+		$('.mylayer_loading').remove();
+	},
+
+}

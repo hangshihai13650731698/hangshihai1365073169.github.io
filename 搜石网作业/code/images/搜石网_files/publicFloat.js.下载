@@ -1,0 +1,159 @@
+/**
+ * Created by songyingchun on 2017/9/27 0027.
+ */
+$(function () {
+    var publicFloat = function () {
+        this.name = name;
+        this.init();
+    }
+
+    publicFloat.prototype = {
+        html: function () {
+            var str = 
+            '<div class="float-nav" style="display: none;">' +
+                '<div class="float-nav-list">' +
+                    '<div class="float-nav-item">' +
+                        '<i class="icon icon-mobile"></i>' +
+                        '<span class="item-text">手机找板</span>' +
+                        '<div class="item-weixin item-detail">' +
+                            '<img src="../img/float/wm-1.png" />' +
+                            '<p class="text">关注官方微信</p>' +
+                            '<p class="text">查看最新货源</p>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="float-nav-item float-nav-presonal">' +
+                        '<i class="icon icon-personal"></i>' +
+                        '<span class="item-text">我的</span>' +
+                    '</div>' +
+                    '<div class="float-nav-item float-nav-collect" style="margin-bottom: 115px;">' +
+                        '<i class="icon icon-collect"></i>' +
+                        '<span class="item-text">我的收藏</span>' +
+                        '<div class="item-collect item-detail">' +
+                            '<div class="box">' +
+                                '<a class="stone-collect" href="https://slab.soushi88.com/index.html#/user/2">石材收藏</a>' +
+                                '<a class="supplier-collect" href="https://slab.soushi88.com/index.html#/user/3">商家收藏</a>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="float-nav-item float-nav-phone">' +
+                        '<i class="icon icon-phone"></i>' +
+                        '<span class="item-text">客服热线</span>' +
+                        '<div class="item-hot-line item-detail">' +
+                            '<div class="hot-line-title">搜石网专业线上销售经理</div>' +
+                            '<div class="hot-line-content">' +
+                                '<div class="name">姓名：梁经理</div>' +
+                                '<div class="phone">电话：0766-8520999</div>' +
+                                '<div class="ewm">' +
+                                    '<img src="https://slab.backend.soushi88.com/public/images/guider/1.jpeg" width="80" height="80" alt="">' +
+                                '</div>' +
+                                '<p class="detail-text">扫二维码添加微信</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="float-nav-item">' +
+                        '<i class="icon icon-suggestion"></i>' +
+                        '<span class="item-text">意见反馈</span>' +
+                    '</div>' +
+                    '<div class="float-nav-item goTop">' +
+                        '<i class="icon icon-top"></i>' +
+                        '<span class="item-text">TOP</span>' +
+                   '</div>' +
+                '</div>' +
+            '</div>';
+            return str;
+        },
+
+        loadHtmlString: function(html) {
+            var body = document.body,
+                div = document.createElement("div");
+
+            body.appendChild(div);
+            div.innerHTML = html;
+            this.initEvent();
+        },  
+
+        initEvent: function (){
+            $(".float-nav .float-nav-list").on("mouseenter", ".float-nav-item", function (e) {
+                clearTimeout(this.timer);
+                $(this).addClass("active").siblings().removeClass("active");
+                $(".item-detail", this).css({
+                    display: "block"
+                }).animate({
+                    opacity: 1,
+                    right: "70px"
+                });
+        
+                if(isDetailPage) {
+                    $(".float-nav .float-nav-list .float-nav-item").each(function (item, index) {
+                        if(item !== this) {
+                            $(item).trigger("mouseleave");
+                        }
+                    });
+                }
+            });
+            // 移出
+            $(".float-nav .float-nav-list").on("mouseleave", ".float-nav-item", function () {
+                var self = this;
+                this.timer = setTimeout(function () {
+                    $(self).removeClass("active");
+                    $(".item-detail", self).animate({
+                        opacity: 0,
+                        right: "90px"
+                    }, 300, function () {
+                        $(".item-detail", self).css({
+                            display: "none"
+                        });
+                    });
+                }, 300);
+            });
+            // 我的
+            $(".float-nav-presonal").click(function () {
+                if(test) {
+                    window.location.href = 'https://test.slab.soushi88.com/index.html#/user/4/';
+                }else {
+                    window.location.href = 'https://slab.soushi88.com/index.html#/user/4';
+                }
+            });
+            // 如果是详情页
+            var pageArr = ["xhxq", "map-details"],
+                isDetailPage = false;
+        
+            pageArr.forEach(function (item, index) {
+                if(window.location.href.indexOf(item) > -1) {
+                    isDetailPage = true;
+                    return false;
+                }
+            });
+        
+            if(isDetailPage) {
+                $(".float-nav .float-nav-list .float-nav-phone").trigger("mouseenter");
+            }
+        
+            //返回顶部
+            $(".float-nav .goTop").on("click",function(){
+                $("body,html").animate({
+                    scrollTop: 0
+                },500);
+            });
+
+            setTimeout(function () {
+                document.querySelector(".float-nav").style.display = 'block';
+            }, 50);
+        },
+
+        loadStyleString: function() {
+            var style = document.createElement("link");
+            style.rel = "stylesheet";
+            style.href = "../css/public_float.css";
+            var head = document.getElementsByTagName("head")[0];
+            head.appendChild(style);
+            this.loadHtmlString(this.html());
+        },
+        
+        init: function () {
+            this.loadStyleString();
+        }
+    }
+
+    new publicFloat();
+});
