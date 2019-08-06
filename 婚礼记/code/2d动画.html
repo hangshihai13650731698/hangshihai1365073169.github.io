@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <style>
+        .box {
+            width: 720px;
+            height: 320px;
+            margin: auto;
+            display: flex;
+            overflow: hidden;
+
+        }
+
+        .box li {
+            width: 20%;
+            overflow: hidden;
+            list-style: none;
+            transition: width 1s;
+        }
+
+        .box:hover li {
+            width: 30px;
+        }
+
+        .box li:hover {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="box">
+        <li> <img src="../code/images/img1.jpg" alt=""></li>
+        <li> <img src="../code/images/img2.jpg" alt=""></li>
+        <li> <img src="../code/images/img3.jpg" alt=""></li>
+        <li> <img src="../code/images/img4.jpg" alt=""></li>
+        <li> <img src="../code/images/img5.jpg" alt=""></li>
+    </ul>
+</body>
+
+</html>
