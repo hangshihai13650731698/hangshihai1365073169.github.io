@@ -1,0 +1,365 @@
+html,
+body {
+  height: 100%;
+}
+
+#elm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#elm .header {
+  height: 2.533333rem;
+  background-color: #00a8ff;
+}
+
+.hea1 {
+  height: .586667rem;
+  width: 4.266667rem;
+  position: relative;
+  margin: .506667rem 0rem 0rem .373333rem;
+}
+
+.hea1 .iconfont {
+  font-family: "iconfont" !important;
+  font-size: .24rem;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+}
+
+.hea1 .wenti {
+  color: white;
+  font-size: .24rem;
+}
+
+.hea1 .sanjiao {
+  display: block;
+  height: 0rem;
+  width: 0rem;
+  border: .133333rem solid transparent;
+  border-top-color: white;
+  position: absolute;
+  top: .106667rem;
+  right: .266667rem;
+}
+
+.sea {
+  width: 9.266667rem;
+  height: .96rem;
+  margin: .133333rem 0rem 0rem .373333rem;
+  position: relative;
+}
+
+.sea .seaa {
+  width: 9.266667rem;
+  height: .96rem;
+  background-color: white;
+  text-align: center;
+}
+
+.icn {
+  width: .133333rem;
+  height: .133333rem;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+}
+
+.icn img {
+  width: .4rem;
+  height: .4rem;
+}
+
+#elm .main {
+  flex: 1;
+  overflow: auto;
+}
+
+.mai1 {
+  height: 4.666667rem;
+  background: pink;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.mai2 {
+  height: 2.333333rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mai2 li {
+  display: flex;
+  width: 14.666667rem;
+  height: 1.546667rem;
+  flex-direction: column;
+}
+
+.mai2 .meishi img {
+  width: 1.173333rem;
+  height: .8rem;
+}
+
+.mai2 span {
+  font-size: .293333rem;
+}
+
+.dier {
+  position: relative;
+  height: 2.56rem;
+  background: #f7f7f7;
+  overflow: hidden;
+}
+
+.dier .let {
+  width: 2.72rem;
+  height: 2.933333rem;
+  margin: .533333rem 0rem 0rem .4rem;
+}
+
+.let p {
+  line-height: .666667rem;
+  color: #767676;
+}
+
+.let span {
+  color: #aa8067;
+}
+
+.dier .ho img {
+  width: 3.653333rem;
+  height: 1.973333rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.huag {
+  height: 1.093333rem;
+  background: #fdebbd;
+  margin-top: .133333rem;
+  display: flex;
+  align-items: center;
+}
+
+.huag .ll {
+  margin-left: .266667rem;
+  display: flex;
+}
+
+.huag .hsh img {
+  width: .586667rem;
+  height: .506667rem;
+}
+
+.huag .ll1 {
+  margin-left: .133333rem;
+  font-size: .293333rem;
+}
+
+.huag .ss {
+  font-size: .293333rem;
+  margin-left: 2.4rem;
+}
+
+.lan {
+  margin-top: .133333rem;
+  height: 2.333333rem;
+  display: flex;
+  background: #0886ff;
+}
+
+.lan .lan1 {
+  width: 4.586667rem;
+  height: 1.253333rem;
+  margin-top: .4rem;
+  margin-left: 1.333333rem;
+}
+
+.lan1 .sda {
+  font-size: .293333rem;
+  display: inline-block;
+  width: 4rem;
+  margin-top: .266667rem;
+  text-align: center;
+  height: .466667rem;
+  background-color: white;
+  border-radius: .8rem;
+}
+
+.lan1 p {
+  color: white;
+}
+
+.lan .hh2 img {
+  margin-left: 2.133333rem;
+  display: block;
+  width: 2.666667rem;
+  height: 2.24rem;
+}
+
+.cai {
+  overflow: hidden;
+  text-align: center;
+  height: 2.666667rem;
+}
+
+.cai h3 {
+  margin-top: .533333rem;
+}
+
+.cai ul {
+  justify-content: center;
+  display: flex;
+  margin-top: .666667rem;
+}
+
+.cai li {
+  text-align: center;
+  padding-right: .426667rem;
+}
+
+.cai .lis .sanjiao {
+  display: inline-block;
+  height: 0rem;
+  width: 0rem;
+  border: .133333rem solid transparent;
+  border-top-color: #cccccc;
+}
+
+.list {
+  margin-bottom: .533333rem;
+  display: flex;
+  justify-content: space-between;
+  line-height: .6rem;
+  height: 3.893333rem;
+}
+
+.list .lef img {
+  display: inline-block;
+  width: 1.72rem;
+  height: 1.733333rem;
+}
+
+.list .rih1 {
+  height: 2.466667rem;
+}
+
+.list .rih1 .sap1 {
+  display: inline-block;
+  border: 1px solid yellow;
+  background-color: yellow;
+}
+
+.list .rih1 .sap3 {
+  display: inline-block;
+  margin-left: 1.833333rem;
+  border: 1px solid #38aff1;
+  background-color: #38aff1;
+  color: white;
+}
+
+.list .rih1 .sss {
+  color: yellow;
+}
+
+.list .rih1 .sss1 {
+  display: inline-block;
+  margin-left: 2rem;
+}
+
+.list .rih1 .p1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list .rih1 .p2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list .rih1 .p4 {
+  margin-top: 4px;
+}
+
+.list .rih1 .p4 .ls {
+  color: #cccccc;
+  display: inline-block;
+  border: .013333rem solid #cccccc;
+}
+
+.list .rih1 .p4 .ls1 {
+  color: black;
+  display: inline-block;
+  margin-left: .266667rem;
+  border: .013333rem solid #cccccc;
+}
+
+.list .jian {
+  margin-top: .373333rem;
+  border-top: 2px dotted #cccccc;
+}
+
+.list .jian .shang {
+  margin-bottom: .266667rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list .jian .shang .s8 {
+  display: inline-block;
+  color: white;
+  background-color: #db767e;
+}
+
+.list .jian .shang .sanjiao {
+  display: inline-block;
+  height: 0rem;
+  width: 0rem;
+  border: .133333rem solid transparent;
+  border-top-color: #cccccc;
+}
+
+.list .jian .xia .s8 {
+  display: inline-block;
+  color: white;
+  background-color: #db767e;
+}
+
+.list .jjjj img {
+  display: inline-block;
+  width: 1.72rem;
+  height: 1.733333rem;
+}
+
+#elm .footer {
+  height: 2.4rem;
+  background-color: pink;
+}
+
+#elm .footer .pp {
+  display: flex;
+  justify-content: space-between;
+}
+
+#elm .footer .pp p {
+  display: flex;
+  flex-direction: column;
+}
+
+#elm .footer .pp .wenti {
+  text-align: center;
+}
+
+#elm .footer .pp .iconfont {
+  font-family: "iconfont" !important;
+  font-size: 1.333333rem;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+}

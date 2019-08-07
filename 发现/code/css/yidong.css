@@ -1,0 +1,326 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 26.67vw;
+}
+
+body {
+  font-size: 16px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#yidong {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#yidong .header {
+  height: 0.43rem;
+  margin-top: 0.1rem;
+  top: 0rem;
+  left: 0rem;
+  width: 100%;
+  background-color: white;
+}
+
+#yidong .header .hea1 {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hea1 li {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.hea1 .l1 img {
+  width: 0.16rem;
+  height: 0.16rem;
+  line-height: 0.16rem;
+}
+
+.hea1 .l2 img {
+  width: 0.96rem;
+  height: 0.16rem;
+  line-height: 0.16rem;
+}
+
+.hea1 .l3 img {
+  width: 0.16rem;
+  height: 0.16rem;
+  line-height: 0.16rem;
+}
+
+.hea1 .l2 {
+  flex: 3;
+}
+
+#yidong .main {
+  flex: 1;
+  overflow: auto;
+}
+
+.banner {
+  height: 1.2rem;
+}
+
+.banner img {
+  width: 100%;
+  height: 1.2rem;
+  background-size: cover;
+}
+
+.banner2 {
+  display: flex;
+  height: 0.9rem;
+  background-color: white;
+  justify-content: space-around;
+}
+
+.banner2 li {
+  width: 0.48rem;
+  height: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.banner2 .ioc1 img {
+  width: 0.44rem;
+  height: 0.40rem;
+}
+
+.banner2 .ioc2 img {
+  width: 0.44rem;
+  height: 0.40rem;
+}
+
+.banner2 .ioc3 img {
+  width: 0.44rem;
+  height: 0.40rem;
+}
+
+.banner2 .ioc4 img {
+  width: 0.44rem;
+  height: 0.40rem;
+}
+
+.banner2 span {
+  font-size: 0.08rem;
+}
+
+.con {
+  width: 100%;
+  height: 0.65rem;
+  margin-top: 0.1rem;
+  background: url(../images/bg.png);
+  background-repeat: no-repeat;
+  background-size: 3.2rem 0.65rem;
+  overflow: hidden;
+}
+
+.con .icc {
+  width: 1.45rem;
+  height: 0.15rem;
+  margin: auto;
+  margin-top: 0.17rem;
+}
+
+.con .icc .title {
+  font-size: 0.1rem;
+  margin-right: 0.1rem;
+  border: 1px solid #e8dab5;
+  color: #e8dab5;
+}
+
+.con .icc span {
+  font-size: 0.1rem;
+}
+
+.con .icc1 {
+  width: 1.45rem;
+  height: 0.1rem;
+  margin: auto;
+  margin-top: 0.1rem;
+}
+
+.con .icc1 .title {
+  font-size: 0.1rem;
+  margin-right: 0.1rem;
+  border: 0.01rem solid #e8dab5;
+  color: #e8dab5;
+}
+
+.con .icc1 span {
+  font-size: 0.1rem;
+}
+
+.bandd {
+  margin: auto;
+  margin-top: 0.1rem;
+  height: 1.44rem;
+}
+
+.bandd img {
+  width: 100%;
+  height: 1.44rem;
+  background-size: cover;
+}
+
+.shouhuo {
+  height: 1.50rem;
+}
+
+.shouhuo1 {
+  margin-top: 0.1rem;
+  height: 1.50rem;
+  overflow: auto;
+  display: flex;
+  white-space: nowrap;
+  padding: 0 .08rem;
+  font-size: 0;
+}
+
+.shouhuo1 li {
+  width: 0.86rem;
+  height: 1.50rem;
+  display: flex;
+  margin-right: 0.1rem;
+  flex-direction: column;
+}
+
+.shouhuo1 li i img {
+  width: 0.86rem;
+  height: 0.86rem;
+}
+
+.shouhuo1 li i {
+  display: flex;
+  flex-direction: column;
+}
+
+.shouhuo1 .ss1 {
+  width: 0.7rem;
+  height: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.shouhuo1 .ss1 span {
+  text-align: center;
+  font-size: 0.013333rem;
+  color: #333333;
+}
+
+.quanqiu {
+  overflow: hidden;
+  line-height: 1.5;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+.quanqiu .title {
+  letter-spacing: 0.1rem;
+  margin-left: o 0.3rem;
+}
+
+.gouwu {
+  margin-top: 0.1rem;
+  box-sizing: border-box;
+}
+
+.gouwu1 {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.gouwu1 .wu {
+  margin-top: 0.1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gouwu1 .wu .wupian img {
+  width: 1.4rem;
+  height: 1.2rem;
+}
+
+.gouwu1 .wu span {
+  font-size: 0.14rem;
+  color: #cccccc;
+}
+
+.gouwu1 .wu .jia .fa {
+  color: red;
+}
+
+.gouwu1 .wu .jia .chandi {
+  display: inline-block;
+  margin-left: 0.3rem;
+}
+
+#yidong .footer {
+  height: 0.5rem;
+}
+
+.dibu {
+  height: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dibu a {
+  width: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.dibu a div {
+  display: flex;
+  flex-direction: column;
+}
+
+.dibu .box1-1 {
+  display: none;
+}
+
+.dibu a:hover .box1 {
+  display: block;
+}
+
+.dibu .box2 {
+  display: none;
+}
+
+.dibu .box3 {
+  display: none;
+}
+
+.dibu .box4 {
+  display: none;
+}
+
+.dibu .box span {
+  color: #b5b5b5;
+}
