@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <label for="">用户名：</label>
+    <input type="text" placeholder="请输入用户名" autofocus required>
+    <br>
+    <label for="">邮箱</label>
+    <input type="text" multiple>
+    <br>
+    <input type="text" placeholder="正则验证"pattern="\d{3}">
+    <p>
+        <input type="submit">
+    </p>
+</body>
+</html>
+<!-- multiple 可以上传多个文件或者多个邮箱
+    required 必填项
+    pattern 正则验证， 输入内容必须跟正则的表达式格式一样才可以提交
+    novalidate  取消验证，一般给form表单添加，添加后，input的所有验证都将失效 -->

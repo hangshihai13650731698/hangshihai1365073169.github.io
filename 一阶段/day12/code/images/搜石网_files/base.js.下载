@@ -1,0 +1,137 @@
+window._port = "https://lib.backend.soushi88.com";
+window._UserPort = "https://user.backend.soushi88.com";
+window._CompanyPort = "https://company.backend.soushi88.com";
+window.templatePort = "https://template.backend.soushi88.com";
+window.cartPort = "https://cart.backend.soushi88.com";
+var soushi = {
+    logOut: function () {
+        $.ajax({
+            type: "post",
+            url: config.logout,
+            crossDomain: true,
+            async: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                if (res.status.code == 0) {
+                    Mylayer.success('成功退出登录', '', function () {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    Mylayer.error(res.status.message, 1000);
+                }
+            }
+        });
+    },
+    IsLogin: function (text, callback) {
+        var _location = encodeURIComponent(location.href);
+        $.ajax({
+            type: "post",
+            url: config.getMyProfile,
+            crossDomain: true,
+            async: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (typeof callback == 'function') {
+                    callback(res);
+                }
+                var _text = text ? text : '';
+                if (res.status.code == 0) {
+                    soushi.ModelDetailsIsLogin = true;
+                    $('.logMenu').html('<a href="https://slab.soushi88.com/index.html#/user/4">' + res.data.name + '</a>' + _text + '<a href="" class="logOut">退出登录</a>');
+
+                    if (res.data.useManager) {
+                        if (res.data.useManager == 1) {
+                            $('.manager_href').show();
+                        } else {
+                            $('.manager_href').hide();
+                        }
+                    } else {
+                        $('.manager_href').hide();
+                    }
+                } else {
+                    soushi.ModelDetailsIsLogin = false;
+                    $('.logMenu').html('<a href="https://slab.soushi88.com/index.html#/login?back=' + _location + '">请登录</a>' + _text + '<a href="https://slab.soushi88.com/index.html#/register?back=' + _location + '">免费注册</a>');
+                }
+            },
+            error: function (msg) {
+                Mylayer.error('服务器出错，请稍后再试', 2000);
+            }
+        });
+    },
+    getUrlParam: function (name) {
+        var r = window.location.search //匹配目标参数
+        if (r != null & r.length > 0) {
+            r = r.substring(1);
+            var params = r.split('&');
+            for (var i = 0; i < params.length; i++) {
+                var param = params[i].split("=");
+                if (param.length >= 2 && param[0] == name) {
+                    return decodeURIComponent(params[i].substring(name.length + 1));
+                }
+            }
+        }
+        return null;
+    },
+    MinHeight: function () {
+        $('.DetailsContent_body').css({
+            'min-height': $('.DetailsContent').height() - 30 + "px"
+        });
+    },
+    CountDownTime: function (element, time) {
+        var downTime = time ? time : 0;
+        if (downTime == 0) {
+            return false;
+        }
+        clearInterval(soushi.timer);
+        soushi.timer = setInterval(function () {
+            var hours = parseInt(downTime / 3600) < 10 ? '0' + parseInt(downTime / 3600) : parseInt(downTime / 3600);
+            minute = parseInt(downTime % 3600 / 60) < 10 ? '0' + parseInt(downTime % 3600 / 60) : parseInt(downTime % 3600 / 60),
+                second = parseInt(downTime % 60) < 10 ? '0' + parseInt(downTime % 60) : parseInt(downTime % 60);
+            var timeStr = hours + ':' + minute + ':' + second;
+            downTime--;
+            if (downTime < 0) {
+                clearInterval(soushi.timer);
+            }
+            element.html(timeStr);
+        }, 1000);
+    },
+    removeDuplElem: function (array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    array = soushi.removeElement(j, array);//删除指定下标的元素
+                    i = -1;
+                    break;
+                }
+            }
+        }
+        return array;
+    },
+    removeElement: function (index, array) {
+        if (index >= 0 && index < array.length) {
+            for (var i = index; i < array.length; i++) {
+                array[i] = array[i + 1];
+            }
+            array.length = array.length - 1;
+        }
+        return array;
+    },
+    ModelDetailsIsLogin: false,
+    TimeOut: 10000,
+    timer: '',
+};
+//退出登录
+$('body').on('click', '.logOut', function (e) {
+    layer.confirm('确定退出登录吗？', function (index) {
+        layer.close(index);
+        soushi.logOut();
+    });
+    e.preventDefault();
+});

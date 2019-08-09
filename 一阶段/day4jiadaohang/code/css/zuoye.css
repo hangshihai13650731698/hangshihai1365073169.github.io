@@ -1,0 +1,115 @@
+*{
+    padding: 0px;margin: 0;
+}
+#remen{
+    width: 780px;
+    height: 1610px;
+    background-color: #d6dae2;
+    margin: auto;
+    overflow: hidden;
+}
+#remen .box1{
+    width: 780px;
+    height: 375px;
+    background-color: #ffffff;
+     margin-top: 20px;  
+     overflow: hidden;
+}
+#remen .herder{
+    width: 780px;
+    height: 56px;
+  
+    
+   
+}
+#remen .list1{
+    width: 228px;
+    height: 295px;
+    float: left;
+    margin-left: 20px;
+}
+#remen .list2{
+    width: 228px;
+    height: 295px;
+   float: left;
+    margin-left: 30px;
+}
+#remen .list3{
+    width: 228px;
+    height: 295px;
+   float: left;
+    margin-left: 30px;
+}
+#remen .box2{
+    width: 780px;
+    height: 495px;
+    background-color: #ffffff;
+    margin-top: 20px; 
+  
+}
+#remen .gh{
+    width: 780px;
+    height: 56px;
+    
+    overflow: hidden;
+    
+}
+#remen .lj1{
+    width: 746px;
+    height: 128px;
+   background-image:url(../images/icon-at.png);
+  
+    background-repeat: no-repeat;
+   background-position: right top;
+    margin-left: 20px;overflow: hidden;
+}
+#remen .lj2{
+    width: 746px;
+    height: 128px;
+    margin-left: 20px;
+    background-image:url(../images/icon-video.png);
+  
+    background-repeat: no-repeat;
+   background-position: right top;
+    margin-top: 20px;
+}
+#remen .lj3{
+    width: 746px;
+    height: 128px;
+ 
+    margin-left: 20px;
+    margin-top: 20px;
+    background-image:url(../images/icon-laptop.png);
+  
+    background-repeat: no-repeat;
+   background-position: right top;
+}
+#remen .box3{
+    width: 780px;
+    height: 702px;
+     background-color: #ffffff;
+    margin-top: 20px; 
+  
+}
+#remen .jp1{
+    width: 746px;
+    height: 160px;
+    margin-left: 20px;
+
+    overflow: hidden;
+}
+
+#remen .jp2{
+    width: 746px;
+    height: 160px;
+    margin-left: 20px;
+ 
+    margin-top: 10px;
+}
+#remen .jp3{
+    width: 746px;
+    height: 160px;
+    margin-left: 20px;
+   
+    margin-top: 10px;
+}

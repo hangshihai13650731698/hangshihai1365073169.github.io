@@ -1,0 +1,360 @@
+/**
+ * Created by songyingchun on 2017/6/29 0029.
+ */
+// var online = false,
+//     test = false,
+//     dev = true,
+//     local = false;
+var online = true,
+    test = false,
+    dev = false,
+    local = false;
+
+var config = {
+    query: "https://slab.backend.soushi88.com/onsale/query",
+    slabDetail: "https://slab.backend.soushi88.com/onsale/detail",
+    getMyProfile: "https://user.backend.soushi88.com/user/getMyProfile",
+    getMyDelivery: "https://user.backend.soushi88.com/userDelivery/getMyDelivery",
+    delivery: "https://template.backend.soushi88.com/template/delivery",
+    index: "https://slab.backend.soushi88.com/onsale/index",
+    previewBlock: "https://slab.backend.soushi88.com/managerBlock/previewBlock",
+    saveCollect: "https://slab.backend.soushi88.com/blockCollectWxController/saveCollect",
+    removeCollect: "https://slab.backend.soushi88.com/blockCollectWxController/removeCollect",
+    getCartGoodsNumber: "https://cart.backend.soushi88.com/cart/getCartGoodsNumber",
+    getCompanyDetail: "https://company.backend.soushi88.com/commonCompany/getCompanyDetail",
+    createSupplierCollect: "https://company.backend.soushi88.com/supplierCollect/createSupplierCollect",
+    removeSupplierCollect: "https://company.backend.soushi88.com/supplierCollect/removeSupplierCollect",
+    searchSupplierCollect: "https://company.backend.soushi88.com/supplierCollect/searchSupplierCollect",
+    // 现货商城
+    queryCompanySlab: "https://slab.backend.soushi88.com/onsale/queryCompanySlab",
+    // 相册
+    listCompanyImg: "https://company.backend.soushi88.com/commonCompany/listCompanyImg",
+    // 金牌供应商
+    queryGoldCompany: "https://company.backend.soushi88.com/commonCompany/queryGoldCompany",
+    // 搜石头部
+    indexHead: "https://slab.backend.soushi88.com/soushi/index",
+    // 背景墙
+    queryWallPanel: "https://slab.backend.soushi88.com/onsale/queryWallPanel",
+    // 二维码
+    qrcodeImage: "https://slab.backend.soushi88.com/onsale/qrcodeImage",
+    // 预览
+    managerSoushiPreviewBlock: "https://slab.backend.soushi88.com/managerSoushi/previewBlock",
+    // 热门搜索
+    getHotSearchRecord: "https://slab.backend.soushi88.com/onsale/getHotSearchRecord",
+    // 品种
+    listVarietyFromColorGroup: "https://slab.backend.soushi88.com/onsale/listVarietyFromColorGroup",
+    // 统计
+    getWxMallStatistics: "https://slab.backend.soushi88.com/onsale/getWxMallStatistics",
+    // 交易动态
+    demandBillDynamic: "https://trade.backend.soushi88.com/common/demandBillDynamic",
+    // 图片搜索
+    simpleSearch: "https://lib.backend.soushi88.com/stoneLib/simpleSearch",
+    // 记录用户最近搜索、热门搜索
+    createSearchRecord: 'https://slab.backend.soushi88.com/onsale/createSearchRecord',
+
+    logout: "https://user.backend.soushi88.com/user/logout",
+
+    getMyProfile: "https://user.backend.soushi88.com/user/getMyProfile",
+    // 最近搜索
+    getSearchRecord: 'https://slab.backend.soushi88.com/onsale/getSearchRecord',
+    // 搜索推荐
+    getSearchSuggest: 'https://slab.backend.soushi88.com/onsale/suggest',
+
+    mallShopquery: "https://slab.backend.soushi88.com/mallShop/query",
+
+    goldShopshop: "https://company.backend.soushi88.com/goldShop/shop",
+
+    onsalegetShopGoodsInfo: "https://slab.backend.soushi88.com/onsale/getShopGoodsInfo",
+
+    onsalequeryCompanySlab: "https://slab.backend.soushi88.com/onsale/queryCompanySlab",
+
+    goldShophitCountIncrease: "https://company.backend.soushi88.com/goldShop/hitCountIncrease",
+
+    goldShopfollow: "https://company.backend.soushi88.com/goldShop/follow",
+
+    goldShoppatchCancelFollow: "https://company.backend.soushi88.com/goldShop/patchCancelFollow",
+
+    collectshopAttention: "https://slab.backend.soushi88.com/collect/shopAttention",
+
+    managerShopshopInfo: "https://company.backend.soushi88.com/managerShop/shopInfo",
+
+    managerShopgetStatistics: "https://slab.backend.soushi88.com/managerShop/getStatistics",
+
+    managerShophotGoods: "https://slab.backend.soushi88.com/managerShop/hotGoods",
+
+    mallShopqueryShopGoods: "https://slab.backend.soushi88.com/mallShop/queryShopGoods",
+
+    commonhitCountIncrease: "https://slab.backend.soushi88.com/common/hitCountIncrease",
+
+    onsaleallShopVariety: "https://slab.backend.soushi88.com/onsale/allShopVariety",
+
+    // 广告图片点击增加计数
+    bannerHitCount: 'https://perform.backend.soushi88.com/banner/hitCountIncrease',
+    // 获取商城广告位信息
+    getShopBanner: 'https://perform.backend.soushi88.com/banner/list',
+};
+
+if (test) {
+    config = {
+        query: "https://test.slab.backend.soushi88.com/onsale/query",
+        slabDetail: "https://test.slab.backend.soushi88.com/onsale/detail",
+        getMyProfile: "https://test.user.backend.soushi88.com/user/getMyProfile",
+        getMyDelivery: "https://test.user.backend.soushi88.com/userDelivery/getMyDelivery",
+        delivery: "https://test.template.backend.soushi88.com/template/delivery",
+        index: "https://test.slab.backend.soushi88.com/onsale/index",
+        previewBlock: "https://test.slab.backend.soushi88.com/managerBlock/previewBlock",
+        saveCollect: "https://test.slab.backend.soushi88.com/blockCollectWxController/saveCollect",
+        removeCollect: "https://test.slab.backend.soushi88.com/blockCollectWxController/removeCollect",
+        getCartGoodsNumber: "https://test.cart.backend.soushi88.com/cart/getCartGoodsNumber",
+
+        getCompanyDetail: "https://test.company.backend.soushi88.com/commonCompany/getCompanyDetail",
+        createSupplierCollect: "https://test.company.backend.soushi88.com/supplierCollect/createSupplierCollect",
+        removeSupplierCollect: "https://test.company.backend.soushi88.com/supplierCollect/removeSupplierCollect",
+        searchSupplierCollect: "https://test.company.backend.soushi88.com/supplierCollect/searchSupplierCollect",
+        // 现货商城
+        queryCompanySlab: "https://test.slab.backend.soushi88.com/onsale/queryCompanySlab",
+        // 相册
+        listCompanyImg: "https://test.company.backend.soushi88.com/commonCompany/listCompanyImg",
+        // 金牌供应商
+        queryGoldCompany: "https://test.company.backend.soushi88.com/commonCompany/queryGoldCompany",
+        // 搜石头部
+        indexHead: "https://test.slab.backend.soushi88.com/soushi/index",
+        // 背景墙
+        queryWallPanel: "https://test.slab.backend.soushi88.com/onsale/queryWallPanel",
+        // 二维码
+        qrcodeImage: "https://test.slab.backend.soushi88.com/onsale/qrcodeImage",
+        // 预览
+        managerSoushiPreviewBlock: "https://test.slab.backend.soushi88.com/managerSoushi/previewBlock",
+        // 热门搜索
+        getHotSearchRecord: "https://test.slab.backend.soushi88.com/onsale/getHotSearchRecord",
+        // 品种
+        listVarietyFromColorGroup: "https://test.slab.backend.soushi88.com/onsale/listVarietyFromColorGroup",
+        // 获取商城广告位信息
+        getShopBanner: 'https://test.perform.backend.soushi88.com/banner/list',
+        // 广告图片点击增加计数
+        bannerHitCount: 'https://test.perform.backend.soushi88.com/banner/hitCountIncrease',
+        // 统计
+        getWxMallStatistics: "https://test.slab.backend.soushi88.com/onsale/getWxMallStatistics",
+        // 交易动态
+        demandBillDynamic: "https://test.trade.backend.soushi88.com/common/demandBillDynamic",
+        // 图片搜索
+        simpleSearch: "https://test.lib.backend.soushi88.com/stoneLib/simpleSearch",
+        // 记录用户最近搜索、热门搜索
+        createSearchRecord: 'https://test.slab.backend.soushi88.com/onsale/createSearchRecord',
+
+        logout: "https://test.user.backend.soushi88.com/user/logout",
+
+        getMyProfile: "https://test.user.backend.soushi88.com/user/getMyProfile",
+        // 最近搜索
+        getSearchRecord: 'https://test.slab.backend.soushi88.com/onsale/getSearchRecord',
+        // 搜索推荐
+        getSearchSuggest: 'https://test.slab.backend.soushi88.com/onsale/suggest',
+
+        mallShopquery: "https://test.slab.backend.soushi88.com/mallShop/query",
+
+        goldShopshop: "https://test.company.backend.soushi88.com/goldShop/shop",
+
+        onsalegetShopGoodsInfo: "https://test.slab.backend.soushi88.com/onsale/getShopGoodsInfo",
+
+        onsalequeryCompanySlab: "https://test.slab.backend.soushi88.com/onsale/queryCompanySlab",
+
+        goldShophitCountIncrease: "https://test.company.backend.soushi88.com/goldShop/hitCountIncrease",
+
+        goldShopfollow: "https://test.company.backend.soushi88.com/goldShop/follow",
+
+        goldShoppatchCancelFollow: "https://test.company.backend.soushi88.com/goldShop/patchCancelFollow",
+
+        collectshopAttention: "https://test.slab.backend.soushi88.com/collect/shopAttention",
+
+        managerShopshopInfo: "https://test.company.backend.soushi88.com/managerShop/shopInfo",
+
+        managerShopgetStatistics: "https://test.slab.backend.soushi88.com/managerShop/getStatistics",
+
+        managerShophotGoods: "https://test.slab.backend.soushi88.com/managerShop/hotGoods",
+
+        mallShopqueryShopGoods: "https://test.slab.backend.soushi88.com/mallShop/queryShopGoods",
+
+        commonhitCountIncrease: "https://test.slab.backend.soushi88.com/common/hitCountIncrease",
+
+        onsaleallShopVariety: "https://test.slab.backend.soushi88.com/onsale/allShopVariety",
+
+
+    };
+}
+
+if (dev) {
+    config = {
+        query: "http://192.168.199.171:9022/onsale/query",
+        slabDetail: "http://192.168.199.171:9022/onsale/detail",
+        getMyProfile: "http://192.168.199.171:9021/user/getMyProfile",
+        getMyDelivery: "http://192.168.199.171:9021/userDelivery/getMyDelivery",
+        delivery: "http://192.168.199.171:9024/template/delivery",
+        index: "http://192.168.199.171:9022/onsale/index",
+        previewBlock: "http://192.168.199.171:9022/managerBlock/previewBlock",
+        saveCollect: "http://192.168.199.171:9022/blockCollectWxController/saveCollect",
+        removeCollect: "http://192.168.199.171:9022/blockCollectWxController/removeCollect",
+        getCartGoodsNumber: "http://192.168.199.171:9025/cart/getCartGoodsNumber",
+        getCompanyDetail: "http://192.168.199.171:9023/commonCompany/getCompanyDetail",
+        createSupplierCollect: "http://192.168.199.171:9023/supplierCollect/createSupplierCollect",
+        removeSupplierCollect: "http://192.168.199.171:9023/supplierCollect/removeSupplierCollect",
+        searchSupplierCollect: "http://192.168.199.171:9023/supplierCollect/searchSupplierCollect",
+        queryCompanySlab: "http://192.168.199.171:9022/onsale/queryCompanySlab",
+        listCompanyImg: "http://192.168.199.171:9023/commonCompany/listCompanyImg",
+        queryGoldCompany: "http://192.168.199.171:9023/commonCompany/queryGoldCompany",
+        indexHead: "http://192.168.199.171:9022/soushi/index",
+        queryWallPanel: "http://192.168.199.171:9022/soushi/queryWallPanel",
+        qrcodeImage: "http://192.168.199.171:9022/onsale/qrcodeImage",
+        managerSoushiPreviewBlock: "http://192.168.199.171:9022/managerSoushi/previewBlock",
+        getHotSearchRecord: "http://192.168.199.171:9022/onsale/getHotSearchRecord",
+        // 品种
+        listVarietyFromColorGroup: "http://192.168.199.171:9022/onsale/listVarietyFromColorGroup",
+        // 获取商城广告位信息
+        getShopBanner: 'http://192.168.199.171:9022/banner/list',
+        // 广告图片点击增加计数
+        bannerHitCount: 'http://192.168.199.171:9022/banner/hitCountIncrease',
+        // 统计
+        getWxMallStatistics: "http://192.168.199.171:9022/onsale/getWxMallStatistics",
+        // 交易动态
+        demandBillDynamic: "http://192.168.199.171:9026/common/demandBillDynamic",
+        // 图片搜索
+        simpleSearch: "http://192.168.199.171:9020/stoneLib/simpleSearch",
+        // 记录用户最近搜索、热门搜索
+        createSearchRecord: 'http://192.168.199.171:9022/onsale/createSearchRecord',
+
+        logout: "http://192.168.199.171:9021/user/logout",
+
+    }
+}
+
+if (dev) {
+    config = {
+        query: "http://dev.slab.backend.soushi88.com/onsale/query",
+        slabDetail: "http://slab.backend.soushi88.local/onsale/detail",
+        getMyProfile: "http://user.backend.soushi88.local/user/getMyProfile",
+        getMyDelivery: "http://dev.user.backend.soushi88.com/userDelivery/getMyDelivery",
+        delivery: "http://template.backend.soushi88.local/template/delivery",
+        index: "http://slab.backend.soushi88.local/onsale/index",
+        previewBlock: "http://slab.backend.soushi88.local/managerBlock/previewBlock",
+        saveCollect: "http://dev.slab.backend.soushi88.com/blockCollectWxController/saveCollect",
+        removeCollect: "http://dev.slab.backend.soushi88.com/blockCollectWxController/removeCollect",
+        getCartGoodsNumber: "http://cart.backend.soushi88.local/cart/getCartGoodsNumber",
+
+        getCompanyDetail: "http://company.backend.soushi88.local/commonCompany/getCompanyDetail",
+        createSupplierCollect: "http://company.backend.soushi88.local/supplierCollect/createSupplierCollect",
+        removeSupplierCollect: "http://company.backend.soushi88.local/supplierCollect/removeSupplierCollect",
+        searchSupplierCollect: "http://company.backend.soushi88.local/supplierCollect/searchSupplierCollect",
+        // 现货商城
+        queryCompanySlab: "http://slab.backend.soushi88.local/onsale/queryCompanySlab",
+        // 相册
+        listCompanyImg: "http://company.backend.soushi88.local/commonCompany/listCompanyImg",
+        // 金牌供应商
+        queryGoldCompany: "http://company.backend.soushi88.local/commonCompany/queryGoldCompany",
+        // 搜石头部
+        indexHead: "http://slab.backend.soushi88.local/soushi/index",
+        // 背景墙
+        queryWallPanel: "http://slab.backend.soushi88.local/onsale/queryWallPanel",
+        // 二维码
+        qrcodeImage: "http://slab.backend.soushi88.local/onsale/qrcodeImage",
+
+        managerSoushiPreviewBlock: "http://slab.backend.soushi88.local/managerSoushi/previewBlock",
+        // 热门搜索
+        getHotSearchRecord: "http://dev.slab.backend.soushi88.com/onsale/getHotSearchRecord",
+        // 品种
+        listVarietyFromColorGroup: "http://dev.slab.backend.soushi88.com/onsale/listVarietyFromColorGroup",
+        // 获取商城广告位信息
+        getShopBanner: 'http://dev.perform.backend.soushi88.com/banner/list',
+        // 广告图片点击增加计数
+        bannerHitCount: 'http://dev.perform.backend.soushi88.com/banner/hitCountIncrease',
+        // 统计
+        getWxMallStatistics: "https://slab.backend.soushi88.local/onsale/getWxMallStatistics",
+        // 交易动态
+        demandBillDynamic: "http://dev.trade.backend.soushi88.com/common/demandBillDynamic",
+        // 图片搜索
+        simpleSearch: "https://lib.backend.soushi88.local/stoneLib/simpleSearch",
+        // 记录用户最近搜索、热门搜索
+        createSearchRecord: 'http://dev.slab.backend.soushi88.com/onsale/createSearchRecord',
+
+        logout: "http://dev.user.backend.soushi88.com/user/logout",
+
+        getMyProfile: "http://dev.user.backend.soushi88.com/user/getMyProfile",
+        // 最近搜索
+        getSearchRecord: 'http://dev.slab.backend.soushi88.com/onsale/getSearchRecord',
+        // 搜索推荐
+        getSearchSuggest: 'http://dev.slab.backend.soushi88.com/onsale/suggest',
+
+        mallShopquery: "http://dev.slab.backend.soushi88.com/mallShop/query",
+
+        goldShopshop: "http://dev.company.backend.soushi88.com/goldShop/shop",
+
+        onsalegetShopGoodsInfo: "http://dev.slab.backend.soushi88.com/onsale/getShopGoodsInfo",
+
+        onsalequeryCompanySlab: "http://dev.slab.backend.soushi88.com/onsale/queryCompanySlab",
+
+        goldShophitCountIncrease: "http://dev.company.backend.soushi88.com/goldShop/hitCountIncrease",
+
+        goldShopfollow: "http://dev.company.backend.soushi88.com/goldShop/follow",
+
+        goldShoppatchCancelFollow: "http://dev.company.backend.soushi88.com/goldShop/patchCancelFollow",
+
+        collectshopAttention: "http://dev.slab.backend.soushi88.com/collect/shopAttention",
+
+        managerShopshopInfo: "http://dev.company.backend.soushi88.com/managerShop/shopInfo",
+
+        managerShopgetStatistics: "http://dev.slab.backend.soushi88.com/managerShop/getStatistics",
+
+        managerShophotGoods: "http://dev.slab.backend.soushi88.com/managerShop/hotGoods",
+
+        mallShopqueryShopGoods: "http://dev.slab.backend.soushi88.com/mallShop/queryShopGoods",
+
+        commonhitCountIncrease: "http://dev.slab.backend.soushi88.com/common/hitCountIncrease",
+
+        onsaleallShopVariety: "http://dev.slab.backend.soushi88.com/onsale/allShopVariety",
+
+
+    };
+}
+
+if (local) {
+    config = {
+        query: "../data/sxh.json",
+        getMyProfile: "../data/getMyProfile.json",
+        slabDetail: "../data/sxhDetail.json",
+        getMyProfile: "../data/getMyProfile.json",
+        delivery: "../data/delivery.json",
+        getMyDelivery: "../data/getMyDelivery.json",
+        index: "../data/index.json",
+        previewBlock: "../data/previewBlock.json",
+        saveCollect: "../data/saveCollect.json",
+        removeCollect: "../data/removeCollect.json",
+        getCartGoodsNumber: "../data/getCartGoodsNumber.json",
+        getCompanyDetail: "../data/getCompanyDetail.json",
+        createSupplierCollect: "../data/createSupplierCollect.json",
+        removeSupplierCollect: "../data/removeSupplierCollect.json",
+        searchSupplierCollect: "../data/searchSupplierCollect.json",
+        queryCompanySlab: "../data/queryCompanySlab.json",
+        listCompanyImg: "../data/listCompanyImg.json",
+        queryGoldCompany: "../data/queryGoldCompany.json",
+        indexHead: "../data/indexHead.json",
+        queryWallPanel: "../data/queryWallPanel.json",
+        qrcodeImage: "../data/qrcodeImage.json",
+        managerSoushiPreviewBlock: "../data/previewBlock.json",
+        // 热门搜索
+        getHotSearchRecord: "../data/getHotSearchRecord.json",
+        // 品种
+        listVarietyFromColorGroup: "../data/listVarietyFromColorGroup.json",
+        // 获取商城广告位信息
+        getShopBanner: '../data/banner/list',
+        // 统计
+        getWxMallStatistics: "../data/getWxMallStatistics.json",
+        // 交易动态
+        demandBillDynamic: "../data/demandBillDynamic.json",
+        // 图片搜索
+        simpleSearch: "../data/simpleSearch.json",
+        // 记录用户最近搜索、热门搜索
+        createSearchRecord: '../data/createSearchRecord.json',
+
+        logout: "../data/logout.json",
+
+        getMyProfile: "../data/getMyProfile.json",
+    }
+}

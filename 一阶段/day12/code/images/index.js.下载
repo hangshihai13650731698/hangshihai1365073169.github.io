@@ -1,0 +1,1162 @@
+/**
+ * Created by songyingchun on 2017/7/18 0018.
+ */
+$(function() {
+    util = $.extend({}, util, {
+        islogin: false,
+        isEmplogVerify: false,
+        //
+        // 参数
+        $param: {
+            blockSort: 1,
+            saleUnit: -1,
+            color: 0,
+            grade: 0,
+            keyword: '',
+            kind: 0,
+            label: '',
+            maxLength: 0,
+            maxPrice: 0,
+            maxWidth: 0,
+            minLength: 0,
+            minPrice: 0,
+            minWidth: 0,
+            orderBy: 0,
+            pageCurrent: 1,
+            pageSize: 8,
+            quality: 0,
+            saleMethod: -1,
+            maxThickness: 0,
+            minThickness: 0,
+            variety: ''
+        },
+
+        renderCtrlList: function() {
+            var bgArr = util.$bgArr,
+                pxColorArr = util.$pxColorArr;
+
+            // 现货
+            $.ajax({
+                type: "post",
+                url: config.listVarietyFromColorGroup,
+                async: true,
+                crossDomain: true,
+                data: {
+                    blockSort: 1
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                success: function(res) {
+                    if (res.status.code == 0) {
+                        var data = res.data[0];
+                        var str = "";
+                        str +=
+                            '<div class="option-list-wrapper">' +
+                            '<div class="ctrl-title"><i class="icon"></i>现货商城</div>';
+                        if (data.length) {
+                            str += '<div class="option-list">';
+                            for (var j = 0; j < data.length; j++) {
+                                var active = "";
+                                if (data[j].highlight) {
+                                    active = " active";
+                                }
+                                str += '<span class="option-item delegate-click' + active + '" data-num="' + data[j] + '">' + data[j] + '</span>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '</div>';
+
+                        // color-panel
+                        var left = '',
+                            right = '',
+                            list = res.data,
+                            text = null,
+                            bgColor = null,
+                            colorList = null,
+                            colorStr = '';
+
+                        right += '<div class="swiper-list">';
+                        // 颜色排序
+                        list = util.colorSort(list, util.$colorArr, util.$pxColorArr);
+                        // 如果这个数据为空，模拟一个全部数据
+                        if (util.emptyObject(list)) {
+                            list = [{}];
+                        }
+
+                        for (var key in list) {
+                            // 匹配text
+                            text = pxColorArr[key];
+                            // 匹配颜色
+                            bgColor = bgArr[key];
+                            // 右边颜色对应的品种
+                            colorList = list[key];
+                            // 颜色高亮
+                            var colorActive = '';
+                            var varietyActive = '';
+
+                            if (key == 0) {
+                                colorActive = ' active';
+                                varietyActive = ' active';
+                            }
+                            left +=
+                                '<div class="color-item' + colorActive + '" data-key="' + key + '">' +
+                                '<i style="background: ' + bgColor + ' no-repeat;background-size: 20px;' + (text == '白色' ? 'border: 1px solid #C9C9C9;' : '') + '"></i>' +
+                                '<span>' + text + '</span>' +
+                                '</div>';
+                        }
+
+                        str +=
+                            '<div class="color-panel-list">' +
+                            '<div class="color-panel-item">' +
+                            '<div class="color-content">' +
+                            '<div class="title">色系</div>' +
+                            '<div class="color-list">' + left + '</div>' +
+                            '</div>' +
+                            '<div class="variety-content">' +
+                            '<div class="title">热门品种</div>' +
+                            '<div class="variety-list"></div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                        $("#JCtrlPageList .ctrl-page-item").eq(0).html(str);
+
+                        $("#JCtrlPageList .ctrl-page-item").eq(0).find(".option-item").click(function() {
+                            window.open(util.search('../html/sxh.html', {
+                                variety: $(this).text()
+                            }), '_blank');
+                        });
+                        //
+                        util.isLoadSxh = true;
+                        if (util.isLoadSxh && util.isLoadWall && util.isLoadJp) {
+                            loadHotSearchRecord();
+                        }
+                    }
+                },
+                error: function(res, data) {}
+            });
+            // 背景墙
+            $.ajax({
+                type: "post",
+                url: config.listVarietyFromColorGroup,
+                async: true,
+                crossDomain: true,
+                data: {
+                    blockSort: 2
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                success: function(res) {
+                    if (res.status.code == 0) {
+                        console.log(res);
+                        var data = res.data[0];
+                        var str = "";
+                        str +=
+                            '<div class="option-list-wrapper">' +
+                            '<div class="ctrl-title"><i class="icon"></i>背景墙</div>';
+                        if (data.length) {
+                            str += '<div class="option-list">';
+                            for (var j = 0; j < data.length; j++) {
+                                var active = "";
+                                if (data[j].highlight) {
+                                    active = " active";
+                                }
+                                str += '<span class="option-item delegate-click' + active + '" data-num="' + data[j] + '">' + data[j] + '</span>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '</div>';
+
+                        // color-panel
+                        var left = '',
+                            right = '',
+                            list = res.data,
+                            text = null,
+                            bgColor = null,
+                            colorList = null,
+                            colorStr = '';
+
+                        // right += '<div class="swiper-list">';
+                        // 颜色排序
+                        list = util.colorSort(list, util.$colorArr, util.$pxColorArr);
+                        // 如果这个数据为空，模拟一个全部数据
+                        if (util.emptyObject(list)) {
+                            list = [{}];
+                        }
+
+                        for (var key in list) {
+                            // 匹配text
+                            text = pxColorArr[key];
+                            // 匹配颜色
+                            bgColor = bgArr[key];
+                            // 右边颜色对应的品种
+                            colorList = list[key];
+                            // 颜色高亮
+                            var colorActive = '';
+                            var varietyActive = '';
+
+                            if (key == 0) {
+                                colorActive = ' active';
+                                varietyActive = ' active';
+                            }
+                            left +=
+                                '<div class="color-item' + colorActive + '" data-key="' + key + '">' +
+                                '<i style="background: ' + bgColor + ' no-repeat;background-size: 20px;' + (text == '白色' ? 'border: 1px solid #C9C9C9;' : '') + '"></i>' +
+                                '<span>' + text + '</span>' +
+                                '</div>';
+                        }
+
+                        str +=
+                            '<div class="color-panel-list">' +
+                            '<div class="color-panel-item">' +
+                            '<div class="color-content">' +
+                            '<div class="title">色系</div>' +
+                            '<div class="color-list">' + left + '</div>' +
+                            '</div>' +
+                            '<div class="variety-content">' +
+                            '<div class="title">热门品种</div>' +
+                            '<div class="variety-list"></div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                        $("#JCtrlPageList .ctrl-page-item").eq(1).html(str);
+
+                        $("#JCtrlPageList .ctrl-page-item").eq(1).find(".option-item").click(function() {
+                            window.open(util.search('../html/wall.html', {
+                                variety: $(this).text()
+                            }), '_blank');
+                        });
+
+                        util.isLoadWall = true;
+                        if (util.isLoadSxh && util.isLoadWall && util.isLoadJp) {
+                            loadHotSearchRecord();
+                        }
+                    }
+                },
+                error: function(res, data) {}
+            });
+            // 优选
+            $.ajax({
+                type: "post",
+                url: config.listVarietyFromColorGroup,
+                async: true,
+                crossDomain: true,
+                data: {
+                    blockSort: 1,
+                    label: 1
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                success: function(res) {
+                    if (res.status.code == 0) {
+                        console.log(res);
+                        var data = res.data[0];
+                        var str = "";
+                        str +=
+                            '<div class="option-list-wrapper">' +
+                            '<div class="ctrl-title"><i class="icon"></i>优选</div>';
+                        if (data && data.length) {
+                            str += '<div class="option-list">';
+                            for (var j = 0; j < data.length; j++) {
+                                var active = "";
+                                if (data[j].highlight) {
+                                    active = " active";
+                                }
+                                str += '<span class="option-item delegate-click' + active + '" data-num="' + data[j] + '">' + data[j] + '</span>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '</div>';
+                        // color-panel
+                        var left = '',
+                            right = '',
+                            list = res.data,
+                            text = null,
+                            bgColor = null,
+                            colorList = null,
+                            colorStr = '';
+
+                        // right += '<div class="swiper-list">';
+                        // 颜色排序
+                        list = util.colorSort(list, util.$colorArr, util.$pxColorArr);
+                        // 如果这个数据为空，模拟一个全部数据
+                        if (util.emptyObject(list)) {
+                            list = [{}];
+                        }
+
+                        for (var key in list) {
+                            // 匹配text
+                            text = pxColorArr[key];
+                            // 匹配颜色
+                            bgColor = bgArr[key];
+                            // 右边颜色对应的品种
+                            colorList = list[key];
+                            // 颜色高亮
+                            var colorActive = '';
+                            var varietyActive = '';
+
+                            if (key == 0) {
+                                colorActive = ' active';
+                                varietyActive = ' active';
+                            }
+                            left +=
+                                '<div class="color-item' + colorActive + '" data-key="' + key + '">' +
+                                '<i style="background: ' + bgColor + ' no-repeat;background-size: 20px;' + (text == '白色' ? 'border: 1px solid #C9C9C9;' : '') + '"></i>' +
+                                '<span>' + text + '</span>' +
+                                '</div>';
+                        }
+
+                        str +=
+                            '<div class="color-panel-list">' +
+                            '<div class="color-panel-item">' +
+                            '<div class="color-content">' +
+                            '<div class="title">色系</div>' +
+                            '<div class="color-list">' + left + '</div>' +
+                            '</div>' +
+                            '<div class="variety-content">' +
+                            '<div class="title">热门品种</div>' +
+                            '<div class="variety-list"></div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                        $("#JCtrlPageList .ctrl-page-item").eq(2).html(str);
+                        $("#JCtrlPageList .ctrl-page-item").eq(2).find(".option-item").click(function() {
+                            window.open(util.search('../html/jpsc.html', {
+                                variety: $(this).text()
+                            }), '_blank');
+                        });
+
+                        util.isLoadJp = true;
+                        if (util.isLoadSxh && util.isLoadWall && util.isLoadJp) {
+                            loadHotSearchRecord();
+                        }
+                    }
+                },
+                error: function(res, data) {}
+            });
+
+            function loadHotSearchRecord() {
+                // 热门搜索
+                $.ajax({
+                    type: "post",
+                    url: config.getHotSearchRecord,
+                    crossDomain: true,
+                    async: true,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: {},
+                    dataType: "json",
+                    success: function(res) {
+                        if (res.status.code == 0) {
+                            var list = res.data.list;
+                            var right = '';
+                            for (var i = 0; i < list.length; i++) {
+                                right += '<div class="variety-item">' + list[i].replace(/\s/, '') + '</div>';
+                            }
+                            $("#JCtrlPageList .variety-list").html(right);
+                        }
+                    },
+                    error: function() {
+                        Mylayer.error("服务器出错，请稍后再试", 2000);
+                    }
+                });
+            }
+
+            // 绑定点击颜色事件
+            $("#JCtrlPageList").on('click', '.ctrl-page-item .color-list .color-item', function(e) {
+                var swiper2 = util.$swiper2 || [],
+                    clickIndex = $(this).index(),
+                    thisCtrlItem = $(e.target).parents(".ctrl-page-item"),
+                    ctrlItemIndex = thisCtrlItem.index();
+
+                $(".color-list .color-item", thisCtrlItem).removeClass("active").eq(clickIndex).addClass("active");
+                $(".variety-list .swiper-item", thisCtrlItem).removeClass("active").eq(clickIndex).addClass("active");
+
+                // 记录搜索缓存
+                // 跳转
+                // 分为现货、背景墙、精品
+                var index = $("#JCtrlPageList .ctrl-page-item.active").index();
+                var page = 'sxh';
+                // 背景墙
+                if (index == 1) {
+                    page = 'wall';
+                }
+                // 精品
+                else if (index == 2) {
+                    page = 'jpsc';
+                }
+                window.location.href = util.search('../html/' + page + '.html', {
+                    color: $(this).attr("data-key"),
+                });
+            });
+
+            // 绑定点击颜色事件
+            $("#JCtrlPageList").on('dbclick', '.ctrl-page-item .color-list .color-item', function(e) {
+                console.log("color-item");
+                var swiper2 = util.$swiper2 || [],
+                    clickIndex = $(this).index(),
+                    thisCtrlItem = $(e.target).parents(".ctrl-page-item"),
+                    ctrlItemIndex = thisCtrlItem.index();
+
+                $(".color-list .color-item", thisCtrlItem).removeClass("active").eq(clickIndex).addClass("active");
+                $(".variety-list .swiper-item", thisCtrlItem).removeClass("active").eq(clickIndex).addClass("active");
+
+                var index = $("#JCtrlPageList .ctrl-page-item.active").index();
+                var page = 'sxh';
+                // 背景墙
+                if (index == 1) {
+                    page = 'wall';
+                }
+                // 精品
+                else if (index == 2) {
+                    page = 'jpsc';
+                }
+                window.location.href = util.search('../html/' + page + '.html', {
+                    color: $(this).attr("data-key"),
+                });
+            });
+
+            // 绑定点击热门品种。事件代理。并记录搜索品种
+            $("#JCtrlPageList").on('click', '.ctrl-page-item .variety-list .variety-item', function() {
+                var // 后台给的颜色
+                    color = $(this).parents(".color-panel-list").find(".color-list .color-item.active").attr("data-key"),
+                    variety = $(this).text();
+
+                if (variety == '全部') {
+                    variety = '';
+                }
+                // 处理高亮样式
+                $(this).addClass("active").siblings().removeClass("active");
+
+                // 记录搜索缓存
+                util.saveSearchRecord(variety, function() {
+                    // 跳转
+                    // 分为现货、背景墙、精品
+                    var index = $("#JCtrlPageList .ctrl-page-item.active").index();
+                    var page = 'sxh';
+                    // 背景墙
+                    if (index == 1) {
+                        page = 'wall';
+                    }
+                    // 精品
+                    else if (index == 2) {
+                        page = 'jpsc';
+                    }
+                    window.location.href = util.search('../html/' + page + '.html', {
+                        // color: color,
+                        keyword: variety
+                    });
+                });
+            });
+
+            // 品种、颜色、等级
+            $("#JCtrlPageList .ctrl-page-item").mouseenter(function(e) {
+                var ctrlIndex = $(this).index();
+                $(this).addClass("active").siblings().removeClass("active");
+            });
+
+            // 移出
+            $("#JCtrlPageList .ctrl-page-item").mouseleave(function(e) {
+                $(this).removeClass("active");
+            });
+        },
+
+        renderTab: function(data) {
+            util.$swiper1 = new Swiper('.swiper-container1', {
+                autoplay: true, //可选选项，自动滑动
+                lazy: {
+                    loadPrevNext: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            })
+        },
+        // 获取商城广告位信息
+        initGetBanner: function() {
+            // 请求数据
+            // location 广告位置(1:首页 2:金牌店铺 3:图片)  number  
+            // servingPoint    投放点(1:pc 2:wx)  number
+            util.ajaxget(config.getShopBanner, { location: 1, servingPoint: 1 }, function(data) {
+                var result = '',
+                    item = null;
+                list = data.data.list;
+                var list_banner = "";
+                for (var i = 0; i < list.length; i++) {
+                    var item = "" +
+                        '<li class="swiper-slide ">' +
+          '<div class="ban-swiper-link" data-id="' + list[i].id + '" data-url="' + list[i].bannerJumpUrl + '" >' +
+                        '<img src="' + list[i].banner + '?x-oss-process=image/resize,m_lfit,h_400,w_800" data-src="' + list[i].banner + '?x-oss-process=image/resize,m_lfit,h_400,w_800" class="swiper-lazy"  alt="'+list[i].title+'">' +
+                        '</div>' + 
+                        '</li>'
+                    list_banner += item;
+                }
+                $("#JSwiperContainer1>.swiper-wrapper").append(list_banner);
+                //初始化轮播广告位
+                util.initBannerSwiper();
+            });
+        },
+
+        initBannerSwiper: function() {
+            util.$swiper1 = new Swiper('.swiper-container1', {
+                autoplay: true, //可选选项，自动滑动
+                lazy: {
+                    loadPrevNext: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            })
+        },
+
+        // 统计
+        initCount: function() {
+            util.ajax(config.getWxMallStatistics, {}, function(data) {
+                var str = '';
+                var mallStatistics = data.data.mallStatistics;
+                str +=
+                    '<li><i>' + mallStatistics.totalBillNum + '</i><span>订单需求量</span></li>' +
+                    '<li><i>' + mallStatistics.totalSaleAmount + '万</i><span>交易金额</span></li>' +
+                    '<li><i>' + mallStatistics.totalSaleArea + '万m²</i><span>成交面积</span></li>';
+                $("#Jstat").html(str);
+            });
+
+            // 导航要去掉缓存
+            $("#JSwiperContainer2 .swiper-slide").click(function() {
+                util.cleanPageData();
+            });
+        },
+        // 交易动态
+        initDyn: function() {
+            util.ajax(config.demandBillDynamic, {}, function(data) {
+                var result = '';
+                var list = data.data.list;
+                var item = null;
+                for (var i = 0; i < list.length; i++) {
+                    item = list[i];
+                    result +=
+                        '<div class="swiper-slide">' +
+                        '<i>' + item.userName + '</i>' +
+                        '<i>' + item.variety + '</i>' +
+                        '<i>' + item.statusName + '</i>' +
+                        '<i>' + item.demandTimeStr + '</i>' +
+                        '</div>';
+                }
+                $(".dyn .swiper-wrapper").html(result);
+                // 初始化swiper
+                util.$swiper3 = new Swiper('.swiper-container3', {
+                    direction: 'vertical',
+                    slidesPerView: 'auto',
+                    autoplay: true,
+                    initialSlide: 0
+                });
+            });
+        },
+        renderLoginNotice: function(res) {
+            var islogin = util.islogin;
+            if (islogin) {
+                $("#JNoticeList .login").addClass("active");
+                $("#JNoticeList .login .title").text("你好," + res.data.name + "欢迎回来！");
+                if (res.data && res.data.useManager == 1) {
+                    $("#JManageLoginCtrl").show();
+                }
+            } else {
+                $("#JNoticeList .unlogin").addClass("active");
+            }
+        },
+        // 快讯
+        renderFlash: function(data) {
+            var news = data.news;
+            var str = "";
+            if (news.length) {
+                for (var i = 0; i < news.length; i++) {
+                    var item = news[i];
+                    str +=
+                        '<li><a href="' + item.url + '" target="_blank">' + item.title + '</li>';
+                }
+            } else {
+                str +=
+                    '<li><a href="javascript:void(0);">暂无数据</li>';
+            }
+            $("#JFlashSlide .slide").html(str);
+
+            var merge = false;
+            if (news.length > 3) {
+                merge = true;
+            }
+
+            new Slide({
+                target: $("#JFlashSlide .slide li"),
+                effect: "slide",
+                autoPlay: true,
+                animateTime: 1000,
+                merge: merge,
+                stay: 3000,
+                onchange: function() {},
+                direction: 'y',
+            });
+        },
+        // 公告
+        renderPublic: function(data) {
+            var bulletins = data.bulletins;
+            var str = "";
+            if (bulletins.length) {
+                for (var i = 0; i < bulletins.length; i++) {
+                    var item = bulletins[i];
+                    str +=
+                        '<li><a href="' + item.url + '" target="_blank">' + item.title + '</li>';
+                }
+            } else {
+                str +=
+                    '<li><a href="javascript:void(0);">暂无数据</li>';
+            }
+            $("#JPublicSlide .slide").html(str);
+
+            var merge = false;
+            if (bulletins.length > 3) {
+                merge = true;
+            }
+
+            new Slide({
+                target: $("#JPublicSlide .slide li"),
+                effect: "slide",
+                autoPlay: true,
+                animateTime: 1000,
+                merge: merge,
+                stay: 3000,
+                onchange: function() {},
+                direction: 'y',
+            });
+        },
+        renderHeader: function(res) {
+            // 已登录
+            if (util.islogin) {
+                var img = '<img src = "../img/Autherized_icon@2x.png"/>'
+                if (util.authStatus == 2) {
+                    img = '<img src = "../img/unverified_icon@2x.png"/>'
+                }
+                if (util.authStatus == 3) {
+                    img = '<img src = "../img/Toaudit_icon@2x.png"/>'
+                }
+                if (util.authStatus == null) {
+                    img = '<img src = "../img/unverified_icon@2x.png"/>'
+                }
+                if (test) {
+                    $('.logMenu').html('<a href="https://test.slab.soushi88.com/index.html#/user/4/">' + res.data.name + img + '</a><i class="icon"></i><a href="" class="logOut">退出登录</a>');
+                } else {
+                    $('.logMenu').html('<a href="https://slab.soushi88.com/index.html#/user/4">' + res.data.name + img + '</a><i class="icon"></i><a href="" class="logOut">退出登录</a>');
+                }
+                $(".login-panel .name").text(res.data.name);
+                if (res.data.useManager) {
+                    if (res.data.useManager == 1) {
+                        $(".freeRegister").hide();
+                        $('.manager_href').show();
+                    } else {
+                        $(".freeRegister").show();
+                        $('.manager_href').hide();
+                    }
+                } else {
+                    $(".freeRegister").show();
+                    $('.manager_href').hide();
+                }
+                $(".login-status").show();
+                $(".unlogin-status").hide();
+            } else {
+                if (test) {
+                    $('.logMenu').html('<a href="https://test.slab.soushi88.com/index.html#/login?back=' + window.location.href + '">请登录</a>');
+                    $('.freeRegister').html('<a href="https://test.slab.soushi88.com/index.html#/register?back=' + window.location.href + '">免费注册</a>');
+                } else {
+                    $('.logMenu').html('<a href="https://slab.soushi88.com/index.html#/login?back=' + window.location.href + '">请登录</a>');
+                    $('.freeRegister').html('<a href="https://slab.soushi88.com/index.html#/register?back=' + window.location.href + '">免费注册</a>');
+                }
+            }
+            // 退出登录
+            $(".publicHeader_Rhead .logMenu .icon").click(function() {
+                if (!this.show) {
+                    $(this).parent().addClass("detail");
+                } else {
+                    $(this).parent().removeClass("detail");
+                }
+                this.show = !this.show;
+            });
+
+            // 收藏
+            $(".publicHeader_Rhead .collect").click(function() {
+                if (!this.show) {
+                    $(this).addClass("detail");
+                } else {
+                    $(this).removeClass("detail");
+                }
+                this.show = !this.show;
+            });
+
+            // 点击空白处收起
+            $(document).click(function(e) {
+                if (!$(e.target).parents(".collect").length && e.target != $(".publicHeader_Rhead .logMenu .icon")[0]) {
+                    // 关闭我的
+                    $(".publicHeader_Rhead .logMenu").removeClass("detail");
+                    if ($(".publicHeader_Rhead .logMenu .icon")[0]) {
+                        $(".publicHeader_Rhead .logMenu .icon")[0].show = false;
+                    }
+                    // 关闭收藏
+                    $(".publicHeader_Rhead .collect").removeClass("detail");
+                    $(".publicHeader_Rhead .collect")[0].show = false;
+                }
+            });
+        },
+        // 请求数据
+        fetchIndex: function(data, context) {
+            $.ajax({
+                type: "post",
+                url: config.query,
+                async: true,
+                crossDomain: true,
+                data: data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                success: function(res) {
+                    if (res.status.code == 0) {
+                        // 保存数据
+                        if (data.blockSort == 1) {
+                            util.$jpData = res.data;
+                        } else {
+                            util.$wallData = res.data;
+                        }
+                        if (data.youxuan == 30) {
+                            util.$xpinData = res.data;
+                        }
+                        //关闭加载动画
+                        layer.closeAll("loading");
+                        var resultList = $('.result-list', context);
+                        resultList.empty();
+                        var result = '';
+                        if (res.data.list.length == 0) {
+                            result = '<p class="erro_text">未找到相关板材</p>';
+                            // layer.msg('未找到相关板材！', {
+                            //   time: 2000
+                            // })
+                        } else {
+                            result = util.renderResultList(res.data.list, 8);
+                        }
+                        resultList.html(result);
+                        util.replaceSrc(resultList.find('.big-pic'));
+                    } else {
+                        layer.closeAll("loading");
+                        layer.msg("搜索失败！");
+                    }
+                },
+                error: function(res, data) {
+                    //关闭加载动画
+                    layer.closeAll("loading");
+                    layer.msg("加载失败", {
+                        icon: 16,
+                        time: 2000
+                    });
+                }
+            });
+        },
+        // 个人资料
+        fetchGetMyProfile: function() {
+            $.ajax({
+                type: "post",
+                url: config.getMyProfile,
+                crossDomain: true,
+                async: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {},
+                dataType: "json",
+                success: function(res) {
+                    // 合并原始数据
+                    var finalData = $.extend({}, util.$param, {
+                        label: '1',
+                        youxuan: 30
+                    });
+                    var youxuan = $.extend({}, util.$param, {
+                        label: '2',
+                    });
+                    var saleData = $.extend({}, util.$param, {
+                        label: '3',
+                        pageSize: 40
+                    });
+                    util.fetchIndex(finalData, $(".newArrival1"));
+                    util.fetchIndex(youxuan, $(".newArrival"));
+                    util.getSales(saleData);
+
+                    var finalData = $.extend({}, util.$param, {
+                        blockSort: 2
+                    });
+                    util.fetchIndex(finalData, $(".recommend"));
+
+                    if (res.status.code == 0) {
+                        var data = res.data;
+                        util.islogin = true;
+                        util.authStatus = res.data.authStatus;
+                        util.useManager = res.data.useManager;
+                        util.showPrice = res.data.showPrice;
+                        if (data.employVerify == 2 || data.employVerify == 5) {
+                            util.isEmployVerify = true;
+                        }
+                        // 测试
+                        if (util.search().islogin == 'false') {
+                            util.islogin = false;
+                        } else if (util.search().islogin == 'true') {
+                            util.islogin = true;
+                        }
+                        // 为了测试。可以在本地、开发、测试环境的url加上showPrice=false，不显示价格。
+                        if (online == false && util.search().showPrice) {
+                            util.showPrice = util.search().showPrice;
+                        }
+                    }
+                    // util.renderLoginNotice(res);
+                    // 登录头
+                    util.renderHeader(res);
+                    // 热门搜索
+                    util.hotSearch();
+                    // 统计
+                    util.initCount();
+                    // 交易动态
+                    util.initDyn();
+
+                    util.fetchIndexHead();
+                    // 广告轮播
+                    util.initGetBanner();
+
+
+                },
+                error: function() {
+                    Mylayer.error("服务器出错，请稍后再试", 2000);
+                }
+            });
+        },
+        // 热门搜索
+        hotSearch: function() {
+            $.ajax({
+                type: "post",
+                url: config.getHotSearchRecord,
+                crossDomain: true,
+                async: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {},
+                dataType: "json",
+                success: function(res) {
+                    if (res.status.code == 0) {
+                        var list = res.data.list;
+                        var str = '<label>热门搜索</label>';
+                        for (var i = 0; i < list.length; i++) {
+                            str += '<span>' + list[i] + '</span>';
+                        }
+                        //
+                        $(".publicHeader_Rcontent_nav").html(str);
+                    }
+                },
+                error: function() {
+                    Mylayer.error("服务器出错，请稍后再试", 2000);
+                }
+            });
+        },
+        // indexHead
+        fetchIndexHead: function() {
+            $.ajax({
+                type: "post",
+                url: config.indexHead,
+                crossDomain: true,
+                async: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {},
+                dataType: "json",
+                success: function(res) {
+                    if (res.status.code == 0) {
+                        var data = res.data;
+                        util.renderCtrlList(data);
+                        // util.renderTab(data);
+                        util.renderFlash(data);
+                        util.renderPublic(data);
+                    }
+                },
+                error: function() {
+                    Mylayer.error("服务器出错，请稍后再试", 2000);
+                }
+            });
+        },
+        firstLoad: function() {
+            util.fetchGetMyProfile();
+        },
+        bitmap: "../img/index/bitmap.png"
+    });
+
+    // 搜索查询
+    var searchImage, $totalRow, $pageCurrent, fd;
+    //点击相机logo
+    $(".camera_icon").on("click", function(e) {
+        $(".map-search-btn").addClass("xiangji");
+        $(".searchKeyword").attr("placeholder", "在此处粘贴图片地址");
+
+        $(".map-search").css({
+            "border-bottom": "0px solid #fffff8"
+        });
+        $(".soutu-state-normal").slideDown(100);
+        $(this).css("visibility", "hidden");
+        $(".search-logo").css("visibility", "hidden");
+        e.stopPropagation();
+    });
+    //关闭搜索图框
+    $(".close-soutu").on("click", function() {
+        $(".searchKeyword").attr("placeholder", "输入关键词/添加图片");
+        $(".map-search-btn").removeClass("xiangji");
+        $(".soutu-state-normal").slideUp(100, function() {
+            $(".map-search-btn").addClass("icon-sousuo-sousuo").removeClass("icon-xiangji");
+            $(".map-search").css({
+                "border-bottom": "1px solid #1495d6"
+            });
+
+            $(".camera_icon").css("visibility", "visible");
+            $(".search-logo").css("visibility", "visible");
+        });
+        $(".preview_box").html('<div class="map-search-img" style="">+</div>');
+    });
+    // 点击页面任意处，关闭搜索框
+    $(document).on("click", function() {
+        $(".searchKeyword").attr("placeholder", "输入关键词/添加图片");
+        $(".map-search-btn").removeClass("xiangji");
+        $(".soutu-state-normal").slideUp(100, function() {
+            $(".map-search-btn").addClass("icon-sousuo-sousuo").removeClass("icon-xiangji");
+            $(".map-search").css({
+                "border-bottom": "1px solid #1495d6"
+            });
+            $(".camera_icon").css("visibility", "visible");
+            $(".search-logo").css("visibility", "visible");
+        });
+    });
+    //点击上传图片
+    var $file = $("#img_input");
+    $(".preview_box").on("click", ".map-search-img", function(e) {
+        $file.trigger("click");
+        e.stopPropagation();
+    });
+    $file.on("click", function(e) {
+        e.stopPropagation();
+    });
+    //点击上传
+    $file.on("change", function(e) {
+        var file_data = e.target.files[0];
+
+        //判断上传的图片是否正确
+        if (!(/image\/(jpg|png|jpeg)/.test(file_data.type))) {
+            layer.msg("图片格式不对,请上传jpg,png,jepg格式的图片", {
+                time: 1000
+            });
+            return false;
+        }
+        compressImg(480, function(resizeData, src) {
+            //清空
+            var fd = "";
+            //重新赋值
+            fd = new FormData();
+            fd.append("searchImage", resizeData);
+            fd.append("pageSize", 8);
+
+            var data = src;
+            //触发加载层
+            layer.load(2);
+            var $img = '<img  src="' + data + '" alt="preview" />';
+            $(".preview_box").empty();
+            $(".preview_box").append($img);
+            localStorage.setItem("imgsrc", JSON.stringify(data));
+            ImgSearch(fd);
+        }, this);
+    });
+    // 点击搜索查询
+    $(".publicHeader_Rcontent_searchBtn").on("click", function(e) {
+        // if($(".searchKeyword").val().length == 0){
+        //     layer.msg("搜索内容不能为空",{
+        //         icon:0,
+        //         time:1500
+        //     })
+        //     return false;
+        // }
+
+        var picReg = /^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/;
+        // 如果搜索图片
+        if (picReg.test($(".searchKeyword").val())) {
+            return;
+        }
+        var newWindow = window.open('../html/sxh.html');
+        util.saveSearchRecord($(".searchKeyword").val(), function() {
+            newWindow.location.href = util.search("../html/sxh.html", {
+                keyword: $(".searchKeyword").val() || ""
+            });
+            // window.open(util.search("../html/sxh.html", {
+            //     keyword: $(".searchKeyword").val() || ""
+            // }));
+        });
+    });
+    //点击回车
+    // $(".searchKeyword").on("focus",function(){
+    //     $(document).keydown(function(event){
+    //         if(event.keyCode == 13){
+    //             if($(".searchKeyword").val().length == 0){
+    //                 layer.msg("搜索内容不能为空",{
+    //                     icon:0,
+    //                     time:1500
+    //                 })
+    //                 return false;
+    //             }
+    //             var picReg=/^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/;
+    //             // 如果搜索图片
+    //             if(picReg.test($(".searchKeyword").val())) {
+    //                 return;
+    //             }
+    //             util.saveSearchRecord($(".searchKeyword").val(), function () {
+    //                 window.open( util.search("../html/sxh.html", {
+    //                     keyword: $(".searchKeyword").val() || ""
+    //                 }));
+    //             });
+    //         }
+    //     });
+    // });
+    //搜索框下的导航
+    $(".publicHeader_Rcontent_nav").on("click", "span", function() {
+        var self = this;
+        util.saveSearchRecord($(self).text(), function() {
+            window.open(util.search("../html/sxh.html", {
+                keyword: $(self).text() || ""
+            }));
+        });
+    });
+
+    // 小图切换
+    $("#Jdoc .result-list").on("click", ".result-item", function(e) {
+        if ($(e.target).hasClass("check-login")) {
+            if (test) {
+                window.location.href = util.search("https://test.slab.soushi88.com/index.html#/login", {
+                    backUrl: window.location.href
+                });
+            } else {
+                window.location.href = util.search("https://slab.soushi88.com/index.html#/login", {
+                    backUrl: window.location.href
+                });
+            }
+        } else {
+            // 如果是精品
+            var data = null;
+            if ($(this).parents(".newArrival").length) {
+                data = util.$jpData;
+            }
+            // 背景墙
+            else {
+                data = util.$wallData;
+            }
+            if ($(this).parents(".newArrival1").length) {
+                data = util.$xpinData;
+            }
+            var index = $(this).index();
+            util.picDetail(data, index, 8);
+        }
+    });
+
+    // 关闭弹窗
+    $(".masker-suggest .close, .masker-suggest .masker-show").click(function() {
+        $(this).parents(".masker").hide();
+    });
+
+    // 登录
+    $(".login-button").click(function() {
+        window.location.href = "https://slab.soushi88.com/index.html#/login"
+    });
+
+    // 注册
+    $(".register-button").click(function() {
+        window.location.href = "https://slab.soushi88.com/index.html#/register"
+    });
+
+    // 搜石公告、资讯公告
+    $(".trends .title-list .title-item").click(function() {
+        var index = $(this).index();
+        $(this).addClass("active").siblings().removeClass("active");
+        $(".trends-list .trends-item").eq(index).addClass("active").siblings().removeClass("active");
+    });
+
+    // 登录
+    $("#JSignIn").click(function() {
+        window.open("https://slab.soushi88.com/index.html#/login?back=" + window.location.href, "_blank");
+    });
+
+    // 点击导航去其它页
+    $(".public_navMain ul li").click(function() {
+        var href = '';
+        href = $(this).attr("data-href");
+
+        var keyword = $(".searchKeyword").val();
+        var data = {};
+        var link = '';
+        if (keyword) {
+            data = {
+                keyword: keyword
+            }
+            link = util.search(href, data);
+        } else {
+            link = util.search(href);
+        }
+
+        window.location.href = link
+    });
+
+    util.firstLoad();
+
+    // 点击轮播图广告
+$(".swiper-wrapper").on("click", ".ban-swiper-link", function() {
+    console.log($(this).data("id"), $(this).data("url"));
+    var id = $(this).data("id");
+    var url = $(this).data("url");
+    $.ajax({
+        type: "post",
+        url: config.bannerHitCount,
+        crossDomain: true,
+        async: true,
+        xhrFields: {
+            withCredentials: true
+        },
+        data: { id: id },
+        dataType: 'json',
+        success: function(res) {
+            window.location.href = url;
+        },
+        complete: function() {
+            window.location.href = url;
+        },
+        error: function() {
+            window.location.href = url;
+        }
+    });
+});
+
+});
+
+

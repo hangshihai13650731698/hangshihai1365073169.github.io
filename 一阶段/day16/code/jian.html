@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        background: #58a;
+        background-image: linear-gradient(rgba(255, 255, 255, .2)50%, transparent 50%,
+                transparent);
+        background-size: 50px 50px;
+    }
+
+    .box1 {
+        width: 200px;
+        height: 200px;
+        background-image: linear-gradient(to top, transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5)), linear-gradient(to left, transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5));
+        background-size: 50px 50px;
+    }
+
+    .box2 {
+        width: 200px;
+        height: 200px;
+
+        background-size: 50% 50%;
+        background: linear-gradient(135deg, transparent 18px, #58a)top left,
+            linear-gradient(-135deg, transparent 18px, #58a) top right,
+            linear-gradient(-45deg, transparent 18px, #58a) bottom right,
+            linear-gradient(45deg, transparent 18px, #58a) bottom left;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<body>
+    <div class="box">
+    </div>
+    <div class="box1">
+
+    </div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+</body>
+
+</html>

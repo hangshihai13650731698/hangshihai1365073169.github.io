@@ -1,0 +1,85 @@
+.box{
+    width: 524px;
+    height: 518px;
+    background-color: #cccccc;
+    margin: auto;overflow: hidden;
+}
+.box1{
+    width: 501px;
+    height: 501px;
+    border: 1px solid red;
+    margin: auto;margin-top: 8px;
+    position: relative;
+}
+.box1 .yao{
+    width: 200px;
+    height: 230px;
+    background-color: #51a251;
+    position: absolute;
+    top: 130px;
+    left: 150px;
+    border-radius: 0px 0px 16px 16px;
+}
+.box1 .left{
+    width: 30px;
+    height: 180px;
+    background-color: #51a251;
+    position: absolute;
+    top: 140px;
+    left: 110px;
+    border-radius: 10px 10px 10px 10px;
+}
+.box1 .right{
+    width: 30px;
+    height: 180px;
+    background-color: #51a251;
+    position: absolute;
+    top: 140px;
+    left: 360px;
+    border-radius: 10px 10px 10px 10px;
+}
+.box1 .jiao1{
+    width: 30px;
+    height: 80px;
+    background-color: #51a251;
+    position: absolute;
+    top: 360px;
+    left: 190px;
+    border-radius: 0px 0px 14px 14px;
+}
+.box1 .jiao2{
+    width: 30px;
+    height: 80px;
+    background-color: #51a251;
+    position: absolute;
+    top: 360px;
+    left: 280px;
+    border-radius: 0px 0px 14px 14px;
+}.box1 .tou{
+    width: 200px;
+    height: 100px;
+    background-color: #51a251;
+    position: absolute;
+    top: 20px;
+    left: 150px;
+    border-radius: 50% 50% 0 0/100% 100% 0 0;
+}
+.box1 .jiji{
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    position: absolute;
+    top: 70px;
+    left: 210px;
+    border-radius: 100% 100% 100% 100%/100% 100% 100% 100% ;
+}
+.box1 .jiji1{
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    position: absolute;
+    top: 70px;
+    left: 270px;
+    border-radius: 100% 100% 100% 100%/100% 100% 100% 100% ;
+}
+

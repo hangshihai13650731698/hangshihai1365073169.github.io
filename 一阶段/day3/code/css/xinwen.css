@@ -1,0 +1,26 @@
+
+*{margin:0; padding: 0;}
+
+#xinwen{
+    width:1336px;
+    height: 664px;
+    
+     background:white; 
+
+}
+
+#xinwen .r{
+    width: 386px;
+    height:602px;
+    background:white;
+}
+#xinwen .e{
+    width: 386px;
+    height:602px;
+    background:white;
+}
+#xinwen .v{
+    width: 386px;
+    height:602px;
+    background:white;
+}

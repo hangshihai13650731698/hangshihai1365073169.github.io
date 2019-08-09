@@ -1,0 +1,315 @@
+html, body {
+  height: 100%;
+}
+
+#zhoumo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.zuo-header {
+  height: 43px;
+  margin-top: 10px;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: white;
+}
+
+.hea1 {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hea1 li {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.hea1 .l1 img {
+  height: 16px;
+  line-height: 16px;
+}
+
+.hea1 .l2 img {
+  height: 16px;
+  line-height: 16px;
+}
+
+.hea1 .l3 img {
+  height: 16px;
+  line-height: 16px;
+}
+
+.hea1 .l2 {
+  flex: 3;
+}
+
+.zuo-main {
+  overflow: auto;
+  flex: 1;
+  background-color: #f1f6f2;
+}
+
+.banner {
+  height: 120px;
+}
+
+.banner img {
+  width: 100%;
+  height: 120px;
+  background-size: cover;
+}
+
+.banner2 {
+  display: flex;
+  height: 90px;
+  background-color: white;
+  justify-content: space-around;
+}
+
+.banner2 li {
+  width: 48px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.banner2 .ioc1 img {
+  width: 44px;
+  height: 40px;
+}
+
+.banner2 .ioc2 img {
+  width: 44px;
+  height: 40px;
+}
+
+.banner2 .ioc3 img {
+  width: 44px;
+  height: 40px;
+}
+
+.banner2 .ioc4 img {
+  width: 44px;
+  height: 40px;
+}
+
+.banner2 span {
+  font-size: 8px;
+}
+
+.con {
+  width: 100%;
+  height: 65px;
+  margin-top: 10px;
+  background: url(../images/bg.png);
+  background-size: 320px 65px;
+  overflow: hidden;
+}
+
+.con .icc {
+  width: 145px;
+  height: 15px;
+  margin: auto;
+  margin-top: 17px;
+}
+
+.con .icc .title {
+  font-size: 10px;
+  margin-right: 10px;
+  border: 1px solid #e8dab5;
+  color: #e8dab5;
+}
+
+.con .icc span {
+  font-size: 10px;
+}
+
+.con .icc1 {
+  width: 145px;
+  height: 10px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.con .icc1 .title {
+  font-size: 10px;
+  margin-right: 10px;
+  border: 1px solid #e8dab5;
+  color: #e8dab5;
+}
+
+.con .icc1 span {
+  font-size: 10px;
+}
+
+.bandd {
+  margin: auto;
+  width: 299px;
+  margin-top: 10px;
+  height: 144px;
+}
+
+.bandd img {
+  width: 100%;
+  height: 144px;
+  background-size: cover;
+}
+
+.shouhuo {
+  height: 150px;
+}
+
+.shouhuo1 {
+  margin-top: 10px;
+  height: 150px;
+  overflow: auto;
+  display: flex;
+  white-space: nowrap;
+  padding: 0 .08rem;
+  font-size: 0;
+}
+
+.shouhuo1 li {
+  width: 86px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shouhuo1 li i img {
+  width: 86px;
+  height: 86px;
+}
+
+.shouhuo1 li i {
+  display: flex;
+  flex-direction: column;
+}
+
+.shouhuo1 .ss1 {
+  width: 70px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.shouhuo1 .ss1 span {
+  text-align: center;
+  margin: 0 .24rem;
+  font-size: .213333rem;
+  color: #333333;
+}
+
+.quanqiu {
+  overflow: hidden;
+  line-height: 1.5;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+.quanqiu .title {
+  letter-spacing: 10px;
+  margin-left: 30px;
+}
+
+.gouwu {
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.gouwu1 {
+  margin: auto;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.gouwu1 .wu {
+  margin-top: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gouwu1 .wu .wupian img {
+  width: 140px;
+  height: 120px;
+}
+
+.gouwu1 .wu span {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.gouwu1 .wu .jia .fa {
+  color: red;
+}
+
+.gouwu1 .wu .jia .chandi {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.zuo-footer {
+  height: 80px;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+}
+
+.dibu {
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dibu a {
+  width: 80px;
+  height: 87px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.dibu a div {
+  display: flex;
+  flex-direction: column;
+}
+
+.dibu .box1-1 {
+  display: none;
+}
+
+.dibu a:hover .box1 {
+  display: block;
+}
+
+.dibu .box2 {
+  display: none;
+}
+
+.dibu .box3 {
+  display: none;
+}
+
+.dibu .box4 {
+  display: none;
+}
+
+.dibu .box span {
+  color: #b5b5b5;
+}

@@ -1,0 +1,38 @@
+
+.biaodan{
+    width: 385px;
+    height: 78px;
+    margin: auto;
+    overflow: hidden;
+    border: 1px;
+    box-shadow: 0px 2px 0px 10px #cccccc;
+    background-color: #ebe9ea;
+    border-radius: 10px 10px 10px 10px;
+
+}
+.biaodan .qq{
+    width: 400px;
+    height: 50PX;
+}
+.biaodan .sou{
+    width: 300px;
+    height: 50PX;
+    margin-top: 25PX;
+    border-width: 7px;
+    opacity: 0.6;
+    border-color: #eceaeb;
+    background-color: white;
+    box-shadow: 0px 5px 0px -2px #ebe9ea;
+    border-radius: 10px 10px 10px 10px;
+}
+.biaodan .GG{
+    width: 80px;
+    height: 50PX;
+    margin-top: 25PX;
+    background-color: #29aabd;
+    border-width: 7px;
+    border-color: #eceaeb;
+    box-shadow: 0px 5px 0px -2px #ebe9ea;
+    border-radius: 10px 10px 10px 10px;
+
+}

@@ -1,0 +1,108 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+#sezi{
+    width: 874px;
+    height: 206px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: pink;
+}
+.list1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;height: 100px;
+    background-color: #cccccc;
+    border-radius: 10px;
+    box-shadow: 0px -5px 0px 0px #bbbbbb inset,
+    0px -5px 0px 0px #bbbbbb inset,5px 0px 0px 0px #bbbbbb inset,
+    -5px 0px 0px 0px #bbbbbb inset;
+}
+ .ss{
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border-radius: 100%;
+}
+.list2{
+    display: flex;
+    width: 100px;height: 100px;
+    background-color: #cccccc;
+    justify-content: space-between;
+    border-radius: 10px;
+    box-shadow: 0px -5px 0px 0px #bbbbbb inset,
+    0px -5px 0px 0px #bbbbbb inset,5px 0px 0px 0px #bbbbbb inset,
+    -5px 0px 0px 0px #bbbbbb inset;
+
+}
+.list2 .ss:nth-child(2){
+    align-self: flex-end;
+}
+.list3{
+    justify-content: space-between;
+    display: flex;
+    width: 100px;height: 100px;
+    background-color: #cccccc;
+    border-radius: 10px;
+    box-shadow: 0px -5px 0px 0px #bbbbbb inset,
+    0px -5px 0px 0px #bbbbbb inset,5px 0px 0px 0px #bbbbbb inset,
+    -5px 0px 0px 0px #bbbbbb inset;
+
+}
+.list3 .ss:nth-child(3){
+    align-self: flex-end;
+}
+.list3:nth-child(3) .ss:nth-child(2){
+    align-self: center;
+}
+.list4{
+    display: flex;
+    justify-content: space-between;
+    width: 100px;height: 100px;
+    background-color: blue;
+    border-radius: 10px;
+    box-shadow: 0px -5px 0px 0px #bbbbbb inset,
+    0px -5px 0px 0px #bbbbbb inset,5px 0px 0px 0px #bbbbbb inset,
+    -5px 0px 0px 0px #bbbbbb inset;
+
+}
+.list4 div{
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+}
+.list5{
+    display: flex;justify-content: space-between;
+    width: 80px;height: 80px;
+    background-color: blue;
+}
+.list5 div:nth-child(odd){
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.list5 div:nth-child(even){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.list6{
+    display: flex;
+    justify-content: space-between;
+    width: 80px;height: 80px;
+    background-color: blue;
+}
+.list6 div:nth-child(odd){
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.list6 div:nth-child(even){
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}

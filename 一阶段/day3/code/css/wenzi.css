@@ -1,0 +1,15 @@
+
+*{margin: 0;padding: 0;}
+.box{width: 1154px;
+    height: 396px;
+    background:white; padding: 20px;}
+    .box1{width: 400px;
+    height: 396px;
+    background:white; margin-left: 20px;}
+        
+ /* .box1{float: left;} */
+    .box2{width: 400px;
+    height: 396px;
+    background:white;}
+    
+ /* .box2{float: left;} */

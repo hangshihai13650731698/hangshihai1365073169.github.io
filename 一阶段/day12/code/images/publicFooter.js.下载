@@ -1,0 +1,139 @@
+(function () {
+    var PublicFooter = function (name) {
+        this.name = name;
+        this.init();
+    }
+
+    PublicFooter.prototype = {
+        html: function () {
+            var str = '';
+            str +=
+            '<footer>' +
+                '<div class="public-footer" style="display: none;">' +
+                    '<div class="footer-main">' +
+                        '<div class="pic-list">' +
+                            '<div class="pic-item"><i></i><span>免费拍照找板</span></div>' +
+                            '<div class="pic-item"><i></i><span>一手现货直供</span></div>' +
+                            '<div class="pic-item"><i></i><span>专业质检验货</span></div>' +
+                            '<div class="pic-item"><i></i><span>客服全程服务</span></div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div style="border-bottom: 1px solid #EEEEEE">' +
+                        '<div class="footer-main">' +
+                            '<div class="text-list">' +
+                                '<div class="text-item">' +
+                                    '<ul>' +
+                                        '<li class="sw-temp">代购服务</li>' +
+                                        '<li data-url="rhzh">如何找货</li>' +
+                                        '<li data-url="sqzx">售前资询</li>' +
+                                        '<li data-url="zffs">支付方式</li>' +
+                                        '<li data-url="thlc">提货物流</li>' +
+                                        '<li data-url="gyfwf">关于服务费</li>' +
+                                    '</ul>' +
+                                '</div>' +
+                                '<div class="text-item">' +
+                                    '<ul>' +
+                                       '<li class="sw-temp">常见问题</li>' +
+                                        '<li data-url="mjzc">买家注册</li>' +
+                                        '<li data-url="rhxd">如何下单</li>' +
+                                        '<li data-url="ddsm">订单说明</li>' +
+                                        '<li data-url="wjmm">忘记密码</li>' +
+                                    '</ul>' +
+                                '</div>' +
+                                '<div class="text-item">' +
+                                    '<ul>' +
+                                        '<li class="sw-temp">配套服务</li>' +
+                                        '<li data-url="ybfw">样板服务</li>' +
+                                        '<li data-url="dkfw">带看服务</li>' +
+                                    '</ul>' +
+                                '</div>' +
+                                '<div class="text-item">' +
+                                    '<ul>' +
+                                        '<li class="sw-temp">售后服务</li>' +
+                                        '<li data-url="shcl">售后处理</li>' +
+                                    '</ul>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="right">' +
+                                '<div class="ewm">' +
+                                    '<img src="../img/footerImage/ewm@2x.png" />' +
+                                    '<p>扫码进入微信商城</p>' +
+                                '</div>' +
+                                '<div class="text-wrapper">' +
+                                    '<p class="p1">全国服务热线：</p>' +
+                                    '<p class="p2">0766-8520-999</p>' +
+                                    '<p class="p3">一对一客服专员，7*12小时为您服务</p>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="padding-top: 30px;">' +
+                        '<div class="footer-main">' +
+                            '<ul class="about-list">' +
+                                '<li><a href="https://slab.soushi88.com/html/about.html?index=1">关于我们</a></li>' +
+                                '<li><a href="https://slab.soushi88.com/html/about.html?index=5">法律声明</a></li>' +
+                                '<li><a href="https://slab.soushi88.com/html/about.html?index=2">代购服务</a></li>' +
+                                '<li><a href="https://slab.soushi88.com/html/about.html?index=3">代销服务</a></li>' +
+                                '<li><a href="https://slab.soushi88.com/html/about.html?index=4">商家入驻</a></li>' +
+                                '<li><a href="https://slab.soushi88.com/html/about.html?index=6">联系我们</a></li>' +
+                            '</ul>' +
+                            '<p class="copy-right">COPYRIGHT © 2016 搜石网版权所有 粤ICP备16092220号</p>'  +
+                            '<ul class="pic-list2">' +
+                                '<li><img src="../img/footerImage/aqjc_360@2x.png" width="99" height="37"/></li>' +
+                                '<li><img src="../img/footerImage/gswj@2x.png" width="99" height="37"/></li>' +
+                                '<li><img src="../img/footerImage/smrz@2x.png" width="99" height="37"/></li>' +
+                                '<li><img src="../img/footerImage/cxrz@2x.png" width="99" height="37"/></li>' +
+                                '<li><img src="../img/footerImage/kxlogo@2x.png" width="99" height="37"/></li>' +
+                            '</ul>' +
+                        '</div>' +
+                    '</div>'  +
+                '</div>' +
+            '</footer>';
+            return str;
+        },
+
+        loadHtmlString: function(html) {
+            var body = document.body,
+                div = document.createElement("div");
+
+            body.appendChild(div);
+            div.innerHTML = html;
+            setTimeout(function () {
+                document.querySelector(".public-footer").style.display = 'block';
+            }, 1000);
+        },
+
+        loadStyleString: function() {
+            var style = document.createElement("link");
+            style.rel = "stylesheet";
+            style.href = "../css/public_footer.css";;
+            var head = document.getElementsByTagName("head")[0];
+            head.appendChild(style);
+            var html = this.html();
+            this.loadHtmlString(html);
+        },
+
+        init: function () {
+            this.loadStyleString();
+        }
+    }
+    if(Object.defineProperty) {
+        Object.defineProperty(PublicFooter.prototype, "constructor", {
+            value: PublicFooter,
+            enumerable: false
+        });
+    }else {
+        PublicFooter.prototype = PublicFooter;
+    }
+    new PublicFooter("footer");
+    var list = document.querySelectorAll('.text-list ul')
+    for (var i = 0; i < list.length; i++) {
+      list[i].onclick = function (e) {
+        if(e.target.className){
+          return
+        }
+        var url = e.target.getAttribute("data-url")
+        window.open('./help.html?t=ss_'+url)
+      }
+    }
+})();

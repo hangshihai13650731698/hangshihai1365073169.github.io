@@ -1,0 +1,285 @@
+;
+$("body").on('focus', "#SS_search", function() {
+  if (!$("#SS_search").val()) {
+    $("#SS_extend").show()
+  }
+})
+$("body").on('input', "#SS_search", function() {
+  $("#SS_extend").hide()
+  var keyword = $("#SS_search").val()
+  if (!keyword) {
+    $("#SS_suggest").hide()
+    return
+  }
+  util.ajax(config.getSearchSuggest + '?keyword=' + keyword, {}, function(data) {
+    vHead.suggests = data.data.list
+    if (data.data.list.length) {
+      $("#SS_suggest").show()
+    } else {
+      $("#SS_suggest").hide()
+    }
+  })
+})
+$("body").on('blur', "#SS_search", function() {
+  setTimeout(function() {
+    $("#SS_suggest").hide()
+    $("#SS_extend").hide()
+  }, 400);
+})
+var mixin = mixin || {}
+var vRoot = new Vue({
+  el: '#Jdoc',
+  mixins: [mixin],
+  data: {
+    msg: 'demo',
+    texture: '',
+    textureArr: ['全部', '直纹', '斜纹', '网纹', '乱纹', '山水纹', '波浪纹', '大花', '中花', '细花', '粗晶', '细晶', '其他'],
+    sale: '',
+    ssyx: '',
+    jpsc: '',
+    pageInfo: '',
+    sizes: [{
+        name: 'length',
+        alias: '长',
+        unit: '米',
+        attr: {
+          min: '',
+          max: '',
+          active: '',
+          examples: [{
+            data: [0, 1.0],
+            alias: '0-1.0米'
+          }, {
+            data: [1, 2.0],
+            alias: '1-2.0米'
+          }, {
+            data: [2.0, 3.0],
+            alias: '2.0-3.0米'
+          }, {
+            data: [3],
+            alias: '3米以上'
+          }]
+        }
+      },
+      {
+        name: 'width',
+        alias: '宽',
+        unit: '米',
+        attr: {
+          min: '',
+          max: '',
+          active: '',
+          examples: [{
+            data: [0, 1.0],
+            alias: '0-1.0米'
+          }, {
+            data: [1, 1.5],
+            alias: '1-1.5米'
+          }, {
+            data: [1.5, 2.0],
+            alias: '1.5-2.0米'
+          }, {
+            data: [2],
+            alias: '2米以上'
+          }]
+        }
+      },
+      {
+        name: 'thickness',
+        alias: '厚',
+        unit: '毫米',
+        attr: {
+          min: '',
+          max: '',
+          active: '',
+          examples: [{
+            data: [0, 10],
+            alias: '0-10毫米'
+          }, {
+            data: [10, 15],
+            alias: '10-15毫米'
+          }, {
+            data: [15, 20],
+            alias: '15-20毫米'
+          }, {
+            data: [],
+            alias: '其他'
+          }]
+        }
+      }
+    ],
+    method: '',
+    city: '',
+    defaultLabel: ''
+  },
+  computed: {
+    label: function() {
+      var label = this.defaultLabel
+      if (this.ssyx) {
+        label += ',' + this.ssyx
+      }
+      if (this.sale) {
+        label += ',' + this.sale
+      }
+      if (this.jpsc) {
+        label += ',' + this.jpsc
+      }
+      if (label && (label[0] == ',')) {
+        label = label.substr(1)
+      }
+      return label
+    },
+    example: function() {
+      var length = this.sizes[0].attr.active !== '' ? this.sizes[0].attr.examples[this.sizes[0].attr.active].alias : ''
+      var width = this.sizes[1].attr.active !== '' ? this.sizes[1].attr.examples[this.sizes[1].attr.active].alias : ''
+      var thickness = this.sizes[2].attr.active !== '' ? this.sizes[2].attr.examples[this.sizes[2].attr.active].alias : ''
+      return {
+        length: length,
+        width: width,
+        thickness: thickness
+      }
+    }
+  },
+  methods: {
+    setTexture: function(e, index) {
+      var ctrlItem = $(e.currentTarget).parents(".ctrl-item"),
+        optionItem = ctrlItem.find(".option-item.active");
+
+      optionItem.removeClass("active");
+      $(e.currentTarget).addClass("active");
+      layer.load(2);
+      this.texture = parseInt($(e.currentTarget).attr('data-num'))
+      util.reload({
+        texture: parseInt(this.texture)
+      });
+    },
+    setSale: function(e) {
+      var checked = e.target.checked
+      this.sale = checked ? 3 : ""
+      util.reload({
+        label: this.label
+      });
+    },
+    setSSyx: function(e) {
+      var checked = e.target.checked
+      this.ssyx = checked ? 2 : ""
+      util.reload({
+        label: this.label
+      });
+    },
+    setJpsc: function(e) {
+      var checked = e.target.checked
+      this.jpsc = checked ? 1 : ""
+      util.reload({
+        label: this.label
+      });
+    },
+    goPage: function(flag) {
+      pageCurrent = this.pageInfo.pageCurrent;
+      pageTotal = this.pageInfo.totalPage;
+      if (flag) {
+        if (pageCurrent == 1) {
+          return
+        }
+        pageCurrent--
+      } else {
+        if (pageCurrent >= pageTotal) {
+          return
+        }
+        pageCurrent++
+      }
+      util.reload({
+        pageCurrent: pageCurrent
+      });
+    },
+    updateSize(size, index) {
+      size.attr.active = index
+      size.attr.min = size.attr.examples[index].data[0]
+      size.attr.max = size.attr.examples[index].data[1]
+    },
+    submitSize() {
+      if (!this.sizes[0].attr.max && !this.sizes[0].attr.min && !this.sizes[1].attr.max && !this.sizes[1].attr.min && !this.sizes[2].attr.max && !this.sizes[2].attr.min) {
+        $('.like-select').text('选择')
+        $('.like-select').removeClass('active').siblings('.all-option').addClass('active')
+        $("#JCtrlList .format-ctrl").toggleClass("show");
+        return
+      }
+      util.reload({
+        maxLength: this.sizes[0].attr.max * 1000 || null,
+        minLength: this.sizes[0].attr.min * 1000 || null,
+        maxWidth: this.sizes[1].attr.max * 1000 || null,
+        minWidth: this.sizes[1].attr.min * 1000 || null,
+        maxThickness: this.sizes[2].attr.max || null,
+        minThickness: this.sizes[2].attr.min || null
+      });
+      $('.like-select').addClass('active').siblings().removeClass('active')
+      $('.like-select').text('已选')
+      $("#JCtrlList .format-ctrl").toggleClass("show");
+    },
+    resetSize() {
+      var sizes = this.sizes
+      for (var i = 0; i < sizes.length; i++) {
+        sizes[i].attr.min = ''
+        sizes[i].attr.max = ''
+        sizes[i].attr.active = ''
+      }
+      util.reload({
+        maxLength: this.sizes[0].attr.max * 1000 || null,
+        minLength: this.sizes[0].attr.min * 1000 || null,
+        maxWidth: this.sizes[1].attr.max * 1000 || null,
+        minWidth: this.sizes[1].attr.min * 1000 || null,
+        maxThickness: this.sizes[2].attr.max || null,
+        minThickness: this.sizes[2].attr.min || null
+      });
+      $("#JCtrlList .format-ctrl").toggleClass("show");
+      $('.like-select').text('选择')
+    }
+  },
+  mounted: function() {}
+})
+var vHead = new Vue({
+  el: '#SS_head',
+  data: {
+    records: [{
+      name: '爵士白'
+    }],
+    suggests: []
+  },
+  methods: {
+    search(keyword) {
+      util.keyword = keyword
+      $(".searchKeyword").val(util.keyword);
+      $("#JCtrlList .variety-ctrl .option-item").each(function(index, item) {
+        if ($(item).text() === util.keyword) {
+          $("#JCtrlList .variety-ctrl .option-item").removeClass("active");
+          $(item).addClass("active");
+          return false;
+        } else {
+          $("#JCtrlList .variety-ctrl .option-item").removeClass("active").eq(0).addClass("active");
+        }
+      });
+      var data = $.extend({}, util.$param, {
+        keyword: util.keyword,
+      });
+      util.saveSearchRecord(util.keyword, function() {
+        if (util.reload) {
+          util.reload(data);
+        } else {
+          var newWindow = window.open('../html/sxh.html');
+          util.saveSearchRecord($(".searchKeyword").val(), function() {
+            newWindow.location.href = util.search("../html/sxh.html", {
+              keyword: $(".searchKeyword").val() || ""
+            });
+          });
+        }
+      });
+
+    }
+  },
+  created() {
+    var that = this
+    util.ajax(config.getSearchRecord, {}, function(data) {
+      that.records = data.data.list
+    })
+  }
+})

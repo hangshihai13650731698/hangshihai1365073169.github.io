@@ -1,0 +1,85 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+#zhifubao {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.zfb-header {
+  height: 160px;
+  background: #343434;
+  display: flex;
+  flex-direction: column;
+}
+
+.list1 {
+  flex: 1;
+  display: flex;
+}
+
+li {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+i {
+  font-size: 20px;
+  color: white;
+}
+
+span {
+  font-size: 15px;
+  color: white;
+}
+
+li:nth-child(1) {
+  flex: 6;
+}
+
+.list2 {
+  flex: 3;
+  display: flex;
+}
+
+.list2 li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.list2 i {
+  font-size: 35px;
+  line-height: 35px;
+  color: white;
+}
+
+.list2 span {
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 15px;
+  color: white;
+}
+
+.zfb-main {
+  flex: 1;
+}
+
+.zfb-footer {
+  height: 50px;
+  background: #343434;
+}
