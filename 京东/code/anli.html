@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    html,body{
+        background-color: #000000;
+    }
+    ul {
+        width: 300px;
+        height: 300px;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        position: absolute;
+        transform-style: preserve-3d;
+        transform: rotateX(-6deg) rotateY(40deg) rotateZ(-40deg);
+        perspective: 1000px;
+    }
+
+    @keyframes jjj {
+        from {
+
+            transform: translateZ(-10em) rotateX(0) rotateY(0deg);
+        }
+
+        to {
+
+            transform: translateZ(-10em) rotateX(360deg) rotateY(360deg);
+        }
+
+    }
+
+    /* infinite无限循环 
+       animation 取值1为动画名称 取值2  为执行动画所需时间 取值3为延迟多少时间执行动画
+       （1）animation-name: move; 动画名称
+（2）animation-duration: 5s; 执行动画所需要的时间
+（3） animation-delay: 1s; 延迟多少时间后去执行这个动画效果
+（4） animation-iteration-count: 2 | infinite(无限循环); 执行次数
+
+       */
+    ul {
+
+        animation: jjj 1S linear 1s infinite alternate-reverse;
+        /* position: absolute; */
+        /* width: 100%;
+        height: 100%;
+        transform-style: preserve-3d; */
+        /* transform: rotateX(-13deg) rotateY(0deg) rotateZ(-20deg); */
+    }
+
+    ul li {
+        list-style: none;
+        width: 300px;
+        height: 300px;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        position: absolute;
+        text-align: center;
+        font-size: 80PX;
+        line-height: 300PX;
+        opacity: .6;
+        /* color: blueviolet; */
+        box-shadow: 0PX 0PX 2Vh 0PX currentColor;
+    }
+
+    ul li:nth-child(1) {
+        /* background-color: aqua; */
+        color: aqua;
+        transform: translateZ(150px);
+    }
+
+    ul li:nth-child(2) {
+        color: pink;
+        /* background-color: pink; */
+        transform: translateZ(-150px);
+    }
+
+    ul li:nth-child(3) {
+        color: red;
+        /* background-color: red; */
+        transform: translateX(150px) rotateY(90deg);
+    }
+
+    ul li:nth-child(4) {
+        color: blue;
+        /* background-color: blue; */
+        transform: translateX(-150px) rotateY(90deg);
+    }
+
+    ul li:nth-child(5) {
+        color: yellow;
+        /* background-color: yellow; */
+        transform: translateY(150px) rotateX(90deg);
+    }
+
+    ul li:nth-child(6) {
+        color: green;
+        /* background-color: green; */
+        transform: translateY(-150px) rotateX(90deg);
+    }
+    ul:hover li{
+        background: currentColor;
+    }
+    li:hover{
+        background: currentColor;
+    }
+</style>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        .yuan {
+            width: 300px;
+            height: 300px;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            position: absolute;
+            margin: auto;
+            transform-style: preserve-3d;
+            transform: rotateX(33deg) rotateY(30deg) rotateZ(-2deg);
+            perspective: 1000px;
+            animation: jjj 1s linear infinite;
+
+        }
+
+        @keyframes jjj {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            25% {
+                transform: rotateX(45deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            50% {
+                transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            75% {
+                transform: rotateX(120deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            85% {
+                transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateX(360deg) rotateY(0deg) rotateZ(0deg);
+            }
+        }
+
+        .yuan li {
+            list-style: none;
+            width: 300px;
+            height: 300px;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            position: absolute;
+            border-radius: 100%;
+            text-align: center;
+            /* background-color: blue; */
+        }
+
+        .yuan li:nth-child(1) {
+            border: 1px solid aqua;
+            transform: rotateY(20deg);
+            /* transform: translateZ(150px); */
+        }
+
+        .yuan li:nth-child(2) {
+            border: 1px solid pink;
+            transform: rotateY(-60deg);
+            /* transform: translateZ(-150px); */
+        }
+
+        .yuan li:nth-child(3) {
+            transform: rotateX(0deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(4) {
+            transform: rotateX(45deg);
+            border: 1px solid blue;
+            /* transform: translateX(-150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(5) {
+            transform: rotateZ(-90deg);
+            border: 1px solid yellow;
+            /* transform: translateY(150px) rotateX(180deg); */
+        }
+
+        .yuan li:nth-child(6) {
+            transform: rotateZ(180deg);
+            border: 1px solid green;
+            /* transform: translateY(-150px) rotateX(180deg); */
+        }
+
+        .yuan li:nth-child(7) {
+            transform: rotateZ(-60deg);
+            border: 1px solid green;
+            /* transform: translateY(-150px) rotateX(180deg); */
+        }
+
+        .yuan li:nth-child(8) {
+            transform: rotateZ(-30deg);
+            border: 1px solid green;
+            /* transform: translateY(-150px) rotateX(180deg); */
+        }
+
+        .yuan li:nth-child(9) {
+            transform: rotateX(10deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(10) {
+            transform: rotateX(30deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(11) {
+            transform: rotateX(60deg);
+
+            /* background: url(../imgages/82.jpg); */
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(11) img {
+            width: 300px;
+            height: 300px;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(12) {
+            transform: rotateX(35deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(13) {
+            transform: rotateX(45deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(14) {
+            transform: rotateX(145deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(15) {
+            transform: rotateX(90deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+
+        .yuan li:nth-child(18) {
+            transform: rotateX(120deg);
+            border: 1px solid red;
+            /* transform: translateX(150px) rotateY(180deg); */
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="yuan">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li><img src="../code/images/82.jpg" alt=""></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
+<!-- 第一步先写@keyframes｛
+    0%｛｝分节点
+    100%｛定义属性内容｝分节点
+    ｝ -->
