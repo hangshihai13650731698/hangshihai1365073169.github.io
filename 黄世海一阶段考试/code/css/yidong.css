@@ -1,0 +1,374 @@
+html,
+body {
+  height: 100%;
+}
+
+.yidong {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.yidong .header {
+  height: 1.386667rem;
+  width: 100%;
+  background-color: #00a8ff;
+  position: relative;
+}
+
+.yidong .header span {
+  display: inline-block;
+  width: 1.786667rem;
+  height: 1.386667rem;
+  text-align: center;
+  font-size: .466667rem;
+  line-height: 1.386667rem;
+}
+
+.yidong .header .sanjiao {
+  display: inline-block;
+  width: 0rem;
+  height: 0rem;
+  border: .133333rem solid transparent;
+  border-top-color: #cccccc;
+  position: absolute;
+  top: 50%;
+  left: 14%;
+}
+
+.yidong .header .int {
+  display: inline-block;
+  width: 6.8rem;
+  height: .8rem;
+  font-size: .4rem;
+  position: relative;
+  color: #cccccc;
+  padding: 0rem .533333rem;
+  box-sizing: border-box;
+  border: .013333rem solid white;
+  border-radius: .533333rem;
+}
+
+.icn {
+  font-family: "iconfont" !important;
+  font-size: 26px;
+  font-style: normal;
+  position: absolute;
+  top: 0.18rem;
+  left: 1.26667rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icn1 {
+  display: inline-block;
+  font-family: "iconfont" !important;
+  font-size: .626667rem;
+  font-style: normal;
+  position: absolute;
+  top: 0.18rem;
+  right: 0rem;
+  margin-right: -0.453333rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+  flex: 1;
+  overflow: auto;
+}
+
+.main .banner {
+  margin-top: .266667rem;
+}
+
+.main .banner img {
+  height: 3.733333rem;
+}
+
+.main .list {
+  margin: auto;
+  height: 4.613333rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.main .list li {
+  width: 1.92rem;
+  height: 1.973333rem;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.main .list li i {
+  display: inline-block;
+  width: 1.386667rem;
+  text-align: center;
+  height: 1.386667rem;
+  background-image: url(../images/menu_icon3.png);
+  background-size: 5.546667rem auto;
+  background-repeat: no-repeat;
+}
+
+.main .list li .lis1 {
+  background-position: -1.386667rem 0rem;
+}
+
+.main .list li .lis2 {
+  background-position: -2.773333rem 0rem;
+}
+
+.main .list li .lis3 {
+  background-position: -4.16rem 0rem;
+}
+
+.main .list li .lis4 {
+  background-position: 0rem -1.386667rem;
+}
+
+.main .list li .lis5 {
+  background-position: -1.386667rem -2.773333rem;
+}
+
+.main .list li .lis6 {
+  background-position: -1.386667rem -1.386667rem;
+}
+
+.main .list li .lis7 {
+  background-position: -1.386667rem -2.773333rem;
+}
+
+.main .list li .lis8 {
+  background-position: -1.386667rem 0rem;
+}
+
+.main .list li .lis9 {
+  background-position: -1.386667rem 0rem;
+}
+
+.main .list li span {
+  font-size: vw(26);
+}
+
+.main .le {
+  margin-top: .72rem;
+}
+
+.main .le .icic {
+  font-family: "iconfont" !important;
+  font-size: 28px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main .le .span1 {
+  font-size: .4rem;
+  margin-left: .293333rem;
+}
+
+.main .le .span2 {
+  font-size: .4rem;
+  margin-left: 1.84rem;
+}
+
+.main .title {
+  margin-top: .4rem;
+}
+
+.main .title h2 {
+  margin-left: .4rem;
+  font-size: .586667rem;
+}
+
+.main .title .tupian {
+  display: flex;
+  margin-top: .573333rem;
+  justify-content: space-between;
+  margin-left: .4rem;
+  overflow: auto;
+  font-size: .586667rem;
+}
+
+.main .title .tupian li img {
+  width: 8.586667rem;
+  height: 3.2rem;
+  margin-right: .346667rem;
+  margin-left: .4rem;
+}
+
+.main .title2 {
+  display: flex;
+  margin-top: 1.333333rem;
+}
+
+.main .title2 h3 {
+  margin-left: .4rem;
+  font-size: .586667rem;
+}
+
+.main .title2 .ss {
+  margin-left: 3.146667rem;
+}
+
+.main .title2 .ss span {
+  margin-right: .266667rem;
+  font-size: .373333rem;
+}
+
+.main .title2 .ss .span4 {
+  color: red;
+}
+
+.jj {
+  margin-left: .4rem;
+  height: 2.986667rem;
+  border-bottom: .026667rem solid #cccccc;
+}
+
+.jj .jj1 {
+  height: 2.133333rem;
+  margin-top: .48rem;
+  display: flex;
+}
+
+.jj .jj1 i {
+  display: inline-block;
+  width: 2.8rem;
+  height: 2.133333rem;
+}
+
+.jj .jj1 i img {
+  display: inline-block;
+  width: 2.8rem;
+  height: 2.133333rem;
+}
+
+.jj .jj1 .neirong {
+  display: flex;
+  margin-left: .4rem;
+  flex-direction: column;
+}
+
+.jj .jj1 .neirong h3 {
+  font-size: .453333rem;
+  margin-bottom: .2rem;
+}
+
+.jj .jj1 .neirong .po {
+  margin-bottom: .2rem;
+  font-size: .293333rem;
+  color: #cccccc;
+}
+
+.jj .jj1 .neirong .pp {
+  margin-bottom: .2rem;
+}
+
+.jj .jj1 .neirong .xiaoj {
+  display: inline-block;
+  width: 1.12rem;
+  font-size: .293333rem;
+  height: .4rem;
+  color: #fe8781;
+  background-color: #fdefef;
+}
+
+.jj .jj1 .neirong .xiaoj1 {
+  display: inline-block;
+  width: 1.44rem;
+  font-size: .293333rem;
+  height: .4rem;
+  color: #eaaa53;
+  background-color: #fbf7f4;
+}
+
+.jj .jj1 .neirong .xiaoj2 {
+  display: inline-block;
+  width: 1.12rem;
+  font-size: .293333rem;
+  height: .4rem;
+  color: blue;
+  background-color: #f3fffd;
+}
+
+.jj .jj1 .neirong .zaq1 {
+  display: inline-block;
+  font-size: .373333rem;
+  margin-right: .213333rem;
+  color: #d52b2b;
+}
+
+.jj .jj1 .neirong .zaq {
+  display: inline-block;
+  font-size: .24rem;
+  color: #cccccc;
+}
+
+.footer {
+  background-color: #2f3130;
+  height: 2.2rem;
+}
+
+.footer .fo1 {
+  width: 9.28rem;
+  height: .8rem;
+  margin: auto;
+  border-bottom: .026667rem solid #cccccc;
+}
+
+.footer .fo1 p {
+  font-size: .346667rem;
+  color: #919191;
+  line-height: .8rem;
+}
+
+.footer .dibu {
+  display: flex;
+  margin-left: .426667rem;
+}
+
+.footer .dibu .diyi {
+  display: flex;
+}
+
+.footer .dibu .diyi .iii {
+  display: inline-block;
+  font-family: "iconfont" !important;
+  font-size: .906667rem;
+  font-style: normal;
+  color: #737373;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.footer .dibu .diyi .pj {
+  display: flex;
+  flex-direction: column;
+  margin-left: .133333rem;
+}
+
+.footer .dibu .diyi .span8 {
+  font-size: .24rem;
+  color: #737373;
+  margin-bottom: .133333rem;
+}
+
+.footer .dibu .diyi .span9 {
+  font-size: .24rem;
+  color: #737373;
+  margin-bottom: .133333rem;
+}
+
+.footer .dibu .iop {
+  margin-left: 0.266667rem;
+}
+
+.footer .dibu .iop .ert {
+  color: #737373;
+  font-size: .24rem;
+  line-height: .46667rem;
+}
